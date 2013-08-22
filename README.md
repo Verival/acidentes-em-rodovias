@@ -1,4 +1,4 @@
-projeto-gppmds-20132
+Projeto GPP/MDS 2013.2
 ====================
 
-Projeto em conjunto das disciplinas GPP e MDS. Universidade de Brasília - 2013.2
+Projeto das disciplinas GPP e MDS. Universidade de Brasília - 2013.2
