@@ -6,11 +6,11 @@ Tema a definir :)
 
 ### Integrantes do projeto
 
-* Matheus Souza Fonseca (`GPP`)
+* Matheus Fonseca (`GPP`)
 * Rodrigo Lopes Rincon (`GPP`)
 * Paulo Borba (`GPP`)
-* Arthur Jahn Sturzbecher (`GPP`)
-* Matheus Souza (`MDS`)
+* Gustavo Jaruga Cruz (`GPP`)
+* Matheus Fernandes  (`MDS`)
 * José Pedro Santana (`MDS`)
 * Carlos Oliveira (`MDS`)
 * Bruno Amorim (`MDS`)
