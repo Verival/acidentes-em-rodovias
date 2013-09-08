@@ -1,1 +1,15 @@
+# Files
 *~
+*.pyc
+*.pot
+*.pyo
+*.log
+local_settings.py
+
+# Paths
+dist/*
+build/*
+bin/*
+.project/
+.pydevproject/
+
