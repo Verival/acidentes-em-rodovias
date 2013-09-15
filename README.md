@@ -1,7 +1,7 @@
-Perfil dos Candidatos
+Acidentes em Rodovias
 ====================
 
-Perfil dos Candidatos - Uma aplicação de análise sobre dados de boletins de ocorrência de acidentes em rodovias federais Brasileiras (An application of analysis of data from police reports of accidents in Brazilian federal highways)
+Acidentes em Rodovias - Uma aplicação de análise sobre dados de boletins de ocorrência de acidentes em rodovias federais Brasileiras (An application of analysis of data from police reports of accidents in Brazilian federal highways)
 
 Projeto em realização conjunta por alunos das disciplinas Gestão de Portifólios e Projetos de Software (GPP) e Métodos de Desenvolvimento de Software (MDS) do curso de [Engenharia de Software](http://fga.unb.br/cursos/engenharia-de-software), Universidade de Brasília.
 
