@@ -1,5 +1,9 @@
 # Django settings for acidentes_em_rodovias project.
 
+
+import os
+ROOT_DIR = os.path.dirname(__file__)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -66,12 +70,13 @@ STATIC_ROOT = ''
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
-
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(ROOT_DIR,"../static"),
+)
+
+TEMPLATE_DIRS = (
+   os.path.join(ROOT_DIR,"../app/views"),
 )
 
 # List of finder classes that know how to find static files in
@@ -89,7 +94,7 @@ SECRET_KEY = 'h9j$v77gjb65=52nyeh^8-+vtt@j9)ze7yg9py&yz2v$bka4qg'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,11 +112,6 @@ ROOT_URLCONF = 'acidentes_em_rodovias.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'acidentes_em_rodovias.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
