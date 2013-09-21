@@ -32,6 +32,10 @@ if __name__ == "__main__":
 	estado_fisico=parser(filename)
 	print estado_fisico.data
 
+	'''
+	Padrão para expansão de leitura de data
+	\warning:  Arquivo com pouco mais de 700mb deixado de fora do GIT por razões obvias
 	Pessoa = parser("tabelaPessoa.csv")
-
+	
 	print Pessoa.data.keys()
+	'''
