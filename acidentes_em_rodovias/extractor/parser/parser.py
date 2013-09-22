@@ -35,20 +35,32 @@ class parser(object):
 			
 
 if __name__ == "__main__":
+	from pandas.tools.plotting import andrews_curves
+	from pandas.tools.plotting import lag_plot
 	'''Fazendo de uso da classe parser'''
 	filename = "estadofisico.csv"
 	estado_fisico=parser(filename)
 	print estado_fisico.data
 
 	'''Fazendo de uso da pandas'''
-	#Fazendo leitura de CSV
-	experimentDF = read_csv("pessoa_2_Semestre_2012.csv",delimiter = ';', na_values=["(null)"])  
+	#Fazendo leitura de CSV, codificação em utf-8
+	experimentDF = read_csv(filename,delimiter = ';', na_values=["(null)"],encoding='utf-8') 
+	print experimentDF
+	andrews_curves(experimentDF, 'estadofisico')
+	plt.show() #Forçar amostrar da imagem
 
+	'''
+	experimentDF = read_csv("pessoa_2_Semestre_2012.csv",delimiter = ';', na_values=["(null)"])  
+	#imprimindo variância dos dados
+	print experimentDF.var()
 	# Plotando dados
-	experimentDF['pesidade'][:50].plot() #apenas os 50 primeiros dados
+	#experimentDF['pesidade'][:50].plot(kind='bar') #apenas os 50 primeiros dados
+	experimentDF.std().plot(kind='kde')
+	
+	
 	plt.show() #Forçar amostrar da imagem
 		
-	'''
+	
 	#imprimindo DataFrame
 	print experimentDF
 	
