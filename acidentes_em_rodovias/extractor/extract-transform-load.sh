@@ -1,32 +1,46 @@
 #!/bin/bash
 
+# $DATA_DIR = diretório onde estão ou serão baixados os arquivos BRBRASIL.zip e estadofisico.csv (Padrão é /tmp)
+# 
 # 1) Antes Defina as permissoes de seguranca para o MySQL:
-#	sudo nano /etc/apparmor.d/usr.sbin.mysqld -> Coloque $DATA_DIR/ r, $DATA_DIR/** rw
+#	sudo nano /etc/apparmor.d/usr.sbin.mysqld ->
+#		Coloque depois de "/run/mysqld/mysqld.sock w," essas duas linhas:
+#		$DATA_DIR/ r,
+#		$DATA_DIR/** rw,
 #	sudo /etc/init.d/apparmor restart
 #	sudo service mysql restart
 # 2) Crie uma base de dados com o nome 'acidentes_rodovias' e coloque o collation dele como utf8_bin
 # 3) Caso já tenha os arquivos BRBRASIL.zip e estadofisico.csv baixados, comente as linhas que dão 'wget' neles e coloque os arquivos em $DATA_DIR
+# 4) Execute o programa:
+#	Uso: ./extract-transform-load.sh <BD_USER> <BD_PASS> <DATA_DIR>
+#	Ex: ./extract-transform-load.sh root 123456 /tmp
 
-# TODO: - Verificar retornos dos comandos MySQL (variavel $?) 
-#		- Fazer um log
-#		- Receber parametros para definir quais operacoes serao feitas
-#		- Verificar conexao com a internet
+# TODO: - Fazer um log
+#		- Receber parametros para definir quais operacoes serao feitas (so extrair? so transformar? so carregar? tudo junto?)
+#		- Verificar conexao com a internet caso queira baixar os arquivos
 
-DATA_DIR=/tmp
-DB_USER=usuario
-DB_PASS=senha
+DB_USER=$1
+DB_PASS=$2
+DATA_DIR=$3
 
 function prepare_enviroment {
 	echo -e "\nDownloading data..."
 	wget -P $DATA_DIR http://repositorio.dados.gov.br/transportes-transito/transito/BRBRASIL.zip
 	wget -P $DATA_DIR https://dl.dropboxusercontent.com/u/18364240/estadofisico.csv
 
+	if [[ ! -f "$DATA_DIR/BRBRASIL.zip" || ! -f "$DATA_DIR/estadofisico.csv" ]]
+	then
+		echo "ERROR: Files $DATA_DIR/BRBRASIL.zip or $DATA_DIR/estadofisico.csv dont exist"
+		exit -1
+	fi
+
 	echo -e "\nUnziping data..."
 	unzip -o -d $DATA_DIR $DATA_DIR/BRBRASIL.zip
-	for i in $(ls $DATA_DIR/BRBRASIL/*.zip); do 
+	for i in $(ls $DATA_DIR/BRBRASIL/*.zip)
+	do 
 		unzip -o -d $DATA_DIR/BRBRASIL $i
 	done
-	mv estadofisico.csv $DATA_DIR/BRBRASIL
+	cp -f $DATA_DIR/estadofisico.csv $DATA_DIR/BRBRASIL
 	rm -f $DATA_DIR/BRBRASIL/*.zip $DATA_DIR/BRBRASIL/*.pdf
 
 	echo -e "\nStandardizing delimiters..."
@@ -34,13 +48,15 @@ function prepare_enviroment {
 	sed -i 's/|/;/g' "$DATA_DIR/BRBRASIL/ocorrenciaveiculo.csv"
 
 	echo -e "\nStandardizing null cells to \N..."
-	for i in $(ls $DATA_DIR/BRBRASIL/**/*.csv); do 
+	for i in $(ls $DATA_DIR/BRBRASIL/**/*.csv)
+	do 
 	 	sed -i 's/(null)/\\N/g' $i
 		sed -i 's/;;/;\\N;/g' $i
 	 	sed -i 's/;\s\+;/;\\N;/g' $i
 	 	sed -i 's/;\\ ;/;\\N;/g' $i
 	done
-	for i in $(ls $DATA_DIR/BRBRASIL/*.csv); do 
+	for i in $(ls $DATA_DIR/BRBRASIL/*.csv)
+	do 
 		sed -i 's/(null)/\\N/g' $i
 	 	sed -i 's/;;/;\\N;/g' $i
 	 	sed -i 's/;\s\+;/;\\N;/g' $i
@@ -49,8 +65,18 @@ function prepare_enviroment {
 }
 
 function prepare_db {
+	if [[ ! -f "$(dirname $0)/db-schema.sql" ]]
+	then
+		echo "ERROR: File $(dirname $0)/db-schema.sql dont exist"
+		exit -1
+	fi
+
 	echo -e "\nLoading database schema..."
-	mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias < $(dirname $0)/esquema-banco.sql
+	mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias < $(dirname $0)/db-schema.sql
+	if [[ "$?" -ne "0" ]]
+	then
+		exit -1
+	fi
 }
 
 function load_domain_data {
@@ -59,7 +85,7 @@ function load_domain_data {
 		echo -e "\nLoading domain table \"$TABLE\" data..."
 		ARQUIVO="$DATA_DIR/BRBRASIL/$TABLE.csv"
 		mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias -e "LOAD DATA INFILE '$ARQUIVO' INTO TABLE \`$TABLE\` CHARACTER SET utf8 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES;"
-	done	
+	done
 }
 
 function load_semiannual_data {
@@ -83,7 +109,7 @@ function load_semiannual_data {
 		done
 
 		# Inserindo os dados do ultimo ano (nesse caso tem que verificar se já tem os dados do semestre 1 do ano atual ou só o do semestre 2 do ano passado)
-		if [ "$LAST_YEAR_LOAD" -ne "$ACTUAL_YEAR" ]
+		if [[ "$LAST_YEAR_LOAD" -ne "$ACTUAL_YEAR" ]]
 		then
 			FILE_HALF_1="$DATA_DIR/BRBRASIL/brbrasil_1_semestre_$LAST_YEAR_LOAD/${TABLE}_1_Semestre_$LAST_YEAR_LOAD.csv"
 			FILE_HALF_2="$DATA_DIR/BRBRASIL/brbrasil_2_semestre_$LAST_YEAR_LOAD/${TABLE}_2_Semestre_$LAST_YEAR_LOAD.csv"
@@ -100,12 +126,21 @@ function load_semiannual_data {
 	done
 }
 
-# MAIN
-prepare_enviroment
-prepare_db
-load_semiannual_data
-load_domain_data
+function main {
+	if [[ ! "$DB_PASS" || ! "$DB_USER" ]]
+	then
+		echo -e "Usage:\n\t$0 <DB_USER> <DB_PASS> <DATA_DIR>\n\t$0 <DB_USER> <DB_PASS>"
+		exit -1
+	fi
+	[[ ! "$DATA_DIR" ]] && DATA_DIR=/tmp
 
-echo -e "\nFinish!"
+	prepare_enviroment
+	prepare_db
+	load_domain_data
+	load_semiannual_data
 
+	echo -e "\nFinish!"
+}
+
+main
 exit 0
