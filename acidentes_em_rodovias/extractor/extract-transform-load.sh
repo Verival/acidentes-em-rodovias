@@ -3,21 +3,21 @@
 # $DATA_DIR = diretório onde estão ou serão baixados os arquivos BRBRASIL.zip e estadofisico.csv (Padrão é /tmp)
 # 
 # 1) Antes Defina as permissoes de seguranca para o MySQL:
-#	sudo nano /etc/apparmor.d/usr.sbin.mysqld ->
+#	sudo nano /etc/apparmor.d/usr.sbin.mysqld
 #		Coloque depois de "/run/mysqld/mysqld.sock w," essas duas linhas:
 #		$DATA_DIR/ r,
 #		$DATA_DIR/** rw,
 #	sudo /etc/init.d/apparmor restart
 #	sudo service mysql restart
-# 2) Crie uma base de dados com o nome 'acidentes_rodovias' e coloque o collation dele como utf8_bin
+# 2) Crie uma base de dados no MySQL com o nome 'acidentes_rodovias' e coloque o collation dele como utf8_bin
 # 3) Caso já tenha os arquivos BRBRASIL.zip e estadofisico.csv baixados, comente as linhas que dão 'wget' neles e coloque os arquivos em $DATA_DIR
 # 4) Execute o programa:
 #	Uso: ./extract-transform-load.sh <BD_USER> <BD_PASS> <DATA_DIR>
 #	Ex: ./extract-transform-load.sh root 123456 /tmp
 
 # TODO: - Fazer um log
-#		- Receber parametros para definir quais operacoes serao feitas (so extrair? so transformar? so carregar? tudo junto?)
-#		- Verificar conexao com a internet caso queira baixar os arquivos
+#	- Receber parametros para definir quais operacoes serao feitas (so extrair? so transformar? so carregar? tudo junto?)
+#	- Verificar conexao com a internet caso queira baixar os arquivos
 
 DB_USER=$1
 DB_PASS=$2
