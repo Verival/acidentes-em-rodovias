@@ -125,9 +125,9 @@ CREATE TABLE `corveiculo`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
 
 DROP TABLE IF EXISTS `localbr`;
-CREATE TABLE IF NOT EXISTS `localbr`
+CREATE TABLE `localbr`
  ( 
-`lbrid` INT(11) unsigned , 
+`lbrid` INT(11) unsigned NOT NULL, 
 `lbruf` VARCHAR(255) , 
 `lbrbr` INT(11) unsigned , 
 `lbrkm` INT(11) unsigned , 
@@ -172,3 +172,214 @@ CREATE TABLE `ocorrenciaveiculo`
 `ocvveiid` INT(11) unsigned
 , PRIMARY KEY (`ocvid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
+
+
+DROP TABLE IF EXISTS `tipoAcidente`;
+CREATE TABLE `tipoAcidente`
+(
+`ttacodigo` INT(11) unsigned NOT NULL, 
+`ttadescricao` VARCHAR(255) ,
+`ttaatualiza` VARCHAR(255) ,
+`ttarelacidente` VARCHAR(255) ,
+`ttaativo` VARCHAR(255) ,
+PRIMARY KEY(`ttacodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipoApreensao`;
+CREATE TABLE `tipoApreensao`
+(
+`ttpcodigo` VARCHAR(255) ,
+`ttpdescricao` VARCHAR(255) ,
+`ttpatualiza` VARCHAR(255) ,
+PRIMARY KEY(`ttpcodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipoAreaEspecial`;
+CREATE TABLE `tipoAreaEspecial`
+(
+`taecodigo` VARCHAR(255) ,
+`taedescricao` VARCHAR(255) ,
+`taeatualiza` VARCHAR(255) ,
+PRIMARY KEY(`taecodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipoComunicacao`;
+CREATE TABLE `tipoComunicacao`
+(
+`tcocodigo` VARCHAR(255) ,
+`tcodescricao` VARCHAR(255) ,
+`tcoatualiza` VARCHAR(255) ,
+PRIMARY KEY(`tcocodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipocrime`;
+CREATE TABLE `tipocrime`
+(
+`ttccodigo` VARCHAR(255) ,
+`ttcdescricao` VARCHAR(255) ,
+`ttcatualiza` VARCHAR(255) ,
+PRIMARY KEY(`ttccodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipodetencao`;
+CREATE TABLE `tipodetencao`
+(
+`ttdcodigo` VARCHAR(255) ,
+`ttddescricao` VARCHAR(255) ,
+`ttdatualiza` VARCHAR(255) ,
+`ttdrelacidente` VARCHAR(255) ,
+PRIMARY KEY(`ttdcodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipodocumento`;
+CREATE TABLE `tipodocumento`
+(
+`ttocodigo` INT(11) unsigned NOT NULL, 
+`ttodescricao` VARCHAR(255) ,
+`ttoatualiza` VARCHAR(255) ,
+`ttorelapreensao` VARCHAR(255) ,
+`ttorelrecuperacao` VARCHAR(255) ,
+PRIMARY KEY(`ttocodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipoenvolvido`;
+CREATE TABLE `tipoenvolvido`
+(
+`ttecodigo` INT(11) unsigned NOT NULL, 
+`ttedescricao` VARCHAR(255) ,
+`tteatualiza` VARCHAR(255) ,
+`tteativo` VARCHAR(255) ,
+PRIMARY KEY(`ttecodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipolocalidade`;
+CREATE TABLE `tipolocalidade`
+(
+`ttlcodigo` INT(11) unsigned NOT NULL, 
+`ttldescricao` VARCHAR(255) ,
+`ttlatualiza` VARCHAR(255) ,
+PRIMARY KEY(`ttlcodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipoobra`;
+CREATE TABLE `tipoobra`
+(
+`ttbcodigo` INT(11) unsigned NOT NULL, 
+`ttbdescricao` VARCHAR(255) ,
+`ttbatualiza` VARCHAR(255) ,
+PRIMARY KEY(`ttbcodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipopontomedico`;
+CREATE TABLE `tipopontomedico`
+(
+`ttmcodigo` INT(11) unsigned NOT NULL, 
+`ttmdescricao` VARCHAR(255) ,
+`ttmatualiza` VARCHAR(255) ,
+PRIMARY KEY(`ttmcodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipopontonotavel`;
+CREATE TABLE `tipopontonotavel`
+(
+`ttncodigo` INT(11) unsigned NOT NULL, 
+`ttndescricao` VARCHAR(255) ,
+`ttnatualiza` VARCHAR(255) ,
+PRIMARY KEY(`ttncodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tiporeceptor`;
+CREATE TABLE `tiporeceptor`
+(
+`ttrcodigo` INT(11) unsigned NOT NULL, 
+`ttrdescricao` VARCHAR(255) ,
+`ttratualiza` VARCHAR(255) ,
+`ttrdelegacia` VARCHAR(255) ,
+PRIMARY KEY(`ttrcodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tiposinalizacao`;
+CREATE TABLE `tiposinalizacao`
+(
+`ttscodigo` INT(11) unsigned NOT NULL, 
+`ttsdescricao` VARCHAR(255) ,
+`ttsatualiza` VARCHAR(255) ,
+PRIMARY KEY(`ttscodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipounidadeoperacional`;
+CREATE TABLE `tipounidadeoperacional`
+(
+`ttucodigo` VARCHAR(255) ,
+`ttudescricao` VARCHAR(255) ,
+`ttuatualiza` VARCHAR(255) ,
+PRIMARY KEY(`ttucodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `tipoveiculo`;
+CREATE TABLE `tipoveiculo`
+(
+`tvvcodigo` INT(11) unsigned NOT NULL, 
+`tvvdescricao` VARCHAR(255) ,
+`tvvatualiza` VARCHAR(255) ,
+`tvvrelacidente` VARCHAR(255) ,
+`tvvativo` VARCHAR(255) ,
+PRIMARY KEY(`tvvcodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `unidadeoperacional`;
+CREATE TABLE `unidadeoperacional`
+(
+`uniid` INT(11) unsigned NOT NULL, 
+`uniunidade` VARCHAR(255),
+`unilotacao` VARCHAR(255),
+`unisigla` VARCHAR(255),
+`unittucodigo` INT(11),
+`uniunidaderesponsavel` INT(11),
+`unidenominacao` VARCHAR(255),
+`uniendereco` VARCHAR(255),
+`unimunicipio` VARCHAR(255),
+`unicep` VARCHAR(255),
+`unitelefone` VARCHAR(255),
+`uniemail` VARCHAR(255),
+`unilocal` INT(11),
+`unilatitude` FLOAT,
+`unilongitude` FLOAT,
+`unihelicoptero` VARCHAR(255),
+`unitexto` VARCHAR(255),
+PRIMARY KEY(`uniid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `uf`;
+CREATE TABLE `uf`
+(
+`tufuf` VARCHAR(2) NOT NULL, 
+`tufdenominacao` VARCHAR(255),
+PRIMARY KEY(`tufuf`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `veiculo`;
+CREATE TABLE `veiculo`
+(
+`veiid` INT(11) unsigned NOT NULL, 
+`vei.veiano` INT(11),
+`veitmvcodigo` INT(11),
+`veiqtdocupantes` INT(11),
+`veitevcodigo` INT(11),
+`veitcvcodigo` INT(11),
+`veitvvcodigo` INT(11),
+`veidescricao` VARCHAR(255),
+`veimunicipio` INT(11),
+`veitcecodigo` INT(11),
+`veimunorigem` INT(11),
+`veipaisorigem` INT(11),
+`veimundestino` INT(11),
+`veipaisdestino` INT(11),
+`veitttcodigo` INT(11),
+`veitipoproprietario` INT(11),
+`veiproprietario` INT(11),
+`veioenid` INT(11),
+`veisequencial` INT(11),
+`veitipoplaca` VARCHAR(255),
+PRIMARY KEY(`veiid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

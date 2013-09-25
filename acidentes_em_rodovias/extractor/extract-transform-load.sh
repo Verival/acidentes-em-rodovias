@@ -80,7 +80,7 @@ function prepare_db {
 }
 
 function load_domain_data {
-	for TABLE in corveiculo localbr estadofisico marcadeveiculo municipio ocorrenciaveiculo #tipoAcidente tipoApreensao tipoAreaEspecial tipoComunicacao tipocrime tipodetencao tipodocumento tipoenvolvido tipolocalidade tipoobra tipopontomedico tipopontonotavel tiporeceptor tiposinalizacao tipounidadeoperacional tipoveiculo uf unidadeoperacional veiculo
+	for TABLE in corveiculo localbr estadofisico marcadeveiculo municipio ocorrenciaveiculo tipoAcidente tipoApreensao tipoAreaEspecial tipoComunicacao tipocrime tipodetencao tipodocumento tipoenvolvido tipolocalidade tipoobra tipopontomedico tipopontonotavel tiporeceptor tiposinalizacao tipounidadeoperacional tipoveiculo uf unidadeoperacional veiculo
 	do
 		echo -e "\nLoading domain table \"$TABLE\" data..."
 		ARQUIVO="$DATA_DIR/BRBRASIL/$TABLE.csv"
