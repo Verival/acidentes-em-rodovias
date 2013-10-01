@@ -1,3 +1,5 @@
+SET FOREIGN_KEY_CHECKS=0;
+
 DROP TABLE IF EXISTS `ocorrencia`;
 CREATE TABLE `ocorrencia`
 ( 
@@ -13,10 +15,63 @@ CREATE TABLE `ocorrencia`
 `ocoidorigem` VARCHAR(255) , 
 `ocodatafim` VARCHAR(255) ,
 `sem` INT(11) unsigned ,
-`ano` INT(11) unsigned 
--- PRIMARY KEY (`ocoid`, `sem`, `ano`)
+`ano` INT(11) unsigned ,
+PRIMARY KEY (`ocoid`, `sem`, `ano`)
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `ocorrenciaacidente`;
+CREATE TABLE `ocorrenciaacidente`
+ ( 
+`oacocoid` INT(11) unsigned NOT NULL,
+`oacttacodigo` INT(11) unsigned,
+`oactcacodigo` INT(11) unsigned,
+`oacdano` VARCHAR(255) ,
+`oacdanoterc` VARCHAR(255) ,
+`oacdanoamb` VARCHAR(255) ,
+`oaclatitude` FLOAT ,
+`oaclongitude` FLOAT ,
+`oacdistab` FLOAT ,
+`oacdistac` FLOAT ,
+`oacdistbc` FLOAT ,
+`oacmodelopista` INT(11) ,
+`oacsentido1` VARCHAR(255) ,
+`oacsentido2` VARCHAR(255) ,
+`oacqtdfaixa1` INT(11) unsigned ,
+`oacqtdfaixa2` INT(11) unsigned ,
+`oacacostamento1` VARCHAR(255) ,
+`oacacostamento2` VARCHAR(255) ,
+`oaccanteiro` VARCHAR(255) ,
+`oaclinhacentral` INT(11) unsigned ,
+`oacorientpista` VARCHAR(255) ,
+`oacgirafundo` VARCHAR(255) ,
+`oacversaocroqui` INT(11) unsigned ,
+`oacsitio` INT(11) unsigned,
+`sem` INT(11) unsigned ,
+`ano` INT(11) unsigned ,
+PRIMARY KEY (`oacocoid`, `sem`, `ano`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `ocorrenciaPessoa`;
+CREATE TABLE `ocorrenciaPessoa`
+ ( 
+`opeid` INT(11) unsigned NOT NULL, 
+`opeocoid` INT(11) unsigned , 
+`opepesid` INT(11) unsigned , 
+`opeportenumero` VARCHAR(255) , 
+`opeportevalidade` VARCHAR(255) , 
+`opettecodigo` INT(11) unsigned , 
+`openaoident` VARCHAR(255) , 
+`opeestrangeiro` VARCHAR(255) , 
+`opeanexo` VARCHAR(255) , 
+`opecondalegadas` VARCHAR(255) ,
+`sem` INT(11) unsigned ,
+`ano` INT(11) unsigned ,
+ PRIMARY KEY (`opeid`, `sem`, `ano`) 
+ -- CONSTRAINT FOREIGN KEY (`opeocoid`, `sem`, `ano`) REFERENCES `ocorrencia` (`ocoid`, `sem`, `ano`),
+ -- CONSTRAINT FOREIGN KEY (`opepesid`, `sem`, `ano`) REFERENCES `pessoa` (`pesid`, `sem`, `ano`),
+ -- CONSTRAINT FOREIGN KEY (`opettecodigo`) REFERENCES `tipoenvolvido` (`ttecodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 DROP TABLE IF EXISTS `pessoa`;
 CREATE TABLE `pessoa`
@@ -60,59 +115,72 @@ CREATE TABLE `pessoa`
 `pestctcodigo` VARCHAR(255) , 
 `pestclcodigo` VARCHAR(255) , 
 `pesoenid` VARCHAR(255) ,
-`sem` INT(11) unsigned ,
-`ano` INT(11) unsigned 
- -- PRIMARY KEY (`pesid`, `sem`, `ano`)
+ PRIMARY KEY (`pesid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-DROP TABLE IF EXISTS `ocorrenciaPessoa`;
-CREATE TABLE `ocorrenciaPessoa`
- ( 
-`opeid` INT(11) unsigned NOT NULL, 
-`opeocoid` INT(11) unsigned , 
-`opepesid` INT(11) unsigned , 
-`opeportenumero` VARCHAR(255) , 
-`opeportevalidade` VARCHAR(255) , 
-`opettecodigo` INT(11) unsigned , 
-`openaoident` VARCHAR(255) , 
-`opeestrangeiro` VARCHAR(255) , 
-`opeanexo` VARCHAR(255) , 
-`opecondalegadas` VARCHAR(255) ,
-`sem` INT(11) unsigned ,
-`ano` INT(11) unsigned 
--- PRIMARY KEY (`opeid`, `sem`, `ano`)
+DROP TABLE IF EXISTS `causaacidente`;
+CREATE TABLE `causaacidente`
+(
+`tcacodigo` INT(11) NOT NULL, 
+`tcadescricao` VARCHAR(255),
+PRIMARY KEY(`tcacodigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-DROP TABLE IF EXISTS `ocorrenciaacidente`;
-CREATE TABLE `ocorrenciaacidente`
- ( 
-`oacocoid` INT(11) unsigned NOT NULL,
-`oacttacodigo` INT(11) unsigned,
-`oactcacodigo` INT(11) unsigned,
-`oacdano` VARCHAR(255) ,
-`oacdanoterc` VARCHAR(255) ,
-`oacdanoamb` VARCHAR(255) ,
-`oaclatitude` FLOAT ,
-`oaclongitude` FLOAT ,
-`oacdistab` FLOAT ,
-`oacdistac` FLOAT ,
-`oacdistbc` FLOAT ,
-`oacmodelopista` INT(11) ,
-`oacsentido1` VARCHAR(255) ,
-`oacsentido2` VARCHAR(255) ,
-`oacqtdfaixa1` INT(11) unsigned ,
-`oacqtdfaixa2` INT(11) unsigned ,
-`oacacostamento1` VARCHAR(255) ,
-`oacacostamento2` VARCHAR(255) ,
-`oaccanteiro` VARCHAR(255) ,
-`oaclinhacentral` INT(11) unsigned ,
-`oacorientpista` VARCHAR(255) ,
-`oacgirafundo` VARCHAR(255) ,
-`oacversaocroqui` INT(11) unsigned ,
-`oacsitio` INT(11) unsigned,
-`sem` INT(11) unsigned ,
-`ano` INT(11) unsigned 
--- PRIMARY KEY (`oacocoid`, `sem`, `ano`)
+DROP TABLE IF EXISTS `unidadeoperacional`;
+CREATE TABLE `unidadeoperacional`
+(
+`uniid` INT(11) unsigned NOT NULL, 
+`uniunidade` VARCHAR(255),
+`unilotacao` VARCHAR(255),
+`unisigla` VARCHAR(255),
+`unittucodigo` INT(11),
+`uniunidaderesponsavel` INT(11),
+`unidenominacao` VARCHAR(255),
+`uniendereco` VARCHAR(255),
+`unimunicipio` VARCHAR(255),
+`unicep` VARCHAR(255),
+`unitelefone` VARCHAR(255),
+`uniemail` VARCHAR(255),
+`unilocal` INT(11),
+`unilatitude` FLOAT,
+`unilongitude` FLOAT,
+`unihelicoptero` VARCHAR(255),
+`unitexto` VARCHAR(255),
+PRIMARY KEY(`uniid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `uf`;
+CREATE TABLE `uf`
+(
+`tufuf` VARCHAR(2) NOT NULL, 
+`tufdenominacao` VARCHAR(255),
+PRIMARY KEY(`tufuf`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `veiculo`;
+CREATE TABLE `veiculo`
+(
+`veiid` INT(11) unsigned NOT NULL, 
+`vei.veiano` INT(11),
+`veitmvcodigo` INT(11),
+`veiqtdocupantes` INT(11),
+`veitevcodigo` INT(11),
+`veitcvcodigo` INT(11),
+`veitvvcodigo` INT(11),
+`veidescricao` VARCHAR(255),
+`veimunicipio` INT(11),
+`veitcecodigo` INT(11),
+`veimunorigem` INT(11),
+`veipaisorigem` INT(11),
+`veimundestino` INT(11),
+`veipaisdestino` INT(11),
+`veitttcodigo` INT(11),
+`veitipoproprietario` INT(11),
+`veiproprietario` INT(11),
+`veioenid` INT(11),
+`veisequencial` INT(11),
+`veitipoplaca` VARCHAR(255),
+PRIMARY KEY(`veiid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 DROP TABLE IF EXISTS `corveiculo`;
@@ -327,59 +395,4 @@ CREATE TABLE `tipoveiculo`
 PRIMARY KEY(`tvvcodigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-DROP TABLE IF EXISTS `unidadeoperacional`;
-CREATE TABLE `unidadeoperacional`
-(
-`uniid` INT(11) unsigned NOT NULL, 
-`uniunidade` VARCHAR(255),
-`unilotacao` VARCHAR(255),
-`unisigla` VARCHAR(255),
-`unittucodigo` INT(11),
-`uniunidaderesponsavel` INT(11),
-`unidenominacao` VARCHAR(255),
-`uniendereco` VARCHAR(255),
-`unimunicipio` VARCHAR(255),
-`unicep` VARCHAR(255),
-`unitelefone` VARCHAR(255),
-`uniemail` VARCHAR(255),
-`unilocal` INT(11),
-`unilatitude` FLOAT,
-`unilongitude` FLOAT,
-`unihelicoptero` VARCHAR(255),
-`unitexto` VARCHAR(255),
-PRIMARY KEY(`uniid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-DROP TABLE IF EXISTS `uf`;
-CREATE TABLE `uf`
-(
-`tufuf` VARCHAR(2) NOT NULL, 
-`tufdenominacao` VARCHAR(255),
-PRIMARY KEY(`tufuf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-DROP TABLE IF EXISTS `veiculo`;
-CREATE TABLE `veiculo`
-(
-`veiid` INT(11) unsigned NOT NULL, 
-`vei.veiano` INT(11),
-`veitmvcodigo` INT(11),
-`veiqtdocupantes` INT(11),
-`veitevcodigo` INT(11),
-`veitcvcodigo` INT(11),
-`veitvvcodigo` INT(11),
-`veidescricao` VARCHAR(255),
-`veimunicipio` INT(11),
-`veitcecodigo` INT(11),
-`veimunorigem` INT(11),
-`veipaisorigem` INT(11),
-`veimundestino` INT(11),
-`veipaisdestino` INT(11),
-`veitttcodigo` INT(11),
-`veitipoproprietario` INT(11),
-`veiproprietario` INT(11),
-`veioenid` INT(11),
-`veisequencial` INT(11),
-`veitipoplaca` VARCHAR(255),
-PRIMARY KEY(`veiid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+SET FOREIGN_KEY_CHECKS=1;
