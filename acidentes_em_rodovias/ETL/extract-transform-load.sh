@@ -134,7 +134,7 @@ function main {
 	
 	WORK_DIR="$DATA_DIR/acidentes_rodovias"
 
-	#prepare_enviroment
+	prepare_enviroment
 	prepare_db
 	load_domain_data
 	load_non_biannual_data
