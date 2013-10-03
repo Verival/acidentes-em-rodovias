@@ -76,20 +76,20 @@ function prepare_db {
 	fi
 }
 
-function load_domain_data {
+function load_non_biannual_data {
 	for TABLE in ocorrenciaveiculo veiculo pessoa
 	do
-		echo -e "\nLoading domain table \"$TABLE\" data..."
+		echo -e "\nLoading non-biannual table \"$TABLE\" data..."
 		FILE="$WORK_DIR/$TABLE.csv"
 		QUERY="LOAD DATA INFILE '$FILE' IGNORE INTO TABLE \`$TABLE\` CHARACTER SET utf8 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES;"
 		mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias -e "$QUERY"
 	done
 }
 
-function load_non_biannual_data {
+function load_domain_data {
 	for TABLE in corveiculo localbr estadofisico marcadeveiculo municipio tipoAcidente tipoApreensao tipoAreaEspecial tipoComunicacao tipocrime tipodetencao tipodocumento tipoenvolvido tipolocalidade tipoobra tipopontomedico tipopontonotavel tiporeceptor tiposinalizacao tipounidadeoperacional tipoveiculo uf unidadeoperacional causaacidente
 	do
-		echo -e "\nLoading non-biannual table \"$TABLE\" data..."
+		echo -e "\nLoading domain table \"$TABLE\" data..."
 		FILE="$WORK_DIR/$TABLE.csv"
 		QUERY="LOAD DATA INFILE '$FILE' IGNORE INTO TABLE \`$TABLE\` CHARACTER SET utf8 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES;"
 		mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias -e "$QUERY"
