@@ -72,7 +72,7 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 # Additional locations of static files
 STATICFILES_DIRS = (
-    os.path.join(ROOT_DIR,"../static"),
+    os.path.join(ROOT_DIR,"../app/static"),
 )
 
 TEMPLATE_DIRS = (
