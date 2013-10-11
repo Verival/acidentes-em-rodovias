@@ -5,6 +5,7 @@
 *.pyo
 *.log
 local_settings.py
+myconfiguration.py
 
 # Paths
 dist/*
