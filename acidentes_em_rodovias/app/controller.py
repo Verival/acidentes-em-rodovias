@@ -15,4 +15,4 @@ class Pessoa():
 
 def index(request):
 	# Lógica
-    return render_to_response("index.html", {'param1' : 30, 'param2' : Pessoa("Matheus", 21, "M")}, context_instance=RequestContext(request))
+    return render_to_response("index.html", context_instance=RequestContext(request))
