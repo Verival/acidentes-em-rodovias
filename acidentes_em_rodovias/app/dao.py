@@ -26,18 +26,23 @@ import pandas.io.sql as psql
 
 # print '\nPega todas as linhas: ', result
 
-class OcorrenciaDAO():
-	def __init__(self):
+class DAO():
+	modelo=''
+	def __init__(self,modelo):
+		#estabilizando estrutura
+		self.modelo=modelo.lower()
+		self.modelo = self.modelo[0].upper() +  self.modelo[1:]
 		self.connection = util.get_connection()
+		print self.modelo
 	
 	def consulta_todos(self):
-		dados = psql.frame_query("SELECT * FROM ocorrencia LIMIT 10;",con=self.connection).to_dict()
-		classe = "Ocorrencia"
-
+		dados = psql.frame_query("SELECT * FROM " +self.modelo.lower()+" LIMIT 10;",con=self.connection).to_dict()
+		classe = self.modelo
 		return util.transforma_para_objeto(dados, classe)
 
 
-dao = OcorrenciaDAO()
+if __name__ == "__main__":
+	dao = DAO('Ocorrencia')
 
-for i in dao.consulta_todos():
-	print i
+	for i in dao.consulta_todos():
+		print i
