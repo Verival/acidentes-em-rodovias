@@ -15,4 +15,8 @@ class Ocorrencia():
 		self.ocodatafim = ""
 		self.sem = 0
 		self.ano = 0
-# TODO: __str__(self)
+	def __str__(self):
+		attrs =vars(self)
+		s= ''.join("%s: %s\n" % item for item in attrs.items())
+		return s
+		

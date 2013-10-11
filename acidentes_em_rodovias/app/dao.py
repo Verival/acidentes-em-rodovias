@@ -40,8 +40,4 @@ class OcorrenciaDAO():
 dao = OcorrenciaDAO()
 
 for i in dao.consulta_todos():
-	print i.ano
-	print i.sem
-	print i.ocoid
-	print i.ocodataregistro
-	print
+	print i
