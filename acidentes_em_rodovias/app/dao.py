@@ -29,20 +29,23 @@ import pandas.io.sql as psql
 class DAO():
 	modelo=''
 	def __init__(self,modelo):
-		#estabilizando estrutura
-		self.modelo=modelo.lower()
-		self.modelo = self.modelo[0].upper() +  self.modelo[1:]
 		self.connection = util.get_connection()
-		print self.modelo
+
+		self.modelo=modelo.lower()
+		dados = psql.frame_query("SHOW TABLES;",con=self.connection).to_dict('list')
+		dados = dados['Tables_in_acidentes_rodovias']
+		minimos = [i.lower() for i in dados]
+		if self.modelo in minimos:
+			self.modelo = dados[minimos.index(self.modelo)]
 	
 	def consulta_todos(self):
-		dados = psql.frame_query("SELECT * FROM " +self.modelo.lower()+" LIMIT 10;",con=self.connection).to_dict()
+		dados = psql.frame_query("SELECT * FROM " +self.modelo+" LIMIT 10;",con=self.connection).to_dict()
 		classe = self.modelo
 		return util.transforma_para_objeto(dados, classe)
 
-
 if __name__ == "__main__":
-	dao = DAO('Ocorrencia')
-
+	#exemplo de teste
+	dao = DAO('ocorrencia')
 	for i in dao.consulta_todos():
 		print i
+
