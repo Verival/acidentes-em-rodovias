@@ -53,6 +53,11 @@ if __name__ == "__main__":
 	#Instancia TODAS e apresenta os dados de 2 delas
 	chave = DAO('ocorrencia')
 	for dao in  chave.keys:
-		k=DAO(dao)
-		k.consulta_todos(2)
-
+		try:
+			k=DAO(dao)
+			k.consulta_todos(2)
+			print dao + " -- OK"
+		except AttributeError,ex:
+			print str(ex).split(' ')[-1] + " -- ERRO! ( " + str(ex) + ")"
+			
+		

@@ -31,6 +31,7 @@ class ocorrencia(Entidade):
 		self.ocotipo = ""
 		self.ococomid = tipocomunicacao()
 		#self.ocoidorigem = ocorrencia()
+		self.ocoidorigem = 0
 		self.ocodatafim = ""
 		self.sem = 0
 		self.ano = 0
@@ -87,7 +88,7 @@ class ocorrenciaPessoa(Entidade):
 class ocorrenciaacidente(Entidade):
         def __init__(self):
                 self.oacocoid = 0
-                self.oacttacodigo = tipoacidente()
+                self.oacttacodigo = tipoAcidente()
                 self.oactcacodigo = causaacidente()
                 self.oacdano =  ""
                 self.oacdanoterc = ""
@@ -209,7 +210,8 @@ class unidadeoperacional(Entidade):
                 self.unilotacao = ""
                 self.unisigla = ""
                 self.unittucodigo = tipounidadeoperacional()
-                self.uniunidaderesponsavel = unidadeoperacional()
+                #self.uniunidaderesponsavel = unidadeoperacional()
+                self.uniunidaderesponsavel = 0
                 self.unidenominacao = ""
                 self.uniendereco = ""
                 self.unimunicipio = municipio()
