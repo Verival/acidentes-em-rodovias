@@ -244,3 +244,9 @@ class veiculo(Entidade):
                 self.veioenid = 0
                 self.veisequencial = 0
                 self.veitipoplaca = ""
+
+class tipocomunicacao(Entidade):
+        def __innit__(self):
+                self.tcocodigo = 0
+                self.tcodescricao = ""
+                self.tcoatualiza = ""
