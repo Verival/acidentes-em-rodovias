@@ -8,7 +8,7 @@
   <title>Acidentes em Rodovias</title>
 
   
-  <link rel="stylesheet" href="css/foundation.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/foundation.css">
   
 
   <script src="js/vendor/custom.modernizr.js"></script>
@@ -28,11 +28,11 @@
 		<div class="large-12 columns">
 			<form class="custom">
 				<select id="customDropdown" name="URL" onchange="window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value">
-					<option DISABLED>Exemplo de opção desabilitada</option>
-					<option value="regiao.html">Região</option>
-					<option value="periodo.html">Período</option>
-					<option value="pessoa.html">Pessoa envolvida</option>
-					<option value="rodovia.html">Nome da rodovia</option>
+					<option value="">Selecione uma opção</option>
+					<option value="{% url app.controller.consulta_por_regiao %}">Região</option>
+					<option value="{% url app.controller.consulta_por_periodo %}">Período</option>
+					<option value="{% url app.controller.consulta_por_pessoa %}">Pessoa envolvida</option>
+					<option value="{% url app.controller.consulta_por_rodovia %}">Nome da rodovia</option>
 				</select>
 			</form>
 		</div>
@@ -40,11 +40,11 @@
 
   <script>
   document.write('<script src=' +
-  ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+  ('__proto__' in {} ? '{{ STATIC_URL }}js/vendor/zepto' : 'js/vendor/jquery') +
   '.js><\/script>')
   </script>
   
-  <script src="js/foundation.min.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation.min.js"></script>
   <!--
   
   <script src="js/foundation/foundation.js"></script>
