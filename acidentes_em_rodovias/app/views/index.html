@@ -9,77 +9,101 @@
 
   
   <link rel="stylesheet" href="{{ STATIC_URL }}css/foundation.css">
-  
+  <link rel="shortcut icon" href="{{ STATIC_URL }}img/Ar-icon.png" type="image/x-icon" />
 
-  <script src="js/vendor/custom.modernizr.js"></script>
+  <script src="{{ STATIC_URL }}js/vendor/custom.modernizr.js"></script>
 
 </head>
 <body>
+    
+    <div class="fixed">
+    <nav class="top-bar fixed">
+          <ul class="title-area">
+              <li class="name">
+                   <h1><a href="{% url 'app.controller.index' %}">Acidentes em Rodovias</a></h1>
+              </li>
+              <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a>
+              </li>
+          </ul>
+          <section class="top-bar-section">
+              <ul class="left">
+                  <li class="divider"></li>
+                  <li class="has-dropdown active"><a href="#">Consulta básica</a>
+                      <ul class="dropdown">
+                          <li><label>Selecione o tipo de consulta</label></li>
+                          <li><a href="{% url 'app.controller.consulta_por_regiao' %}">Região</a></li>
+                           <li class="divider"></li>
+                          <li><a href="{% url 'app.controller.consulta_por_periodo' %}">Período</a></li>
+                           <li class="divider"></li>
+                          <li><a href="{% url 'app.controller.consulta_por_pessoa' %}">Pessoa envolvida</a></li>
+                           <li class="divider"></li>
+                          <li><a href="{% url 'app.controller.consulta_por_rodovia' %}">Nome da rodovia</a></li>
+                      </ul>
+                  </li>
+                   <li class="divider"></li>
+                  <li><a href="#">Consulta avançada</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Estatísticas regionais</a></li>
+          </section>
+      </nav>
+    </div>
 
-	<div class="row">
-		<div class="large-12 columns">
-			<h2><center>Acidentes em Rodovias</center></h2>
-			<hr />
-			<p><center><em>Selecione uma opção e localize o acidente.</em></center></p>
-		</div>
-	</div>
+    <div class="row">
+    	<div class="large-12 columns">
+    		<h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+    		<hr />
+    		
 
-	<div class="row">
-		<div class="large-12 columns">
-			<form class="custom">
-				<select id="customDropdown" name="URL" onchange="window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value">
-					<option value="">Selecione uma opção</option>
-					<option value="{% url 'app.controller.consulta_por_regiao' %}">Região</option>
-					<option value="{% url 'app.controller.consulta_por_periodo' %}">Período</option>
-					<option value="{% url 'app.controller.consulta_por_pessoa' %}">Pessoa envolvida</option>
-					<option value="{% url 'app.controller.consulta_por_rodovia' %}">Nome da rodovia</option>
-				</select>
-			</form>
-		</div>
-	</div>
+    	</div>
+    </div>
 
-  <script>
-  document.write('<script src=' +
-  ('__proto__' in {} ? '{{ STATIC_URL }}js/vendor/zepto' : 'js/vendor/jquery') +
-  '.js><\/script>')
-  </script>
+    <div class="row">
+    	<div class="large-12 columns">
+    		<p> Acidentes em Rodovias - Uma aplicação de análise sobre dados de boletins de ocorrência de acidentes em rodovias federais Brasileiras (An application of data analysis from police reports of accidents in Brazilian federal highways).</p>
+
+            <p>Projeto em realização conjunta por alunos das disciplinas Gestão de Portifólios e Projetos de Software (GPP) e Métodos de Desenvolvimento de Software (MDS) do curso de <a href="http://fga.unb.br">Engenharia de Software, Universidade de Brasília</a>. </p>
+    	</div>
+
+        <p><center><em><strong>* Selecione uma opção de consulta no menu acima.</strong></em></center></p>
+    </div>
+
+  <script src="{{ STATIC_URL }}js/vendor/jquery.js"></script>
   
   <script src="{{ STATIC_URL }}js/foundation.min.js"></script>
-  <!--
   
-  <script src="js/foundation/foundation.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.alerts.js"></script>
   
-  <script src="js/foundation/foundation.alerts.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.clearing.js"></script>
   
-  <script src="js/foundation/foundation.clearing.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.cookie.js"></script>
   
-  <script src="js/foundation/foundation.cookie.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.dropdown.js"></script>
   
-  <script src="js/foundation/foundation.dropdown.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.forms.js"></script>
   
-  <script src="js/foundation/foundation.forms.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.joyride.js"></script>
   
-  <script src="js/foundation/foundation.joyride.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.magellan.js"></script>
   
-  <script src="js/foundation/foundation.magellan.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.orbit.js"></script>
   
-  <script src="js/foundation/foundation.orbit.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.reveal.js"></script>
   
-  <script src="js/foundation/foundation.reveal.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.section.js"></script>
   
-  <script src="js/foundation/foundation.section.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.tooltips.js"></script>
+
+  <script src="{{ STATIC_URL }}js/foundation/jquery.foundation.navigation.js"></script>
+
+  <script src="{{ STATIC_URL }}js/foundation/jquery.foundation.topbar.js"></script>
   
-  <script src="js/foundation/foundation.tooltips.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.topbar.js"></script>
   
-  <script src="js/foundation/foundation.topbar.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.interchange.js"></script>
   
-  <script src="js/foundation/foundation.interchange.js"></script>
+  <script src="{{ STATIC_URL }}js/foundation/foundation.placeholder.js"></script>
   
-  <script src="js/foundation/foundation.placeholder.js"></script>
-  
-  <script src="js/foundation/foundation.abide.js"></script>
-  
-  -->
+  <script src="{{ STATIC_URL }}js/foundation/foundation.abide.js"></script>
   
   <script>
     $(document).foundation();
