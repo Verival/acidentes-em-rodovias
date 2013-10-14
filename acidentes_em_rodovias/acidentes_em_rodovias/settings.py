@@ -13,7 +13,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-TEST_RUNNER = 'app.tests.NoDbTestRunner'
 
 DATABASES = {
     'default': {
