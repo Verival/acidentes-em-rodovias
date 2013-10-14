@@ -30,7 +30,7 @@ class ocorrencia(Entidade):
 		self.ocodataregistro = ""
 		self.ocotipo = ""
 		self.ococomid = tipocomunicacao()
-		self.ocoidorigem = ocorrencia()
+		#self.ocoidorigem = ocorrencia()
 		self.ocodatafim = ""
 		self.sem = 0
 		self.ano = 0

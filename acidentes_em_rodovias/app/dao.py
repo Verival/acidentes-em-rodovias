@@ -50,11 +50,9 @@ class DAO():
 		return []
 
 if __name__ == "__main__":
-	#exemplo de teste
-	dao = DAO('ocorrencia')
-	for i in dao.consulta_todos(3):
-		print i
-	dao.troca_tabela("essoa")
-	for i in dao.consulta_todos(3):
-		print i
+	#Instancia TODAS e apresenta os dados de 2 delas
+	chave = DAO('ocorrencia')
+	for dao in  chave.keys:
+		k=DAO(dao)
+		k.consulta_todos(2)
 
