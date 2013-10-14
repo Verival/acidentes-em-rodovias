@@ -25,10 +25,10 @@
 	</div>
   
   <div class="row">
-      <form class="custom" action="{% url app.controller.executa_consulta tipo_consulta='pessoa' %}">
+      <form class="custom" action="{% url 'app.controller.executa_consulta' tipo_consulta='pessoa' %}">
 	  	<div class="large-8 columns">
 			<input name="nome_envolvido" type="text" placeholder="Nome da pessoa envolvida"/>
-      	</div>
+    	</div>
   		<div class="large-4 columns">
 			<button class="button postfix">Buscar</button>
       	</div>

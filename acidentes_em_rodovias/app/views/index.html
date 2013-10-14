@@ -29,10 +29,10 @@
 			<form class="custom">
 				<select id="customDropdown" name="URL" onchange="window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value">
 					<option value="">Selecione uma opção</option>
-					<option value="{% url app.controller.consulta_por_regiao %}">Região</option>
-					<option value="{% url app.controller.consulta_por_periodo %}">Período</option>
-					<option value="{% url app.controller.consulta_por_pessoa %}">Pessoa envolvida</option>
-					<option value="{% url app.controller.consulta_por_rodovia %}">Nome da rodovia</option>
+					<option value="{% url 'app.controller.consulta_por_regiao' %}">Região</option>
+					<option value="{% url 'app.controller.consulta_por_periodo' %}">Período</option>
+					<option value="{% url 'app.controller.consulta_por_pessoa' %}">Pessoa envolvida</option>
+					<option value="{% url 'app.controller.consulta_por_rodovia' %}">Nome da rodovia</option>
 				</select>
 			</form>
 		</div>

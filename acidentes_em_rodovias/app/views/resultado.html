@@ -24,20 +24,17 @@
 		</div>
 	</div>
   
-  <div class="row">
-  	<div class="large-8 columns">
-      <form class="custom">
-        <input type="text" placeholder="Nome da pessoa envolvida">
-      </form>
-    </div>
-
-    <div class="large-4 columns">
-      <div class="custom columns">
-        <a href="resultado.html" class="button postfix">Buscar</a>
+  <form class="custom" action="{% url 'app.controller.executa_consulta' tipo_consulta='rodovia' %}">
+    <div class="row">
+      <div class="large-8 columns">
+          <input type="text" name="nome_rodovia"  placeholder="Nome da Rodovia">
+      </div>
+      <div class="large-4 columns">
+        <button class="button postfix">Buscar</button>
       </div>
     </div>
-  </div>
-
+  </form>
+  
   <div class="row">
     <div class="large-9 push-3 columns">
 
