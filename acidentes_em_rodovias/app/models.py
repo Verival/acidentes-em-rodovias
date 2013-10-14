@@ -22,15 +22,15 @@ class causaacidente(Entidade):
 class ocorrencia(Entidade):
 	def __init__(self):
 		self.ocoid = 0
-		self.ocolocal = None
+		self.ocolocal = localbr()
 		self.ocostatus = ""
-		self.ocomunicipio = None
+		self.ocomunicipio = municipio()
 		self.ocosentido = 0
 		self.ocodataocorrencia = ""
 		self.ocodataregistro = ""
 		self.ocotipo = ""
-		self.ococomid = None
-		self.ocoidorigem = None
+		self.ococomid = tipocomunicacao()
+		self.ocoidorigem = ocorrencia()
 		self.ocodatafim = ""
 		self.sem = 0
 		self.ano = 0
@@ -44,7 +44,7 @@ class corveiculo(Entidade):
 class localbr(Entidade):
         def __init__(self):
                 self.lbrid = 0
-                self.lbruf = None
+                self.lbruf = uf()
                 self.lbrbr = ""
                 self.lbrkm = 0
                 self.lbraltitude = ""
@@ -72,11 +72,11 @@ class municipio(Entidade):
 class ocorrenciaPessoa(Entidade):
         def __init__(self):
                 self.opeid = 0
-                self.opeocoid = None
-                self.opepesid = None
+                self.opeocoid = ocorrencia()
+                self.opepesid = pessoa()
                 self.opeportenumero = ""
                 self.opeportevalidade = ""
-                self.opettecodigo = None
+                self.opettecodigo = tipoenvolvido()
                 self.openaoident = ""
                 self.opeestrangeiro = ""
                 self.opeanexo = ""
@@ -87,8 +87,8 @@ class ocorrenciaPessoa(Entidade):
 class ocorrenciaacidente(Entidade):
         def __init__(self):
                 self.oacocoid = 0
-                self.oacttacodigo = None
-                self.oactcacodigo = None
+                self.oacttacodigo = tipoacidente()
+                self.oactcacodigo = causaacidente()
                 self.oacdano =  ""
                 self.oacdanoterc = ""
                 self.oacdanoamb = ""
@@ -116,8 +116,8 @@ class ocorrenciaacidente(Entidade):
 class ocorrenciaveiculo(Entidade):
         def __init__(self):
                 self.ocvid = 0
-                self.ocvocoid = None
-                self.ocvveiid = None
+                self.ocvocoid = ocorrencia()
+                self.ocvveiid = veiculo()
 
 class pessoa(Entidade):
         def __init__(self):
@@ -128,14 +128,14 @@ class pessoa(Entidade):
                 self.pessexo = ""
                 self.pesteccodigo = 0
                 self.pestgicodigo = 0
-                self.pesmunicipio = None
+                self.pesmunicipio = municipio()
                 self.pestopcodigo = ""
                 self.pesmunicipioori = ""
                 self.pespaisori = ""
                 self.pesmunicipiodest = ""
                 self.pespaisdest = ""
-                self.pesveiid = None
-                self.pesestadofisico = None
+                self.pesveiid = veiculo()
+                self.pesestadofisico = estadofisico()
                 self.pescinto = ""
                 self.pescapacete = ""
                 self.peshabilitado = ""
@@ -160,4 +160,87 @@ class pessoa(Entidade):
                 self.pestctcodigo = ""
                 self.pestclcodigo = ""
                 self.pesoenid = ""
-                
+
+class tipoAcidente(Entidade):
+        def __init__(self):
+                self.ttacodiggo = 0
+                self.ttadescricao = ""
+                self.ttaatualiza = ""
+                self.ttarelacidente = ""
+                self.ttaativo = ""
+
+class tipoComunicacao(Entidade):
+        def __init__(self):
+                self.tcocodigo = 0
+                self.tcodescricao = ""
+                self.tcoatualiza = ""
+
+class tipoenvolvido(Entidade):
+        def __init__(self):
+                self.ttecodigo = 0
+                self.ttedescricao = ""
+                self.tteatualiza = ""
+                self.tteativo = ""
+
+class tipolocalidade(Entidade):
+        def __init__(self):
+                self.ttlcodigo = 0
+                self.ttldescricao = ""
+                self.ttlatualiza = ""
+
+class tipounidadeoperacional(Entidade):
+        def __init__(self):
+                self.ttucodigo = 0
+                self.ttudescricao = ""
+                self.ttuatualiza = ""
+
+class tipoveiculo(Entidade):
+        def __init__(self):
+                self.tvvcodigo = 0
+                self.tvvdescricao = ""
+                self.tvvatualiza = ""
+                self.tvvrelacidente = ""
+                self.tvvativo = ""
+
+class unidadeoperacional(Entidade):
+        def __init__(self):
+                self.uniid = 0
+                self.uniunidade = ""
+                self.unilotacao = ""
+                self.unisigla = ""
+                self.unittucodigo = tipounidadeoperacional()
+                self.uniunidaderesponsavel = unidadeoperacional()
+                self.unidenominacao = ""
+                self.uniendereco = ""
+                self.unimunicipio = municipio()
+                self.unicep = ""
+                self.unitelefone = ""
+                self.uniemail = ""
+                self.unilocal = ""
+                self.unilatitude = ""
+                self.unilongitude = ""
+                self.unihelicoptero = ""
+                self.unitexto = ""
+
+class veiculo(Entidade):
+        def __init__(self):
+                self.veiid = 0
+                self.veiano = 0
+                self.veitmvcodigo = marcadeveiculo()
+                self.qtdocupantes = 0
+                self.veitevcodigo = 0 
+                self.veitcvcodigo = 0
+                self.veitvvcodigo = tipoveiculo()
+                self.veidescricao = ""
+                self.veimunicipio = ""
+                self.veitcecodigo = corveiculo()
+                self.veimunorigem = ""
+                self.veipaisorigem = 0
+                self.veimundestino = ""
+                self.veipaisdestino = 0
+                self.veitttcodigo = 0
+                self.veitipoproprietario = ""
+                self.veiproprietario = 0
+                self.veioenid = 0
+                self.veisequencial = 0
+                self.veitipoplaca = ""
