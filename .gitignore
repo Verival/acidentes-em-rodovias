@@ -12,6 +12,6 @@ myconfiguration.py
 dist/*
 build/*
 bin/*
-.project/
-.pydevproject/
-
+.project
+.pydevproject
+.settings

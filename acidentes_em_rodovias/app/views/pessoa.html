@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 
 <head>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Acidentes em Rodovias</title>
 
-  
+
   <link rel="stylesheet" href="css/foundation.css">
-  
 
   <script src="js/vendor/custom.modernizr.js"></script>
 
@@ -20,25 +19,26 @@
 		<div class="large-12 columns">
 			<h2><center>Acidentes em Rodovias</center></h2>
 			<hr />
-			<p><center><em>Selecione uma opção e localize o acidente.</em></center></p>
+			<h4><center>Pessoa envolvida</center></h4>
+      <br />
 		</div>
 	</div>
+  
+  <div class="row">
+  	<div class="large-8 columns">
+      <form class="custom">
+        <input type="text" placeholder="Nome da pessoa envolvida">
+      </form>
+    </div>
 
-	<div class="row">
-		<div class="large-12 columns">
-			<form class="custom">
-				<select id="customDropdown" name="URL" onchange="window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value">
-					<option DISABLED>Exemplo de opção desabilitada</option>
-					<option value="regiao.html">Região</option>
-					<option value="periodo.html">Período</option>
-					<option value="pessoa.html">Pessoa envolvida</option>
-					<option value="rodovia.html">Nome da rodovia</option>
-				</select>
-			</form>
-		</div>
-	</div>
+    <div class="large-4 columns">
+      <div class="custom columns">
+        <a href="resultado.html" class="button postfix">Buscar</a>
+      </div>
+    </div>
+  </div>
 
-  <script>
+<script>
   document.write('<script src=' +
   ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
   '.js><\/script>')
@@ -84,5 +84,6 @@
   <script>
     $(document).foundation();
   </script>
+
 </body>
 </html>
