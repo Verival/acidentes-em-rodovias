@@ -4,10 +4,17 @@ import myconfiguration
 import models
 
 def get_connection():
-	connection = MySQLdb.connect(myconfiguration.HOST, myconfiguration.DB_USER, 
-		myconfiguration.DB_PASS, myconfiguration.DB)	# Aqui inicia a conexão com o Banco.
-	
-	return connection	# Cursor que será usado para executar as queries.
+	try:
+		connection = MySQLdb.connect(myconfiguration.HOST, myconfiguration.DB_USER, 
+			myconfiguration.DB_PASS, myconfiguration.DB)	# Aqui inicia a conexão com o Banco.
+		if connection:
+			print "\nException\n"
+			return connection
+		else:
+			raise Exception("Erro na conexão com o Banco de Dados")
+	except Exception, ex:
+		print ex
+
 
 def transforma_para_objeto(dados, nome_classe):
 	class_ = getattr(models, nome_classe)

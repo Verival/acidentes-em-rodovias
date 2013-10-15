@@ -1,4 +1,4 @@
-DB_PASS="nunes"
+DB_PASS="1234"
 DB_USER="root"
 DB="acidentes_rodovias"
-HOST="localhost"
+HOST="locallost"
