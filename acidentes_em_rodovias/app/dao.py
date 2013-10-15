@@ -48,16 +48,48 @@ class DAO():
 			dados = psql.frame_query(query,con=self.connection).to_dict()
 			return util.transforma_para_objeto(dados, self.modelo)
 		return []
+		
+class MunicipioDAO(DAO):
+	def __init__(self):
+		DAO.__init__(self, "municipio")
+	def consulta_por_uf(self, uf,limit=0):
+		if(limit !=0):
+			limit = "LIMIT " + str(limit)
+		else:
+			limit = ''
+		query = "SELECT * FROM `%s` WHERE `tmuuf` = '%s'" % (self.modelo, uf)
+		dados = psql.frame_query(query,con=self.connection).to_dict()
+		 
+		return util.transforma_para_objeto(dados, self.modelo)
+
+class OcorrenciaDAO(DAO):
+	def __init__(self):
+		DAO.__init__(self, "ocorrencia")
+	def consulta_por_uf(self, uf,limit=0):
+		if(limit !=0):
+			limit = "LIMIT " + str(limit)
+		else:
+			limit = ''
+		ret=[]
+		mun = MunicipioDAO()
+		mun_id = [ i.tmucodigo for i in mun.consulta_por_uf(uf)]
+		for _id in mun_id:
+			query = "SELECT * FROM `%s` WHERE `ocomunicipio` = '%d'" % (self.modelo, _id)
+			dados = psql.frame_query(query,con=self.connection).to_dict()
+		 
+			ret.append( util.transforma_para_objeto(dados, self.modelo))
+		return ret
 
 if __name__ == "__main__":
-	#Instancia TODAS e apresenta os dados de 2 delas
-	chave = DAO('ocorrencia')
-	for dao in  chave.keys:
-		try:
-			k=DAO(dao)
-			k.consulta_todos(2)
-			print dao + " -- OK"
-		except AttributeError,ex:
-			print str(ex).split(' ')[-1] + " -- ERRO! ( " + str(ex) + ")"
-			
-		
+	#consulta municipios do Espirito Santo
+	mun = MunicipioDAO()	
+	for i in mun.consulta_por_uf('ES'):
+		print i
+	
+	#consulta ocorrencias do Espirito Santo
+	oco = OcorrenciaDAO()
+	for i in oco.consulta_por_uf('ES',10):
+		for j in i:
+			if (j.ocomunicipio== 56839): # Filtra apenas os que aconteceram em PIUMA
+				print j
+	
