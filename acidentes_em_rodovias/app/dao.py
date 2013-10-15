@@ -57,7 +57,7 @@ class MunicipioDAO(DAO):
 			limit = "LIMIT " + str(limit)
 		else:
 			limit = ''
-		query = "SELECT * FROM `%s` WHERE `tmuuf` = '%s'" % (self.modelo, uf)
+		query = "SELECT * FROM `%s` WHERE `tmuuf` = '%s' %s" % (self.modelo, uf,limit)
 		dados = psql.frame_query(query,con=self.connection).to_dict()
 		 
 		return util.transforma_para_objeto(dados, self.modelo)
@@ -74,22 +74,22 @@ class OcorrenciaDAO(DAO):
 		mun = MunicipioDAO()
 		mun_id = [ i.tmucodigo for i in mun.consulta_por_uf(uf)]
 		for _id in mun_id:
-			query = "SELECT * FROM `%s` WHERE `ocomunicipio` = '%d'" % (self.modelo, _id)
+			query = "SELECT * FROM `%s` WHERE `ocomunicipio` = '%d' %s" % (self.modelo, _id,limit)
 			dados = psql.frame_query(query,con=self.connection).to_dict()
 		 
 			ret.append( util.transforma_para_objeto(dados, self.modelo))
 		return ret
 
 if __name__ == "__main__":
-	#consulta municipios do Espirito Santo
+	#consulta municípios do Espirito Santo
 	mun = MunicipioDAO()	
-	for i in mun.consulta_por_uf('ES'):
+	for i in mun.consulta_por_uf('ES',10):
 		print i
 	
-	#consulta ocorrencias do Espirito Santo
+	#consulta ocorrências do Espirito Santo
 	oco = OcorrenciaDAO()
-	for i in oco.consulta_por_uf('ES',10):
-		for j in i:
+	for ocorrencias_es in oco.consulta_por_uf('ES',3): # Consulta de no máximo 10 por município
+		for j in ocorrencias_es: # Nas ocorrências do Espirito Santo
 			if (j.ocomunicipio== 56839): # Filtra apenas os que aconteceram em PIUMA
 				print j
 	
