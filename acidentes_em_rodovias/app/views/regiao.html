@@ -58,21 +58,18 @@
 	</div>
     <form class="custom" action="{% url 'app.controller.executa_consulta' tipo_consulta='regiao' %}">
         <div class="row">
-        	<div class="large-4 columns">
+        	<!--<div class="large-4 columns">
                 <select name="uf" id="customDropdown" placeholder="UF">
-                    <option>Selecione a UF...</option>
-                    <option>DF</option>
-                    <option>SP</option>
-                    <option>RJ</option>
+                    {% for cidade in cidade_list %}
+                      <option value="{{cidade.tmucodigo}}">{{cidade.tmudenominacao}}</option>
+                    {%endfor%}
                 </select>
-            </div>
-
+            </div>-->
           <div class="large-4 columns">
             <select name="cidade" id="customDropdown">
-                <option >Selecione a Cidade...</option>
-                <option>Brasília</option>
-                <option>São Paulo</option>
-                <option>Rio de Janeiro</option>
+                {% for cidade in cidade_list %}
+                      <option value="{{cidade.tmucodigo}}">{{cidade.tmudenominacao}}</option>
+                    {%endfor%}
             </select>
           </div>
 

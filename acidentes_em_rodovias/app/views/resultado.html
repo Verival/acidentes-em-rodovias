@@ -68,65 +68,79 @@
   </form>
 
   <div class="row">
-    <div class="large-9 push-3 columns">
-
-    
+    <div class="large-9 push-3 columns">    
     <div class="row">
       <div class="large-12 columns">
-        <h2>Item da busca</h2>
-        <h4 class="subheader">Et elit. Dictumst montes! Turpis? Mus elit cum. Non, purus ac porttitor turpis elit. Natoque! Ac cursus lacus integer a hac magnis lectus hac est urna! Enim a velit purus! Amet mus! Sociis. Scelerisque massa ut.</h4>
-        <hr>
-
-        <h2>Item da busca</h2>
-        <h4 class="subheader">Et elit. Dictumst montes! Turpis? Mus elit cum. Non, purus ac porttitor turpis elit. Natoque! Ac cursus lacus integer a hac magnis lectus hac est urna! Enim a velit purus! Amet mus! Sociis. Scelerisque massa ut.</h4>
-        <hr>
-
-        <h2>Item da busca</h2>
-        <h4 class="subheader">Et elit. Dictumst montes! Turpis? Mus elit cum. Non, purus ac porttitor turpis elit. Natoque! Ac cursus lacus integer a hac magnis lectus hac est urna! Enim a velit purus! Amet mus! Sociis. Scelerisque massa ut.</h4>
-        <hr>
-
+        {% for erro in erros %}
+          <b style="color:red">{{erro}}</b>
+        {% endfor %}
+        {% for item in resultados_list %}
+          <h4 class="subheader">Ocorrência #{{item.ocoid}}</h4>
+          <p><b>Data da ocorrência:</b> {{item.ocodataocorrencia}}</p>
+          <p><b>Data de registro:</b> {{item.ocodataregistro}}</p>
+          <p><b>Veículo envolvido:</b> {{item.tmvdescricao}}</p>
+          <p><b>Tipo de ocorrência:</b> {{item.tcodescricao}}</p>
+          <p><b>Região:</b> {{item.tmudenominacao}} - {{item.tmuuf}}</p>
+          <p><b>Unidade Operacional:</b> {{item.unidenominacao}} ({{item.ttudescricao}})</p>
+          <p><b>Endereço da Unidade Operacional:</b> {{item.uniendereco}}</p>
+          <hr>  
+        {% endfor %}
       </div>
     </div>
   </div>
 
   <div class="large-3 pull-9 columns">
     <div class="docs section-container accordion" data-section="accordion" data-section-small-style="true">
-      <section class="section ">
+      {% if tipo_consulta == 'regiao' %}
+      <section class="section active">
+      {% else %}
+      <section class="section">
+      {% endif %}
         <p class="title"><a href="#">Região</a></p>
         <div class="content">
           <ul class="side-nav">
-            <li>Cidade:<a href="#">Brasília</a></li>
-            <li>UF:<a href="#">DF</a></li>
+            <li>Cidade:<a href="#">{{dados_especificos.cidade}}</a></li>
+            <li>UF:<a href="#">{{dados_especificos.uf}}</a></li>
           </ul>
         </div>
       </section>
 
-      <section class="section ">
+      {% if tipo_consulta == 'periodo' %}
+      <section class="section active">
+      {% else %}
+      <section class="section">
+      {% endif %}
       <p class="title"><a href="#">Periodo</a></p>
       <div class="content">
         <ul class="side-nav">
-          <li>Cidade:<a href="#">Brasília</a></li>
-          <li>UF:<a href="#">DF</a></li>
+          <li>De:<a href="#">XX</a></li>
+          <li>Até:<a href="#">XX</a></li>
         </ul>
       </div>
       </section>
 
-      <section class="section ">
+      {% if tipo_consulta == 'pessoa' %}
+      <section class="section active">
+      {% else %}
+      <section class="section">
+      {% endif %}
       <p class="title"><a href="#">Pessoa envolvida</a></p>
       <div class="content">
         <ul class="side-nav">
-          <li>Cidade:<a href="#">Brasília</a></li>
-          <li>UF:<a href="#">DF</a></li>
+          <li>Nome:<a href="#">XX</a></li>
         </ul>
       </div>
       </section>
 
-      <section class="section ">
+      {% if tipo_consulta == 'rodovia' %}
+      <section class="section active">
+      {% else %}
+      <section class="section">
+      {% endif %}
       <p class="title"><a href="#">Rodovia</a></p>
       <div class="content">
         <ul class="side-nav">
-          <li>Cidade:<a href="#">Brasília</a></li>
-          <li>UF:<a href="#">DF</a></li>
+          <li>BR:<a href="#">XX</a></li>
         </ul>
       </div>
       </section>

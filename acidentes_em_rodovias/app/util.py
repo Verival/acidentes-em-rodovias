@@ -8,7 +8,6 @@ def get_connection():
 		connection = MySQLdb.connect(myconfiguration.HOST, myconfiguration.DB_USER, 
 			myconfiguration.DB_PASS, myconfiguration.DB)	# Aqui inicia a conexão com o Banco.
 		if connection:
-			print "\nException\n"
 			return connection
 		else:
 			raise Exception("Erro na conexão com o Banco de Dados")

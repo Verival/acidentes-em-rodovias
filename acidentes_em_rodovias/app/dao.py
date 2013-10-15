@@ -50,10 +50,10 @@ class DAO():
 			return util.transforma_para_objeto(dados, self.modelo)
 		return []
 	
-	#coletando warnings	
-	with warnings.catch_warnings(record=True) as w:
-		print "Utilizando método não recomendado."
-		t=raw_input("PRESS ENTER TO CONTINUE.\n")
+		#coletando warnings	
+		with warnings.catch_warnings(record=True) as w:
+			print "Utilizando método não recomendado."
+			t=raw_input("PRESS ENTER TO CONTINUE.\n")
 		
 class MunicipioDAO(DAO):
 	def __init__(self):
@@ -86,19 +86,70 @@ class OcorrenciaDAO(DAO):
 			ret.append( util.transforma_para_objeto(dados, self.modelo))
 		return ret
 
+class OcorrenciaResultadosDAO():
+	def __init__(self):
+		self.modelo = "OcorrenciaResultados"
+		self.connection = util.get_connection()
+		
+	def consulta_por_municipio(self, municipio_id, limit=0):
+		if(limit !=0):
+			limit = "LIMIT " + str(limit)
+		else:
+			limit = ''
+		query = """
+		SELECT oco.ocoid,
+		oco.ocodataocorrencia, 
+		oco.ocodataregistro, 
+		mun.tmuuf, 
+		mun.tmudenominacao, 
+		uo.unidenominacao, 
+		uo.uniendereco, 
+		tuo.ttudescricao, 
+		mvei.tmvdescricao, 
+		tco.tcodescricao
+
+		FROM ocorrencia oco, 
+		municipio mun, 
+		unidadeoperacional uo, 
+		tipounidadeoperacional tuo, 
+		ocorrenciaveiculo ocov,
+		veiculo vei,
+		marcadeveiculo mvei,
+		tipoComunicacao tco
+
+		WHERE oco.ocomunicipio = mun.tmucodigo
+		AND mun.tmucodigo = %d
+		AND oco.ocotipo = tco.tcocodigo
+		AND uo.unimunicipio = mun.tmucodigo  
+		AND uo.unittucodigo = tuo.ttucodigo 
+		AND ocov.ocvocoid = oco.ocoid 
+		AND vei.veiid = ocov.ocvveiid
+		AND mvei.tmvcodigo = vei.veitmvcodigo 
+
+		%s
+		""" % (municipio_id, limit)
+		
+		dados = psql.frame_query(query,con=self.connection).to_dict()
+
+		return util.transforma_para_objeto(dados, self.modelo)
+
 if __name__ == "__main__":
-	#consulta municípios do Espirito Santo
-	mun = MunicipioDAO()	
-	for i in mun.consulta_por_uf('ES',5):
+	dao = OcorrenciaResultadosDAO()
+	dados = dao.consulta_por_municipio(132, 100)
+	for i in dados:
 		print i
+	# #consulta municípios do Espirito Santo
+	# mun = MunicipioDAO()	
+	# for i in mun.consulta_por_uf('ES',5):
+	# 	print i
 	
-	#testa método depreciado
-	mun.troca_tabela("ocorrencia")
+	# #testa método depreciado
+	# mun.troca_tabela("ocorrencia")
 	
-	#consulta ocorrências do Espirito Santo
-	oco = OcorrenciaDAO()
-	for ocorrencias_es in oco.consulta_por_uf('ES',3): # Consulta de no máximo 10 por município
-		for j in ocorrencias_es: # Nas ocorrências do Espirito Santo
-			if (j.ocomunicipio== 56839): # Filtra apenas os que aconteceram em PIUMA
-				print j
+	# #consulta ocorrências do Espirito Santo
+	# oco = OcorrenciaDAO()
+	# for ocorrencias_es in oco.consulta_por_uf('ES',3): # Consulta de no máximo 10 por município
+	# 	for j in ocorrencias_es: # Nas ocorrências do Espirito Santo
+	# 		if (j.ocomunicipio== 56839): # Filtra apenas os que aconteceram em PIUMA
+	# 			print j
 	

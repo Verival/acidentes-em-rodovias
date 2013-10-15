@@ -248,7 +248,20 @@ class veiculo(Entidade):
                 self.veitipoplaca = ""
 
 class tipocomunicacao(Entidade):
-        def __innit__(self):
+        def __init__(self):
                 self.tcocodigo = 0
                 self.tcodescricao = ""
                 self.tcoatualiza = ""
+
+class OcorrenciaResultados(Entidade):
+        def __init__(self):
+                ocoid = 0
+                ocodataocorrencia = ""
+                ocodataregistro = "" 
+                tmuuf = ""
+                tmudenominacao = ""
+                unidenominacao = ""
+                uniendereco = ""
+                ttudescricao = "" 
+                tmvdescricao = ""
+                tcodescricao = ""
