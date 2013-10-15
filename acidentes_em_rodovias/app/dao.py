@@ -2,6 +2,7 @@
 
 #Codigo de Exemplo para uso do MySQLdb
 
+import warnings
 import util
 import pandas.io.sql as psql
 
@@ -26,6 +27,7 @@ class DAO():
 			print "Existentes:\n " + str(self.keys)
 			
 	def troca_tabela(self, modelo):
+		warnings.warn("Deprecated", DeprecationWarning)
 		try:
 			minimos = [i.lower() for i in self.keys]
 			if modelo in minimos:
@@ -36,7 +38,6 @@ class DAO():
 		except Exception, ex:
 			print ex
 			print "Existentes:\n " + str(self.keys)
-			
 	
 	def consulta_todos(self,limit=0):
 		if(self.modelo != ''):
@@ -48,6 +49,11 @@ class DAO():
 			dados = psql.frame_query(query,con=self.connection).to_dict()
 			return util.transforma_para_objeto(dados, self.modelo)
 		return []
+	
+	#coletando warnings	
+	with warnings.catch_warnings(record=True) as w:
+		print "Utilizando método não recomendado."
+		t=raw_input("PRESS ENTER TO CONTINUE.\n")
 		
 class MunicipioDAO(DAO):
 	def __init__(self):
@@ -83,8 +89,11 @@ class OcorrenciaDAO(DAO):
 if __name__ == "__main__":
 	#consulta municípios do Espirito Santo
 	mun = MunicipioDAO()	
-	for i in mun.consulta_por_uf('ES',10):
+	for i in mun.consulta_por_uf('ES',5):
 		print i
+	
+	#testa método depreciado
+	mun.troca_tabela("ocorrencia")
 	
 	#consulta ocorrências do Espirito Santo
 	oco = OcorrenciaDAO()
