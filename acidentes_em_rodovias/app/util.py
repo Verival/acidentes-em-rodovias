@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 import MySQLdb
 import myconfiguration
-import models
+import model.models
 
 def get_connection():
 	try:
