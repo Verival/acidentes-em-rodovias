@@ -26,19 +26,6 @@ class DAO():
 			print ex
 			print "Existentes:\n " + str(self.keys)
 			
-	def troca_tabela(self, modelo):
-		warnings.warn("Deprecated", DeprecationWarning)
-		try:
-			minimos = [i.lower() for i in self.keys]
-			if modelo in minimos:
-				self.modelo = self.keys[minimos.index(modelo)]
-			else:
-				self.modelo=''
-				raise Exception("Tabela " + modelo + " não existente")
-		except Exception, ex:
-			print ex
-			print "Existentes:\n " + str(self.keys)
-	
 	def consulta_todos(self,limit=0):
 		if(self.modelo != ''):
 			if(limit !=0):

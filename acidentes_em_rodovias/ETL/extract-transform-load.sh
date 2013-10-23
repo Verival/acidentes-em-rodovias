@@ -9,16 +9,11 @@
 #		$DATA_DIR/** rw,
 #	sudo /etc/init.d/apparmor restart
 #	sudo service mysql restart
-# 2) Crie uma base de dados no MySQL com o nome 'acidentes_rodovias' e coloque o collation dele como utf8_bin
+# 2) Crie uma base de dados no MySQL com o nome 'acidentes_rodovias' e coloque o collation dele como latin1_general_ci
 # 3) Caso já tenha os arquivos *.zip baixados, comente a linha que da 'wget' neles e coloque os arquivos em $DATA_DIR/acidentes_rodovias/zips (crie as pastas caso elas não existam)
 # 4) Execute o programa:
 #	Uso: ./extract-transform-load.sh <BD_USER> <BD_PASS> <DATA_DIR>
-#	Ex: ./extract-transform-load.sh root 123456 /tmp
-
-# TODO: 
-#	- Fazer um log
-#	- Receber parametros para definir quais operacoes serao feitas (so extrair? so transformar? so carregar? tudo junto?)
-#	- Verificar conexao com a internet caso queira baixar os arquivos
+#	Exemplo: ./extract-transform-load.sh root 123456 /tmp
 
 DB_USER=$1
 DB_PASS=$2
@@ -81,17 +76,17 @@ function load_non_biannual_data {
 	do
 		echo -e "\nLoading non-biannual table \"$TABLE\" data..."
 		FILE="$WORK_DIR/$TABLE.csv"
-		QUERY="LOAD DATA INFILE '$FILE' IGNORE INTO TABLE \`$TABLE\` CHARACTER SET utf8 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES;"
+		QUERY="LOAD DATA INFILE '$FILE' IGNORE INTO TABLE \`$TABLE\` CHARACTER SET latin1 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES;"
 		mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias -e "$QUERY"
 	done
 }
 
 function load_domain_data {
-	for TABLE in corveiculo localbr estadofisico marcadeveiculo municipio tipoAcidente tipoApreensao tipoAreaEspecial tipoComunicacao tipocrime tipodetencao tipodocumento tipoenvolvido tipolocalidade tipoobra tipopontomedico tipopontonotavel tiporeceptor tiposinalizacao tipounidadeoperacional tipoveiculo uf unidadeoperacional causaacidente
+	for TABLE in corveiculo localbr estadofisico marcadeveiculo municipio tipoAcidente tipoApreensao tipoAreaEspecial tipoComunicacao tipocrime tipodetencao tipodocumento tipoenvolvido tipolocalidade tipoobra tipopontomedico tipopontonotavel tiporeceptor tiposinalizacao tipounidadeoperacional tipoveiculo uf unidadeoperacional causaacidente paises pnv
 	do
 		echo -e "\nLoading domain table \"$TABLE\" data..."
 		FILE="$WORK_DIR/$TABLE.csv"
-		QUERY="LOAD DATA INFILE '$FILE' IGNORE INTO TABLE \`$TABLE\` CHARACTER SET utf8 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES;"
+		QUERY="LOAD DATA INFILE '$FILE' IGNORE INTO TABLE \`$TABLE\` CHARACTER SET latin1 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES;"
 		mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias -e "$QUERY"
 	done
 }
@@ -117,7 +112,7 @@ function load_biannual_data {
 		for (( i=0; i < ${#YEARS[@]}; i++ ))
 		do
 			FILE="$WORK_DIR/brbrasil_${HALFS[$i]}_semestre_${YEARS[$i]}/${TABLE}_${HALFS[$i]}_Semestre_${YEARS[$i]}.csv"
-			QUERY="LOAD DATA INFILE '$FILE' IGNORE INTO TABLE \`$TABLE\` CHARACTER SET utf8 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES SET \`sem\` = ${HALFS[$i]}, \`ano\` = ${YEARS[$i]};"
+			QUERY="LOAD DATA INFILE '$FILE' IGNORE INTO TABLE \`$TABLE\` CHARACTER SET latin1 FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 LINES SET \`sem\` = ${HALFS[$i]}, \`ano\` = ${YEARS[$i]};"
 			echo "Loading ${HALFS[$i]}-${YEARS[$i]}"
 			mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias -e "$QUERY"
 		done
