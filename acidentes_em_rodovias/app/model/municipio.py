@@ -28,9 +28,13 @@ class Municipio:
 
 		return lista_municipio
 
-	def consultar_banco(self):
-		dao = MunicipioDAO()
-		resultado_query = dao.listar_ocorrencias(35, 5)
+	def consultar_banco(self, municipio):
+		if(len(sys.argv)>1):
+			municipioDAO = MunicipioDAO(sys.argv[1])
+		else:
+			municipioDAO = MunicipioDAO()
+
+		resultado_query = municipioDAO.listar_ocorrencias(municipio, 5)
 
 		return  self.transforma_em_objeto(resultado_query)
 
@@ -41,5 +45,5 @@ class Municipio:
 if __name__ == '__main__':
 	municipio = Municipio()
 	
-	for i in municipio.consultar_banco():
+	for i in municipio.consultar_banco(35):
 		print i
