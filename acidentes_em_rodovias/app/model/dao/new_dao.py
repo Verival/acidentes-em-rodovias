@@ -11,20 +11,24 @@ class DAO:
 		self.senha = senha
 		self.database = 'acidentes_rodovias'
 		self.host = 'localhost'
-
+		self.conexao = None
 	def inicia_conexao(self):
 		try:
 			self.conexao = MySQLdb.connect(self.host, self.usuario, self.senha)
 			self.conexao.select_db(self.database)
 		except:
-			self.conexao.rollback()
+			if(self.conexao):
+				self.conexao.rollback()
+			print "Falha de conexão"
 
 	def executa_query(self, query):
 		try:
 			cursor = self.conexao.cursor()
 			cursor.execute(query)
 		except:
-			self.conexao.rollback()
+			if(self.conexao):
+				self.conexao.rollback()
+			print "Falha na query"
 		else:
 			return cursor.fetchall()
 
