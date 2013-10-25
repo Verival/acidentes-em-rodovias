@@ -6,7 +6,7 @@ sys.path.append(current_path)
 import MySQLdb
 
 class DAO:
-	def __init__(self, senha = '1234'):
+	def __init__(self, senha='12345'):
 		self.usuario = 'root'
 		self.senha = senha
 		self.database = 'acidentes_rodovias'

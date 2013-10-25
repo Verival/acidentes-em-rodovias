@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
+import sys
 
-from new_dao import DAO
+from dao import DAO
 
-class MunicipioDAO:
-	def __init__(self):
-		pass
-
+class MunicipioDAO(DAO):
 	def listar_ocorrencias(self, municipio, limite=0):
 		if(limite != 0):
 			limite = 'LIMIT %s' %limite
 		else:
 			limite = ''
 
-		dao = DAO()
-		dao.inicia_conexao()
+		self.inicia_conexao()
 
 		query = """SELECT tcodescricao, ocodataregistro, tmvdescricao, unidenominacao, ocodataocorrencia, uniendereco,
 				ttudescricao, tmuuf, ocoid, tmudenominacao
@@ -25,9 +22,13 @@ class MunicipioDAO:
 				AND unimunicipio = tmucodigo AND unittucodigo = ttucodigo AND ocvocoid = ocoid
 				AND veiid = ocvveiid AND tmvcodigo = veitmvcodigo  %s;""" %(municipio,limite)
 
-		return dao.executa_query(query)
+		return self.executa_query(query)
 
 
 if __name__ == '__main__':
-	ocorrencia = MunicipioDAO()
-	print ocorrencia.listar_ocorrencias(35, 5)
+	if(len(sys.argv)>1):
+		dao = MunicipioDAO(sys.argv[1])
+	else:
+		dao = MunicipioDAO()
+
+	print dao.listar_ocorrencias(35, 5)
