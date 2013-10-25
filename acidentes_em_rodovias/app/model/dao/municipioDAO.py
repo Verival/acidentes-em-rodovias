@@ -27,8 +27,8 @@ class MunicipioDAO(DAO):
 
 if __name__ == '__main__':
 	if(len(sys.argv)>1):
-		dao = MunicipioDAO(sys.argv[1])
+		municipio = MunicipioDAO(sys.argv[1])
 	else:
-		dao = MunicipioDAO()
+		municipio = MunicipioDAO()
 
-	print dao.listar_ocorrencias(35, 5)
+	print municipio.listar_ocorrencias(35, 5)
