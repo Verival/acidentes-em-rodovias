@@ -6,7 +6,12 @@ class MunicipioDAO:
 	def __init__(self):
 		pass
 
-	def listar_ocorrencias(self):
+	def listar_ocorrencias(self, municipio, limite=0):
+		if(limite != 0):
+			limite = 'LIMIT %s' %limite
+		else:
+			limite = ''
+
 		dao = DAO()
 		dao.inicia_conexao()
 
@@ -16,14 +21,13 @@ class MunicipioDAO:
 				FROM ocorrencia, ocorrenciaveiculo, marcadeveiculo, tipoComunicacao, municipio, unidadeoperacional,
 				tipounidadeoperacional, veiculo
 	
-				WHERE ocomunicipio = tmucodigo AND tmucodigo = 35 AND ocotipo = tcocodigo
+				WHERE ocomunicipio = tmucodigo AND tmucodigo = %s AND ocotipo = tcocodigo
 				AND unimunicipio = tmucodigo AND unittucodigo = ttucodigo AND ocvocoid = ocoid
-				AND veiid = ocvveiid AND tmvcodigo = veitmvcodigo
-				LIMIT 5;"""
+				AND veiid = ocvveiid AND tmvcodigo = veitmvcodigo  %s;""" %(municipio,limite)
 
 		return dao.executa_query(query)
 
 
 if __name__ == '__main__':
 	ocorrencia = MunicipioDAO()
-	print ocorrencia.listar_ocorrencias()
+	print ocorrencia.listar_ocorrencias(35, 5)
