@@ -18,7 +18,7 @@ CREATE TABLE `ocorrencia`
 `ano` INT(11) unsigned ,
 PRIMARY KEY (`ocoid`, `sem`, `ano`)
 ) 
-ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `ocorrenciaacidente`;
 CREATE TABLE `ocorrenciaacidente`
@@ -50,7 +50,7 @@ CREATE TABLE `ocorrenciaacidente`
 `sem` INT(11) unsigned ,
 `ano` INT(11) unsigned ,
 PRIMARY KEY (`oacocoid`, `sem`, `ano`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `ocorrenciaPessoa`;
 CREATE TABLE `ocorrenciaPessoa`
@@ -71,7 +71,7 @@ CREATE TABLE `ocorrenciaPessoa`
  -- CONSTRAINT FOREIGN KEY (`opeocoid`, `sem`, `ano`) REFERENCES `ocorrencia` (`ocoid`, `sem`, `ano`),
  -- CONSTRAINT FOREIGN KEY (`opepesid`, `sem`, `ano`) REFERENCES `pessoa` (`pesid`, `sem`, `ano`),
  -- CONSTRAINT FOREIGN KEY (`opettecodigo`) REFERENCES `tipoenvolvido` (`ttecodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `pessoa`;
 CREATE TABLE `pessoa`
@@ -116,7 +116,7 @@ CREATE TABLE `pessoa`
 `pestclcodigo` VARCHAR(255) , 
 `pesoenid` VARCHAR(255) ,
  PRIMARY KEY (`pesid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `causaacidente`;
 CREATE TABLE `causaacidente`
@@ -124,7 +124,7 @@ CREATE TABLE `causaacidente`
 `tcacodigo` INT(11) NOT NULL, 
 `tcadescricao` VARCHAR(255),
 PRIMARY KEY(`tcacodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `unidadeoperacional`;
 CREATE TABLE `unidadeoperacional`
@@ -147,7 +147,7 @@ CREATE TABLE `unidadeoperacional`
 `unihelicoptero` VARCHAR(255),
 `unitexto` VARCHAR(255),
 PRIMARY KEY(`uniid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `uf`;
 CREATE TABLE `uf`
@@ -155,7 +155,7 @@ CREATE TABLE `uf`
 `tufuf` VARCHAR(2) NOT NULL, 
 `tufdenominacao` VARCHAR(255),
 PRIMARY KEY(`tufuf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `veiculo`;
 CREATE TABLE `veiculo`
@@ -181,7 +181,7 @@ CREATE TABLE `veiculo`
 `veisequencial` INT(11),
 `veitipoplaca` VARCHAR(255),
 PRIMARY KEY(`veiid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `corveiculo`;
 CREATE TABLE `corveiculo`
@@ -190,7 +190,7 @@ CREATE TABLE `corveiculo`
 `tcedescricao` VARCHAR(255) , 
 `tceatualiza` VARCHAR(255) 
 , PRIMARY KEY (`tcecodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci; 
 
 DROP TABLE IF EXISTS `localbr`;
 CREATE TABLE `localbr`
@@ -204,7 +204,7 @@ CREATE TABLE `localbr`
 `lbrpnvid` INT(11) unsigned , 
 `lbratualiza` VARCHAR(255) 
 , PRIMARY KEY (`lbrid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci; 
 
 DROP TABLE IF EXISTS `marcadeveiculo`;
 CREATE TABLE `marcadeveiculo`
@@ -213,7 +213,7 @@ CREATE TABLE `marcadeveiculo`
 `tmvdescricao` VARCHAR(255) , 
 `tmvatualiza` VARCHAR(255) 
 , PRIMARY KEY (`tmvcodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci; 
 
 DROP TABLE IF EXISTS `municipio`;
 CREATE TABLE `municipio`
@@ -222,7 +222,7 @@ CREATE TABLE `municipio`
 `tmudenominacao` VARCHAR(255) , 
 `tmuuf` VARCHAR(255) 
 , PRIMARY KEY (`tmucodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci; 
 
 DROP TABLE IF EXISTS `estadofisico`;
 CREATE TABLE IF NOT EXISTS `estadofisico`
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `estadofisico`
 `esid` INT(11) unsigned NOT NULL, 
 `estadofisico` VARCHAR(255)
 , PRIMARY KEY (`esid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci; 
 
 DROP TABLE IF EXISTS `ocorrenciaveiculo`;
 CREATE TABLE `ocorrenciaveiculo`
@@ -239,7 +239,7 @@ CREATE TABLE `ocorrenciaveiculo`
 `ocvocoid` INT(11) unsigned , 
 `ocvveiid` INT(11) unsigned
 , PRIMARY KEY (`ocvid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci; 
 
 
 DROP TABLE IF EXISTS `tipoAcidente`;
@@ -251,7 +251,7 @@ CREATE TABLE `tipoAcidente`
 `ttarelacidente` VARCHAR(255) ,
 `ttaativo` VARCHAR(255) ,
 PRIMARY KEY(`ttacodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipoApreensao`;
 CREATE TABLE `tipoApreensao`
@@ -260,7 +260,7 @@ CREATE TABLE `tipoApreensao`
 `ttpdescricao` VARCHAR(255) ,
 `ttpatualiza` VARCHAR(255) ,
 PRIMARY KEY(`ttpcodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipoAreaEspecial`;
 CREATE TABLE `tipoAreaEspecial`
@@ -269,7 +269,7 @@ CREATE TABLE `tipoAreaEspecial`
 `taedescricao` VARCHAR(255) ,
 `taeatualiza` VARCHAR(255) ,
 PRIMARY KEY(`taecodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipoComunicacao`;
 CREATE TABLE `tipoComunicacao`
@@ -278,7 +278,7 @@ CREATE TABLE `tipoComunicacao`
 `tcodescricao` VARCHAR(255) ,
 `tcoatualiza` VARCHAR(255) ,
 PRIMARY KEY(`tcocodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipocrime`;
 CREATE TABLE `tipocrime`
@@ -287,7 +287,7 @@ CREATE TABLE `tipocrime`
 `ttcdescricao` VARCHAR(255) ,
 `ttcatualiza` VARCHAR(255) ,
 PRIMARY KEY(`ttccodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipodetencao`;
 CREATE TABLE `tipodetencao`
@@ -297,7 +297,7 @@ CREATE TABLE `tipodetencao`
 `ttdatualiza` VARCHAR(255) ,
 `ttdrelacidente` VARCHAR(255) ,
 PRIMARY KEY(`ttdcodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipodocumento`;
 CREATE TABLE `tipodocumento`
@@ -308,7 +308,7 @@ CREATE TABLE `tipodocumento`
 `ttorelapreensao` VARCHAR(255) ,
 `ttorelrecuperacao` VARCHAR(255) ,
 PRIMARY KEY(`ttocodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipoenvolvido`;
 CREATE TABLE `tipoenvolvido`
@@ -318,7 +318,7 @@ CREATE TABLE `tipoenvolvido`
 `tteatualiza` VARCHAR(255) ,
 `tteativo` VARCHAR(255) ,
 PRIMARY KEY(`ttecodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipolocalidade`;
 CREATE TABLE `tipolocalidade`
@@ -327,7 +327,7 @@ CREATE TABLE `tipolocalidade`
 `ttldescricao` VARCHAR(255) ,
 `ttlatualiza` VARCHAR(255) ,
 PRIMARY KEY(`ttlcodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipoobra`;
 CREATE TABLE `tipoobra`
@@ -336,7 +336,7 @@ CREATE TABLE `tipoobra`
 `ttbdescricao` VARCHAR(255) ,
 `ttbatualiza` VARCHAR(255) ,
 PRIMARY KEY(`ttbcodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipopontomedico`;
 CREATE TABLE `tipopontomedico`
@@ -345,7 +345,7 @@ CREATE TABLE `tipopontomedico`
 `ttmdescricao` VARCHAR(255) ,
 `ttmatualiza` VARCHAR(255) ,
 PRIMARY KEY(`ttmcodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipopontonotavel`;
 CREATE TABLE `tipopontonotavel`
@@ -354,7 +354,7 @@ CREATE TABLE `tipopontonotavel`
 `ttndescricao` VARCHAR(255) ,
 `ttnatualiza` VARCHAR(255) ,
 PRIMARY KEY(`ttncodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tiporeceptor`;
 CREATE TABLE `tiporeceptor`
@@ -364,7 +364,7 @@ CREATE TABLE `tiporeceptor`
 `ttratualiza` VARCHAR(255) ,
 `ttrdelegacia` VARCHAR(255) ,
 PRIMARY KEY(`ttrcodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tiposinalizacao`;
 CREATE TABLE `tiposinalizacao`
@@ -373,7 +373,7 @@ CREATE TABLE `tiposinalizacao`
 `ttsdescricao` VARCHAR(255) ,
 `ttsatualiza` VARCHAR(255) ,
 PRIMARY KEY(`ttscodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipounidadeoperacional`;
 CREATE TABLE `tipounidadeoperacional`
@@ -382,7 +382,7 @@ CREATE TABLE `tipounidadeoperacional`
 `ttudescricao` VARCHAR(255) ,
 `ttuatualiza` VARCHAR(255) ,
 PRIMARY KEY(`ttucodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `tipoveiculo`;
 CREATE TABLE `tipoveiculo`
@@ -393,6 +393,30 @@ CREATE TABLE `tipoveiculo`
 `tvvrelacidente` VARCHAR(255) ,
 `tvvativo` VARCHAR(255) ,
 PRIMARY KEY(`tvvcodigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+DROP TABLE IF EXISTS `pnv`;
+CREATE TABLE `pnv`
+(
+`pnv_id` INT(11) unsigned NOT NULL, 
+`codigo` VARCHAR(255) ,
+`descricao_dnit` VARCHAR(255) ,
+`descricao_dprf` VARCHAR(255) ,
+`br` INT(11) unsigned ,
+`uf` VARCHAR(2) ,
+`km_inicial` INT(11) unsigned , 
+`km_fim` INT(11) unsigned , 
+`extensao` INT(11) unsigned , 
+`superficie_br` VARCHAR(255) ,
+PRIMARY KEY(`pnv_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+DROP TABLE IF EXISTS `paises`;
+CREATE TABLE `paises`
+(
+`tpacodigo` INT(11) unsigned NOT NULL,
+`tpadescricao` VARCHAR(255) ,
+PRIMARY KEY(`tpacodigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 SET FOREIGN_KEY_CHECKS=1;
