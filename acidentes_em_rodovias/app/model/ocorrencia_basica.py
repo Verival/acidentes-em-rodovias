@@ -9,6 +9,7 @@ class OcorrenciaBasica:
 		self.tmuuf = ''
 		self.tcodescricao = ''
 		self.ttadescricao = ''
+		self.tcadescricao = ''
 		self.lbrbr = ''
 		self.tmvdescricao = ''
 		self.tvvdescricao = ''
