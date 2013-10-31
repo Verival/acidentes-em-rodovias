@@ -48,6 +48,13 @@ class GenericoDAO:
 
 		return lista_objetos
 
+	def transforma_formato_da_data(self, data):
+		dia = data[3:5]
+		mes = data[:2]
+		ano = data[6:]
+
+		return ano + '-' + mes + '-' + dia
+
 if __name__ == "__main__":
 	dao = UfDAO()
 	for i in dao.lista_ufs():

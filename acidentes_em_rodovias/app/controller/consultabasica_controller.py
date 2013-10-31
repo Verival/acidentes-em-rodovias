@@ -32,7 +32,7 @@ def consulta_ocorrencias_por_municipio(request):
 	municipio_id = int(request.GET['municipio_id'])
 
 	ocorrencia_dao = OcorrenciaBasicaDAO()
-	ocorrencia_list = ocorrencia_dao.lista_ocorrencias(municipio_id, 1000)
+	ocorrencia_list = ocorrencia_dao.lista_ocorrencias_por_regiao(municipio_id, 1000)
 
 	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'regiao'}, context_instance=RequestContext(request))
 
