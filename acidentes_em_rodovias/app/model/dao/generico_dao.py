@@ -6,7 +6,7 @@ sys.path.append(current_path)
 import myconfiguration
 import MySQLdb
 import pandas.io.sql as psql
-from uf_dao import *
+#from uf_dao import *
 import importlib
 
 class GenericoDAO:

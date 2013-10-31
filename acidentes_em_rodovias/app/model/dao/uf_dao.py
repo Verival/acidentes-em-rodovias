@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from generico_dao import GenericoDAO
-from model.uf import *
+#from model.uf import *
 
 class UfDAO(GenericoDAO):
 	def lista_ufs(self, limite=0):

@@ -58,6 +58,7 @@
         <div class="row">
           <div class="large-4 columns">
             <select name="uf_id" id="customDropdown">
+                <option>Selecione um estado...</option>
                 {% for uf in uf_list %}
                       <option value="{{uf.tufuf}}">{{uf.tufdenominacao}}</option>
                 {%endfor%}
@@ -65,7 +66,7 @@
           </div>
 
           <div class="large-4 columns">
-            <button class="button postfix">Buscar</button>
+            <button class="button postfix">Buscar Municipios</button>
           </div>
       </div>
     </form>
