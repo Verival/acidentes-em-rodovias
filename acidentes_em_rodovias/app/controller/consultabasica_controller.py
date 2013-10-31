@@ -33,17 +33,22 @@ def consulta_ocorrencias_por_municipio(request):
 
 	ocorrencia_dao = OcorrenciaBasicaDAO()
 	ocorrencia_list = ocorrencia_dao.lista_ocorrencias_por_regiao(municipio_id, 1000)
+	municipio = ocorrencia_list[0].tmudenominacao
+	uf = ocorrencia_list[0].tmuuf
 
-	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'regiao'}, context_instance=RequestContext(request))
+	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'regiao', 'municipio' : municipio , 'uf' : uf}, context_instance=RequestContext(request))
 
 def consulta_ocorrencias_por_periodo(request):
 	data_inicio = str(request.GET['data_inicio'])
 	data_fim = str(request.GET['data_fim'])
 
 	ocorrencia_dao = OcorrenciaBasicaDAO()
+	data_inicio = ocorrencia_dao.transforma_formato_da_data(data_inicio)
+	data_fim = ocorrencia_dao.transforma_formato_da_data(data_fim)
+
 	ocorrencia_list = ocorrencia_dao.lista_ocorrencias_por_periodo(data_inicio, data_fim, 1000)
 
-    	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'periodo'}, context_instance=RequestContext(request))
+    	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'periodo', 'data_inicio' : data_inicio, 'data_fim' : data_fim}, context_instance=RequestContext(request))
 
 def consulta_por_periodo(request):
 	return render_to_response("periodo.html", context_instance=RequestContext(request))

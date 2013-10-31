@@ -35,8 +35,8 @@ class OcorrenciaBasicaDAO(GenericoDAO):
 		else:
 			limite = ''
 
-		data_inicio = self.transforma_formato_da_data(data_inicio) + ' 00:00:00'
-		data_fim = self.transforma_formato_da_data(data_fim) + ' 23:59:59'
+		data_inicio = data_inicio + ' 00:00:00'
+		data_fim = data_fim + ' 23:59:59'
 
 		query = """SELECT oco.ocoid, oco.ocodataocorrencia, oco.ocodataregistro, 
 				tmu.tmudenominacao, tmu.tmuuf, tco.tcodescricao, tta.ttadescricao,
