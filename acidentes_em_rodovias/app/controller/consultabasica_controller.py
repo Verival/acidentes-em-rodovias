@@ -36,8 +36,17 @@ def consulta_ocorrencias_por_municipio(request):
 
 	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'regiao'}, context_instance=RequestContext(request))
 
+def consulta_ocorrencias_por_periodo(request):
+	data_inicio = str(request.GET['data_inicio'])
+	data_fim = str(request.GET['data_fim'])
+
+	ocorrencia_dao = OcorrenciaBasicaDAO()
+	ocorrencia_list = ocorrencia_dao.lista_ocorrencias_por_periodo(data_inicio, data_fim, 1000)
+
+    	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'periodo'}, context_instance=RequestContext(request))
+
 def consulta_por_periodo(request):
-    return render_to_response("periodo.html", context_instance=RequestContext(request))
+	return render_to_response("periodo.html", context_instance=RequestContext(request))
 
 def consulta_por_rodovia(request):
     return render_to_response("rodovia.html", context_instance=RequestContext(request))
