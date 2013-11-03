@@ -25,14 +25,14 @@ class GenericoDAO:
 			conexao = MySQLdb.connect(self.host, self.usuario, self.senha, self.database)
 			return conexao
 		except:
-			print "Falha de conexão"
+			sys.stderr.write("Falha de conexão")
 			return None
 
 	def executa_query(self, query):
 		try:
 			return psql.frame_query(query, con=self.conexao).to_dict()
 		except:
-			print "Falha na query"
+			sys.stderr.write("Falha na query")
 			return None
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
@@ -52,8 +52,4 @@ class GenericoDAO:
 			lista_objetos.append(instancia)
 
 		return lista_objetos
-
-if __name__ == "__main__":
-	dao = UfDAO()
-	for i in dao.lista_ufs():
-		print i.tufdenominacao
+		

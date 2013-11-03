@@ -29,16 +29,16 @@ class TestDAO(SimpleTestCase):
     def test_existing_dao_instance(self):
         self.assertIsNotNone(self.dao)
         
-	def test_get_conexao(self):
-		self.dao.database = ''
-		self.dao.usuario = ''
-		self.dao.senha = ''
-		self.dao.host = ''
+    def test_get_conexao(self):
+		self.dao.database = ' '
+		self.dao.usuario = ' '
+		self.dao.senha = ' '
+		self.dao.host = ' '
 		self.assertIsNone(self.dao.get_conexao())
 		
-	def test_execute_query(self):
-		self.self.dao.conexao = ''
-		self.assertIsNone(self.dao.executa_query())
+    def test_try_query(self):
+		self.dao.conexao = ''
+		self.assertIsNone(self.dao.executa_query("show tables"))
 		
 	
 
