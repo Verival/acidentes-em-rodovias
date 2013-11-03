@@ -26,12 +26,14 @@ class GenericoDAO:
 			return conexao
 		except:
 			print "Falha de conexão"
+			return None
 
 	def executa_query(self, query):
 		try:
 			return psql.frame_query(query, con=self.conexao).to_dict()
 		except:
 			print "Falha na query"
+			return None
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
 		modulo_classe = importlib.import_module("models." + nome_modulo)
@@ -50,13 +52,6 @@ class GenericoDAO:
 			lista_objetos.append(instancia)
 
 		return lista_objetos
-
-	def transforma_formato_da_data(self, data):
-		dia = data[3:5]
-		mes = data[:2]
-		ano = data[6:]
-
-		return ano + '-' + mes + '-' + dia
 
 if __name__ == "__main__":
 	dao = UfDAO()

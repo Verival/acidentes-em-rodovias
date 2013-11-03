@@ -52,7 +52,10 @@ class OcorrenciaBasicaDAO(GenericoDAO):
 				INNER JOIN veiculo vei ON ocv.ocvveiid = vei.veiid
 				INNER JOIN marcadeveiculo tmv ON vei.veitmvcodigo = tmv.tmvcodigo
 				INNER JOIN tipoveiculo tvv ON vei.veitvvcodigo = tvv.tvvcodigo
-				WHERE oco.ocodataocorrencia > '%s' AND oco.ocodataocorrencia < '%s'
-				%s;""" %(data_inicio, data_fim, limite)
+				WHERE oco.ocodataocorrencia >= STR_TO_DATE('{0}', '%d/%m/%Y %H:%i:%s') 
+				AND oco.ocodataocorrencia <= STR_TO_DATE('{1}', '%d/%m/%Y %H:%i:%s')
+				{2}
+				;""".format(data_inicio, data_fim, limite)
+
 
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), "OcorrenciaBasica", "ocorrencia_basica")

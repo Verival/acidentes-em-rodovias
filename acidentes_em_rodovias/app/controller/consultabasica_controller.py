@@ -7,9 +7,9 @@ sys.path.append(parent_dir)
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from model.dao.uf_dao import *
-from model.dao.municipio_dao import *
-from model.dao.ocorrencia_basica_dao import *
+from models.dao.uf_dao import *
+from models.dao.municipio_dao import *
+from models.dao.ocorrencia_basica_dao import *
 
 def index(request):
 	return render_to_response("index.html", context_instance=RequestContext(request))	
@@ -38,20 +38,14 @@ def consulta_ocorrencias_por_municipio(request):
 
 	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'regiao', 'municipio' : municipio , 'uf' : uf}, context_instance=RequestContext(request))
 
+def consulta_por_periodo(request):
+	return render_to_response("periodo.html", context_instance=RequestContext(request))
+
 def consulta_ocorrencias_por_periodo(request):
 	data_inicio = str(request.GET['data_inicio'])
 	data_fim = str(request.GET['data_fim'])
 
 	ocorrencia_dao = OcorrenciaBasicaDAO()
-	data_inicio = ocorrencia_dao.transforma_formato_da_data(data_inicio)
-	data_fim = ocorrencia_dao.transforma_formato_da_data(data_fim)
-
 	ocorrencia_list = ocorrencia_dao.lista_ocorrencias_por_periodo(data_inicio, data_fim, 1000)
 
-    	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'periodo', 'data_inicio' : data_inicio, 'data_fim' : data_fim}, context_instance=RequestContext(request))
-
-def consulta_por_periodo(request):
-	return render_to_response("periodo.html", context_instance=RequestContext(request))
-
-def consulta_por_rodovia(request):
-    return render_to_response("rodovia.html", context_instance=RequestContext(request))
+	return render_to_response("resultado.html", {'ocorrencia_list' : ocorrencia_list, 'tipo_consulta' : 'periodo', 'data_inicio' : data_inicio, 'data_fim' : data_fim}, context_instance=RequestContext(request))
