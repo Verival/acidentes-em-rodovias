@@ -5,7 +5,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
-from models.dao import generico_dao,uf_dao,ocorrencia_basica_dao
+from models.dao import generico_dao,uf_dao,ocorrencia_basica_dao,municipio_dao
 
 #----------------------DAO----------------------------------
 class TestDAO(SimpleTestCase):
@@ -68,8 +68,10 @@ class TestUF(SimpleTestCase):
         for i in self.uf.lista_ufs():
             self.assertIsNotNone(i)
         for i in self.uf.lista_ufs(limite=3):
-            self.assertIsNotNone(i)
+			self.assertIsNotNone(str(i))
+			self.assertIsNotNone(i)
 
+#----------------------Ocorrencia-----------------------------------
 class TestOcorrencia(SimpleTestCase):
     """docstring for TestOcorrencia"""
     def setUp(self):    #configura ambiente para teste
@@ -99,7 +101,8 @@ class TestOcorrencia(SimpleTestCase):
         self.assertIsNotNone(oco)   #verifica se não retorna nulo
         self.assertLess(len(oco),4) #verifica se retorna no maximo 3 ocorrencias
         for i in oco:               #verifica se todos os retornos estão no DF
-            self.assertEqual(i.tmuuf, 'DF')
+			self.assertIsNotNone(str(i))
+			self.assertEqual(i.tmuuf, 'DF')
 
 
     def test_ocorrencia_por_periodo(self):
@@ -110,3 +113,33 @@ class TestOcorrencia(SimpleTestCase):
         self.assertLess(len(oco),4) #verifica se retorna no maximo 3 ocorrencias
         for i in oco:               #verifica se as ocorrencias aconteceram em 2006
             self.assertIn('2006', i.ocodataocorrencia)
+            
+#----------------------MUNICIPIO-----------------------------------
+class TestMunicipio(SimpleTestCase):
+    """docstring for TestDAO"""
+    def setUp(self):    #configura ambiente para teste
+        self.municipio = municipio_dao.MunicipioDAO()
+        #descobre qual metodo será chamado e formata a saída
+        func = str(self.id).split('=')[-1][:-2]
+        func = func.split('test_')[-1]
+        func = func.replace('_',' ')
+        out = '\rTeste de ' + func + ' '
+        print out.ljust(65,'-'),
+
+    def tearDown(self):
+        # informa que o teste foi realizado
+        print 'Done'                       
+
+    def shortDescription(self):
+        print "Teste da classe MunicipioDAO"
+
+    def test_existing_municipio_dao_instance(self):
+        self.assertIsNotNone(self.municipio)
+
+    def test_list_municipio(self):
+        for i in self.municipio.lista_municipios("DF"):
+            self.assertIsNotNone(i)
+        for i in self.municipio.lista_municipios("DF", limite=3):
+			self.assertIsNotNone(str(i))
+			self.assertIsNotNone(i)
+            
