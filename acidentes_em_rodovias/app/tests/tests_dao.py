@@ -91,13 +91,18 @@ class TestOcorrencia(SimpleTestCase):
 
     def test_ocorrencia_por_regiao(self):
         # 97012 = Brasilia
+        oco =  self.ocorrencia.lista_ocorrencias_por_regiao(97012)
+        self.assertIsNotNone(oco)   #verifica se não retorna nulo
         oco =  self.ocorrencia.lista_ocorrencias_por_regiao(97012,limite=3)
         self.assertIsNotNone(oco)   #verifica se não retorna nulo
         self.assertLess(len(oco),4) #verifica se retorna no maximo 3 ocorrencias
         for i in oco:               #verifica se todos os retornos estão no DF
             self.assertEqual(i.tmuuf, 'DF')
 
+
     def test_ocorrencia_por_periodo(self):
+    	oco =  self.ocorrencia.lista_ocorrencias_por_periodo('06/01/06','06/12/06')
+        self.assertIsNotNone(oco)   #verifica se não retorna nulo
         oco =  self.ocorrencia.lista_ocorrencias_por_periodo('06/01/06','06/12/06',limite=3)
         self.assertIsNotNone(oco)   #verifica se não retorna nulo
         self.assertLess(len(oco),4) #verifica se retorna no maximo 3 ocorrencias
