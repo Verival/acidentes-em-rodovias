@@ -8,6 +8,20 @@ from django.test import SimpleTestCase
 from model.dao import dao
         
 class TestDAO(SimpleTestCase):
+
+    def setUp(self):    #configura ambiente para teste
+
+        #descobre qual metodo será chamado e formata a saída
+        func = str(self.id).split('=')[-1][:-2]
+        func = func.split('test_')[-1]
+        func = func.replace('_',' ')
+        out = '\rTeste de ' + func + ' '
+        print out.ljust(65,'-'),
+
+    def tearDown(self):
+        # informa que o teste foi realizado
+        print 'Done'                                
+
     
     def test_existing_DAO_instance(self):
         testDAO = dao.DAO('ocorrencia')
