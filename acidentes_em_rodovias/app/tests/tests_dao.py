@@ -67,6 +67,8 @@ class TestUF(SimpleTestCase):
     def test_list_uf(self):
         for i in self.uf.lista_ufs():
             self.assertIsNotNone(i)
+        for i in self.uf.lista_ufs(limite=3):
+            self.assertIsNotNone(i)
 
 class TestOcorrencia(SimpleTestCase):
     """docstring for TestOcorrencia"""
