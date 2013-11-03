@@ -14,10 +14,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^acidentes_rodovias/$', 'app.controller.index'),
-    url(r'^acidentes_rodovias/regiao$', 'app.controller.consulta_por_regiao'),
-    url(r'^acidentes_rodovias/periodo$', 'app.controller.consulta_por_periodo'),
-    url(r'^acidentes_rodovias/pessoa$', 'app.controller.consulta_por_pessoa'),
-    url(r'^acidentes_rodovias/rodovia$', 'app.controller.consulta_por_rodovia'),
-    url(r'^acidentes_rodovias/consulta/(?P<tipo_consulta>\w+)$', 'app.controller.executa_consulta'),
+    url(r'^acidentes_rodovias/$', 'app.controller.consultabasica_controller.index'),
+    url(r'^acidentes_rodovias/regiao$', 'app.controller.consultabasica_controller.consulta_por_regiao'),
+    url(r'^acidentes_rodovias/periodo$', 'app.controller.consultabasica_controller.consulta_por_periodo'),
+    url(r'^acidentes_rodovias/municipios_regiao$', 'app.controller.consultabasica_controller.consulta_municipios_na_regiao'),
+    url(r'^acidentes_rodovias/consulta/municipio$', 'app.controller.consultabasica_controller.consulta_ocorrencias_por_municipio'),
+    url(r'^acidentes_rodovias/consulta/periodo$', 'app.controller.consultabasica_controller.consulta_ocorrencias_por_periodo'),
 )
