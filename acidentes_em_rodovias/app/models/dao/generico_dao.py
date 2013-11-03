@@ -2,6 +2,9 @@
 import sys, os, inspect
 current_path = os.path.dirname(os.path.abspath('..'))
 sys.path.append(current_path)
+current_path = os.path.dirname(os.path.abspath('.'))
+sys.path.append(current_path)
+
 
 import myconfiguration
 import MySQLdb
@@ -31,7 +34,7 @@ class GenericoDAO:
 			print "Falha na query"
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
-		modulo_classe = importlib.import_module("model." + nome_modulo)
+		modulo_classe = importlib.import_module("models." + nome_modulo)
 		class_ = getattr(modulo_classe, nome_classe)
 		lista_objetos = []
 
