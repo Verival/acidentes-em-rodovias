@@ -85,6 +85,15 @@ FLUSH PRIVILEGES;
 
 * execute exit() para fechar
 
+### Configurando issues corretos
+* Execute: pylint --generate-rcfile > ~/.pylintrc
+* Abra o arquivo e altere o 'init-hook': init-hook=import sys; sys.path.insert(0, 'app');
+* Abra o sonar
+* Vá em Quality Profiles(superior) e Create em Python Profiles.
+* Na barra de busca, selecione Repository->Pylint e Activation->Any... Search
+* No canto direito, em Bulk Change, selecione: Activate All. 
+* Espere completar(demora um pouco). Mensagem de confirmação no canto superior da tela. OK.
+
 ### Iniciando serviços e projetos
 * Execute o comando sonar.sh start: sudo /opt/sonar/bin/sonar.sh start
 * Entre em http://localhost:9000
