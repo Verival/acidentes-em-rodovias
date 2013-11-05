@@ -24,8 +24,11 @@ class GenericoDAO:
 		try:
 			conexao = MySQLdb.connect(self.host, self.usuario, self.senha, self.database)
 			return conexao
-		except:
-			sys.stderr.write("Falha de conexão")
+		except MySQLdb.OperationalError as e:
+			sys.stderr.write("Falha de operação: " + str(e))
+			return None
+		except MySQLdb.Error as e:
+			sys.stderr.write("Falha de conexão: " + str(e))
 			return None
 
 	def executa_query(self, query):
