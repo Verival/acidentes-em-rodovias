@@ -40,7 +40,7 @@ class TestDAO(SimpleTestCase):
 		
 	def test_try_query(self):
 		self.dao.conexao = ''
-		self.assertIsNone(self.dao.executa_query("show tables"))
+		self.assertIsNone(self.dao.executa_query("show tables;"))
 		
 	
 

@@ -34,9 +34,6 @@ class GenericoDAO:
 	def executa_query(self, query):
 		try:
 			return psql.frame_query(query, con=self.conexao).to_dict()
-		except KeyError as e:
-			sys.stderr.write("Falha na query: " + str(e))
-			return None
 		except Exception as e:
 			sys.stderr.write("Falha na query: " + str(e))
 			return None
