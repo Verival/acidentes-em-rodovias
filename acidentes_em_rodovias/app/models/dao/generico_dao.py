@@ -11,32 +11,26 @@ import MySQLdb
 import pandas.io.sql as psql
 #from uf_dao import *
 import importlib
+import logging
+logging.basicConfig()
 
+
+logger = logging.getLogger(__name__)
 class GenericoDAO:
 	def __init__(self):
 		self.usuario = myconfiguration.DB_USER
 		self.senha = myconfiguration.DB_PASS
 		self.database = myconfiguration.DB
-		self.host = myconfiguration.HOST
+		self.host = myconfiguration.HOST		
 		self.conexao = self.get_conexao()
 
 	def get_conexao(self):
-		try:
-			conexao = MySQLdb.connect(self.host, self.usuario, self.senha, self.database)
-			return conexao
-		except MySQLdb.OperationalError as e:
-			sys.stderr.write("Falha de operação: " + str(e))
-			return None
-		except MySQLdb.Error as e:
-			sys.stderr.write("Falha de conexão: " + str(e))
-			return None
+		conexao = MySQLdb.connect(self.host, self.usuario, self.senha, self.database)
+		return conexao
+	
 
 	def executa_query(self, query):
-		try:
-			return psql.frame_query(query, con=self.conexao).to_dict()
-		except Exception as e:
-			sys.stderr.write("Falha na query: " + str(e))
-			return None
+		return psql.frame_query(query, con=self.conexao).to_dict()
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
 		modulo_classe = importlib.import_module("models." + nome_modulo)

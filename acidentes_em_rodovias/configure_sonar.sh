@@ -84,7 +84,3 @@ if [[ ! "$DB_PASS" || ! "$DB_USER" ]]
   sleep 1
   echo "--- CONGRATZ, se tudo der certo, o projeto aparecerá em localhost:9000"
   echo ""
-
-
-
-
