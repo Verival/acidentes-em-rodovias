@@ -9,8 +9,8 @@ class OcorrenciaBasicaDAO(GenericoDAO):
 			limite = 'LIMIT %s' % limite
 		else:
 			limite = ''
-
-		query = """SELECT oco.ocoid, oco.ocodataocorrencia, oco.ocodataregistro, 
+		try:
+			query = """SELECT oco.ocoid, oco.ocodataocorrencia, oco.ocodataregistro, 
 				tmu.tmudenominacao, tmu.tmuuf, tco.tcodescricao, tta.ttadescricao,
 				tca.tcadescricao, lbr.lbrbr, tmv.tmvdescricao, tvv.tvvdescricao
 				FROM ocorrencia oco
@@ -26,7 +26,15 @@ class OcorrenciaBasicaDAO(GenericoDAO):
 				INNER JOIN tipoveiculo tvv ON vei.veitvvcodigo = tvv.tvvcodigo
 				WHERE oco.ocomunicipio = %s 
 				%s;""" %(municipio_id, limite)
-
+		except OperationError as e:
+			sys.stderr.write("Falha na comunicação: " + str(e))
+			return None
+		except InternalError as e:
+			sys.stderr.write("Erro de sincronia: " + str(e))
+			return None
+		except NotSuportedError as e:
+			sys.stderr.write("Operação não suportada: " + str(e))
+			return None
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), "OcorrenciaBasica", "ocorrencia_basica")
 
 	def lista_ocorrencias_por_periodo(self, data_inicio, data_fim, limite=0):
@@ -38,6 +46,7 @@ class OcorrenciaBasicaDAO(GenericoDAO):
 		data_inicio = data_inicio + ' 00:00:00'
 		data_fim = data_fim + ' 23:59:59'
 
+		
 		query = """SELECT oco.ocoid, oco.ocodataocorrencia, oco.ocodataregistro, 
 				tmu.tmudenominacao, tmu.tmuuf, tco.tcodescricao, tta.ttadescricao,
 				tca.tcadescricao, lbr.lbrbr, tmv.tmvdescricao, tvv.tvvdescricao
@@ -56,6 +65,5 @@ class OcorrenciaBasicaDAO(GenericoDAO):
 				AND oco.ocodataocorrencia <= STR_TO_DATE('{1}', '%d/%m/%Y %H:%i:%s')
 				{2}
 				;""".format(data_inicio, data_fim, limite)
-
-
+		
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), "OcorrenciaBasica", "ocorrencia_basica")

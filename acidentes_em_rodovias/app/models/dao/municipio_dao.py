@@ -9,8 +9,8 @@ class MunicipioDAO(GenericoDAO):
 			limite = ''
 
 		query = """SELECT DISTINCT tmucodigo, tmudenominacao, tmuuf
-			FROM municipio tmu
-			INNER JOIN ocorrencia oco ON oco.ocomunicipio = tmu.tmucodigo
-	 		WHERE tmu.tmuuf = '%s' ORDER BY tmudenominacao %s; """ % (uf, limite)
-
+				FROM municipio tmu
+				INNER JOIN ocorrencia oco ON oco.ocomunicipio = tmu.tmucodigo
+		 		WHERE tmu.tmuuf = '%s' ORDER BY tmudenominacao %s; """ % (uf, limite)
+			
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), "Municipio", "municipio")

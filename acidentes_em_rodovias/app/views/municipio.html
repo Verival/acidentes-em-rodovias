@@ -12,7 +12,7 @@
         <div class="row">
           <div class="large-4 columns">
             <select name="municipio_id" id="customDropdown">
-                <option>Selecione um município...</option>
+                <option DISABLED>Selecione um município...</option>
                 {% for municipio in municipio_list %}
                       <option value="{{municipio.tmucodigo}}">{{municipio.tmudenominacao}}</option>
                 {%endfor%}

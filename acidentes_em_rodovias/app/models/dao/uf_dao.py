@@ -8,8 +8,9 @@ class UfDAO(GenericoDAO):
 			limite = 'LIMIT %s' % limite
 		else:
 			limite = ''
-
 		query = """SELECT tufuf, tufdenominacao
-			FROM uf ORDER BY tufdenominacao %s;""" % limite
-		
+				FROM uf ORDER BY tufdenominacao %s;""" % limite
+
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), "Uf", "uf")
+
+

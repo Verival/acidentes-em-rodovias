@@ -24,15 +24,18 @@ class GenericoDAO:
 		try:
 			conexao = MySQLdb.connect(self.host, self.usuario, self.senha, self.database)
 			return conexao
-		except:
-			sys.stderr.write("Falha de conexão")
+		except MySQLdb.OperationalError as e:
+			sys.stderr.write("Falha de operação: " + str(e))
+			return None
+		except MySQLdb.Error as e:
+			sys.stderr.write("Falha de conexão: " + str(e))
 			return None
 
 	def executa_query(self, query):
 		try:
 			return psql.frame_query(query, con=self.conexao).to_dict()
-		except:
-			sys.stderr.write("Falha na query")
+		except Exception as e:
+			sys.stderr.write("Falha na query: " + str(e))
 			return None
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
