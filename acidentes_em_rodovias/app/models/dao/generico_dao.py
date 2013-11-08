@@ -35,7 +35,9 @@ class GenericoDAO:
 		try:
 			return psql.frame_query(query, con=self.conexao).to_dict()
 		except Exception as e:
-			sys.stderr.write("Falha na query: " + str(e))
+			sys.stderr.write("Falha na query: ")
+			print query
+			#print e
 			return None
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
@@ -43,7 +45,10 @@ class GenericoDAO:
 		class_ = getattr(modulo_classe, nome_classe)
 		lista_objetos = []
 
-		chaves = dados.keys()
+		try:
+			chaves = dados.keys()
+		except:	#foi enviado uma lista vazia para ser transformada
+			return None
 		
 		for i in range(0, len(dados[chaves[0]])):
 			instancia = class_()

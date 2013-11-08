@@ -41,12 +41,19 @@ class TestDAO(SimpleTestCase):
 	def test_try_query(self):
 		self.dao.conexao = ''
 		self.assertIsNone(self.dao.executa_query("show tables;"))
+
+	def test_transforma_objeto(self):
+		#Quando tudo funciona bem
+		query='SELECT tufuf, tufdenominacao FROM uf ORDER BY tufdenominacao LIMIT 3;'
+		self.assertIsNotNone(self.dao.transforma_dicionario_em_objetos(self.dao.executa_query(query),'Uf','uf'))
+		#Testa exception
+		self.assertIsNone(self.dao.transforma_dicionario_em_objetos(None,'Uf','uf'))
 		
 	
 
 #----------------------UF-----------------------------------
 class TestUF(SimpleTestCase):
-	"""docstring for TestDAO"""
+	"""docstring for TestUF"""
 	def setUp(self):    #configura ambiente para teste
 		self.uf = uf_dao.UfDAO()
 		#descobre qual metodo será chamado e formata a saída
@@ -121,7 +128,7 @@ class TestOcorrencia(SimpleTestCase):
 			
 #----------------------MUNICIPIO-----------------------------------
 class TestMunicipio(SimpleTestCase):
-	"""docstring for TestDAO"""
+	"""docstring for TestMunicipio"""
 	def setUp(self):    #configura ambiente para teste
 		self.municipio = municipio_dao.MunicipioDAO()
 		#descobre qual metodo será chamado e formata a saída
