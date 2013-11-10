@@ -40,3 +40,5 @@ class TestController_Consulta_Basica(SimpleTestCase):
 
 	def test_consulta_por_regiao(self):
 		self.assertIsNotNone(ctrl.consulta_por_regiao(None))
+		
+		
