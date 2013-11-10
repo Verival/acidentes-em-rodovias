@@ -31,13 +31,17 @@ class GenericoDAO:
 
 	def executa_query(self, query):
 		return psql.frame_query(query, con=self.conexao).to_dict()
+		
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
 		modulo_classe = importlib.import_module("models." + nome_modulo)
 		class_ = getattr(modulo_classe, nome_classe)
 		lista_objetos = []
 
-		chaves = dados.keys()
+		try:
+			chaves = dados.keys()
+		except:	#foi enviado uma lista vazia para ser transformada
+			return None
 		
 		for i in range(0, len(dados[chaves[0]])):
 			instancia = class_()
