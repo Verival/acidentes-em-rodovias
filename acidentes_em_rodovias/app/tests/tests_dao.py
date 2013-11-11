@@ -7,6 +7,7 @@ sys.path.append(parent_dir)
 from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
 from models.dao import generico_dao,uf_dao,ocorrencia_basica_dao,municipio_dao
+from _mysql_exceptions import OperationalError, ProgrammingError
 
 #----------------------DAO----------------------------------
 class TestDAO(SimpleTestCase):
@@ -36,19 +37,29 @@ class TestDAO(SimpleTestCase):
 		self.dao.usuario = ' '
 		self.dao.senha = ' '
 		self.dao.host = ' '
-		self.assertIsNone(self.dao.get_conexao())
-		
+		#self.assertIsNone(self.dao.get_conexao())
+		with self.assertRaises(OperationalError):
+			self.dao.get_conexao()
+
 	def test_try_query(self):
-		self.dao.conexao = ''
-		self.assertIsNone(self.dao.executa_query("show tables;"))
+		with self.assertRaises(ProgrammingError):
+			self.assertIsNone(self.dao.executa_query("showjik;"))
 
 	def test_transforma_objeto(self):
 		#Quando tudo funciona bem
-		query='SELECT tufuf, tufdenominacao FROM uf ORDER BY tufdenominacao LIMIT 3;'
+		query="SELECT tufuf, tufdenominacao FROM uf WHERE tufuf = 'DF' ORDER BY tufdenominacao;"
+		#Testa se passa no 'if' e 'else' do for
+		ufList = self.dao.transforma_dicionario_em_objetos(self.dao.executa_query(query),'Uf','uf')
+		self.assertEquals(ufList[0].tufuf , 'DF')
+		#Testa se a lista nao esta vazia.
 		self.assertIsNotNone(self.dao.transforma_dicionario_em_objetos(self.dao.executa_query(query),'Uf','uf'))
 		#Testa exception
 		self.assertIsNone(self.dao.transforma_dicionario_em_objetos(None,'Uf','uf'))
+
+			
+			
 		
+#self.assertIsNotNull(self.dao.transforma_dicionario_em_objetos(self.dao.executa_query(query),'Uf','uf'))
 	
 
 #----------------------UF-----------------------------------
