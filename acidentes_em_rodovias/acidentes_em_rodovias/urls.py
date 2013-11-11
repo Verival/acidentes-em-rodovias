@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     url(r'^acidentes_rodovias/consulta/municipio$', 'app.controller.consultabasica_controller.consulta_ocorrencias_por_municipio'),
     url(r'^acidentes_rodovias/consulta/periodo$', 'app.controller.consultabasica_controller.consulta_ocorrencias_por_periodo'),
     url(r'^acidentes_rodovias/estatisticas/tipos-causas$', 'app.controller.estatisticas_controller.tipos_causas'),
+    url(r'^acidentes_rodovias/estatisticas/acidentes-sexo$', 'app.controller.estatisticas_controller.acidentes_sexo'),
 )
