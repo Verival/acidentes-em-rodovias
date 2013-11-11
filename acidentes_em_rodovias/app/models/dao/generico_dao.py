@@ -9,6 +9,7 @@ sys.path.append(current_path)
 import myconfiguration
 import MySQLdb
 import pandas.io.sql as psql
+from exception.internal_exceptions import *
 #from uf_dao import *
 import importlib
 import logging
@@ -40,8 +41,8 @@ class GenericoDAO:
 
 		try:
 			chaves = dados.keys()
-		except:	#foi enviado uma lista vazia para ser transformada
-			return None
+		except AttributeError, e:	# foi enviado uma lista nula para ser transformada
+			raise NoPandasComponentError("A biblioteca pandas não está instalada ou está desatualizada")
 		
 		for i in range(0, len(dados[chaves[0]])):
 			instancia = class_()
