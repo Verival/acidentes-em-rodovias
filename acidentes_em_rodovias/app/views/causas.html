@@ -1,0 +1,216 @@
+{% include 'header.html' %}
+	<div class="row">
+		<div class="large-12 columns">
+			<h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+			<hr />
+		</div>
+	</div>
+  
+    <p><center><em><strong>* Selecione o tipo de estatística (seção).</strong></em></center></p>
+    
+    <div class="row">
+        <div class="section-container accordion" data-section="accordion">
+            <section>
+                <p class="title" data-section-title><a href="#"><span style="color: red">TO DO</span> Causa de ocorrência ao longo dos anos</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_linha" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            Highcharts.setOptions({
+                                lang: {
+                                    decimalPoint: ',' ,
+                                    thousandsSep: '.'
+                                }
+                            });
+                            $('#grafico_linha').highcharts({
+                                title: {
+                                    text: 'Ocorrências por causa',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    categories: [2007, 2008, 2009,]
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'Quantidade total'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }],
+                                    min: 0,
+                                },
+                                tooltip: {
+                                    //valueSuffix: ''
+                                    pointFormat: "{point.y:f} ocorrências",
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [{
+                                    name: 'Falta de atenção',
+                                    data: [90992, 23984, 238234]
+                                },
+                                {
+                                    name: 'Não guardar distância de segurança',
+                                    data: [9892, 1347, 238234]
+                                },
+                                {
+                                    name: 'Velocidade incompatível',
+                                    data: [67484, 5345, 256758]
+                                },
+                                {
+                                    name: 'Média',
+                                    data: [17484, 3345, 56758]
+                                },
+                                ]
+                            });
+                        });
+                    </script>      
+                </div>
+            </section>
+            <section>
+                <p class="title" data-section-title><a href="#"> <span style="color: red">TO DO</span> Probabilidade para cada causa de ocorrência no próximo ano</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_barra" style="min-width: 60%; margin: 0 auto"></div>
+                    <blockquote>
+                        <p><Strong>OBS</strong>: A média ao longo dos anos e o seu desvio padrão</p>
+                        <div class="row">
+                        <div class="push-1 columns">    
+                                <ul class="square" style="font-size: 80%">
+                                    <li>Bom = X &lt; (média - desvio padrão)</li>
+                                    <li>Médio = (média - desvio padrão) &lt; X &lt; (média + desvio padrão)</li>
+                                    <li>Ruim = X &gt; (média + desvio padrão) </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </blockquote>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#grafico_barra').highcharts({
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'Probabilidade de causas ocorrências para o próximo ano'
+                                },
+                                subtitle: {
+                                    text: 'Distribuição normal: http://pt.wikipedia.org/wiki/Distribuição_normal'
+                                },
+                                xAxis: {
+                                    categories: [
+                                        'Falta de atenção',
+                                        'Não guardar distância de segurança',
+                                        'Velocidade incompatível',
+                                        'Teste',
+                                        'Teste',
+                                        'Teste',
+                                        'Teste',
+                                        'Teste',
+                                        'Teste',
+                                        'Teste',
+                                        'Teste',
+                                    ]
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'Probabilidade (%)'
+                                    }
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+                                    footerFormat: '</table>',
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                
+                                plotOptions: {
+                                    column: {
+                                        pointPadding: 0.2,
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [{
+                                    name: 'Bom',
+                                    data: [25, 10, 15.4, 33, 12, 12, 12, 12, 12, 12, 12]
+                        
+                                }, {
+                                    name: 'Médio',
+                                    data: [50, 80, 69.2, 33, 12, 12, 12, 12, 12, 12, 12]
+                        
+                                }, {
+                                    name: 'Ruim',
+                                    data: [25, 10, 15.4, 33, 12, 12, 12, 12, 12, 12, 12]
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+            <section>
+                <p class="title" data-section-title><a href="#"><span style="color: red">TO DO</span> Porcentagem de ocorrências já registrados de acordo com a causa</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_torta" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $(document).ready(function () {
+                                $('#grafico_torta').highcharts({
+                                    chart: {
+                                        plotBackgroundColor: null,
+                                        plotBorderWidth: null,
+                                        plotShadow: false
+                                    },
+                                    title: {
+                                        text: 'Porcentagem de causas de ocorrências'
+                                    },
+                                    tooltip: {
+                                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                    },
+                                    plotOptions: {
+                                        pie: {
+                                            allowPointSelect: true,
+                                            cursor: 'pointer',
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            showInLegend: true
+                                        }
+                                    },
+                                    series: [{
+                                        type: 'pie',
+                                        name: 'Porcentagem',
+                                        data: [
+                                            ['Falta de atenção', 9.0909],
+                                            ['Não guardar distância de segurança',9.0909],
+                                            ['Velocidade incompatível',9.0909],
+                                            ['Teste',9.0909],
+                                            ['Teste',9.0909],
+                                            ['Teste',9.0909],
+                                            ['Teste',9.0909],
+                                            ['Teste',9.0909],
+                                            ['Teste',9.0909],
+                                            ['Teste',9.0909],
+                                            ['Teste',9.0909],
+                                        ]
+                                    }]
+                                });
+                            });
+                            
+                        });
+                    </script>
+                </div>
+            </section>
+        </div>      
+    </div>
+    <script src="{{ STATIC_URL }}js/highcharts.js"></script>
+    <script src="{{ STATIC_URL }}js/highcharts-more.js"></script>
+    <script src="{{ STATIC_URL }}js/modules/exporting.js"></script>
+
+{% include 'footer.html' %}

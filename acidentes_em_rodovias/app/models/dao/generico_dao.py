@@ -30,9 +30,11 @@ class GenericoDAO:
 		return conexao
 	
 
-	def executa_query(self, query):
-		return psql.frame_query(query, con=self.conexao).to_dict()
-		
+	def executa_query(self, query, get_data_frame=False):
+		if (get_data_frame == False):
+			return psql.frame_query(query, con=self.conexao).to_dict()
+		else:
+			return psql.frame_query(query, con=self.conexao)
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
 		modulo_classe = importlib.import_module("models." + nome_modulo)

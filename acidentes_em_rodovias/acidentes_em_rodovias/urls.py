@@ -20,5 +20,7 @@ urlpatterns = patterns('',
     url(r'^acidentes_rodovias/municipios_regiao$', 'app.controller.consultabasica_controller.consulta_municipios_na_regiao'),
     url(r'^acidentes_rodovias/consulta/municipio$', 'app.controller.consultabasica_controller.consulta_ocorrencias_por_municipio'),
     url(r'^acidentes_rodovias/consulta/periodo$', 'app.controller.consultabasica_controller.consulta_ocorrencias_por_periodo'),
-    url(r'^acidentes_rodovias/estatisticas/tipos-causas$', 'app.controller.estatisticas_controller.tipos_causas'),
+    url(r'^acidentes_rodovias/estatisticas/tipos$', 'app.controller.estatisticas_controller.tipos_ocorrencia'),
+    url(r'^acidentes_rodovias/estatisticas/causas$', 'app.controller.estatisticas_controller.causas_ocorrencia'),
+    url(r'^acidentes_rodovias/estatisticas/total-ocorrencias-envolvidos$', 'app.controller.estatisticas_controller.total_ocorrencias_envolvidos'),
 )

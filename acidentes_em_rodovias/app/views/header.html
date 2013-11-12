@@ -41,8 +41,11 @@
                   <li class="has-dropdown"><a href="#">Estatísticas</a>
                       <ul class="dropdown">
                           <li><label>Selecione o tipo de estatística</label></li>
-                          <li><a href="{% url 'app.controller.estatisticas_controller.tipos_causas' %}">Tipos e Causas</a></li>
+                          <li><a href="{% url 'app.controller.estatisticas_controller.tipos_ocorrencia' %}">Tipos de ocorrência</a></li>
                           <li class="divider"></li>
+                          <li><a href="{% url 'app.controller.estatisticas_controller.causas_ocorrencia' %}">Causas de ocorrência</a></li>
+                          <li class="divider"></li>
+                          <li><a href="{% url 'app.controller.estatisticas_controller.total_ocorrencias_envolvidos' %}">Total de ocorrências/envolvidos</a></li>
                       </ul>
                   </li>
           </section>

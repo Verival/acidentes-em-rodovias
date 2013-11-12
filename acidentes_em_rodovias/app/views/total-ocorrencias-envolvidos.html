@@ -1,0 +1,98 @@
+{% include 'header.html' %}
+    <div class="row">
+        <div class="large-12 columns">
+            <h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+            <hr />
+        </div>
+    </div>
+  
+    <p><center><em><strong>* Selecione o tipo de estatística (seção).</strong></em></center></p>
+    
+    <div class="row">
+        <div class="section-container accordion" data-section="accordion">
+            <section class="active">
+                <p class="title" data-section-title><a href="#"><span style="color: red">TO DO</span> Média de quantidade de ocorrências ao longo dos anos</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_area" style="min-width: 60%; margin: 0 auto"></div>
+                    <blockquote><Strong>OBS</strong>: A média ao longo dos anos e o seu desvio padrão representado por uma área</blockquote>
+                    <script type="text/javascript">
+                        $(function () {
+
+                            var ranges = [
+                                    [149999.3, 279999.7],
+                                    [149999.5, 279999.8],
+                                    [159999.5, 299999.6],
+                                    [169999.7, 399990.7],
+                                    [169999.5, 299995.0],
+                                    [179999.8, 259999.7],
+                                    [139999.5, 249999.8],
+                                ],
+                                averages = [
+                                    [219999.5],
+                                    [229992.1],
+                                    [219993],
+                                    [239999.8],
+                                    [219999.4],
+                                    [219999.3],
+                                    [199998.3],
+                                ];
+
+                            
+                                $('#grafico_area').highcharts({
+                                
+                                    title: {
+                                        text: 'Média e desvio padrão de ocorrências'
+                                    },
+                                
+                                    xAxis: {
+                                        categories: [2007, 2008, 2009, 2010, 2011, 2012, 2013]
+                                    },
+                                    
+                                    yAxis: {
+                                        title: {
+                                            text: 'Quantidade total'
+                                        }
+                                    },
+                                
+                                    tooltip: {
+                                        crosshairs: true,
+                                        shared: true,
+                                    },
+                                    
+                                    legend: {
+                                    },
+                                
+                                    series: [{
+                                        name: 'Média',
+                                        data: averages,
+                                        zIndex: 1,
+                                        marker: {
+                                            fillColor: 'white',
+                                            lineWidth: 2,
+                                            lineColor: Highcharts.getOptions().colors[0]
+                                        }
+                                    }, {
+                                        name: 'Desvio',
+                                        data: ranges,
+                                        type: 'arearange',
+                                        lineWidth: 0,
+                                        linkedTo: ':previous',
+                                        color: Highcharts.getOptions().colors[0],
+                                        fillOpacity: 0.3,
+                                        zIndex: 0
+                                    }]
+                                
+                                });
+                            
+                        });
+                    </script>
+                </div>
+            </section>
+        </div>      
+    </div>
+    <script src="{{ STATIC_URL }}js/highcharts.js"></script>
+    <script src="{{ STATIC_URL }}js/highcharts-more.js"></script>
+    <script src="{{ STATIC_URL }}js/modules/exporting.js"></script>
+
+{% include 'footer.html' %}
+            

@@ -13,8 +13,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATETIME_FORMAT = "%d/%m/%Y - %H:%M"
-
 DATABASES = {
     'default': {
         'ENGINE': '', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -26,6 +24,7 @@ DATABASES = {
     }
 }
 
+DECIMAL_SEPARATOR='.'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
