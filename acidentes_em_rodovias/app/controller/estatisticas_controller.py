@@ -11,38 +11,59 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from exception.validation_exceptions import *
 from exception.internal_exceptions import *
-from models.dao.tipos_dao import *
+from models.dao.tipos_acidentes_dao import *
+from models.dao.causas_acidentes_dao import *
 from models.dao.estatistica_pessoas_dao import *
-from itertools import groupby
 import logging
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 
-def tipos_ocorrencia(request):
+def tipos_acidentes(request):
 	try:
-		tipos_dao = TiposDAO()
-		ocorrencias_tipo_list = tipos_dao.ocorrencias_tipo()
-		ocorrencias_tipo_ano_list = tipos_dao.ocorrencias_tipo_ano()
-		probabilidade_ocorrencias_tipo_list = tipos_dao.probabilidade_ocorrencias_tipo()
+		tipos_acidentes_dao = TiposAcidentesDAO()
+		tipos_acidentes_list = tipos_acidentes_dao.tipos_acidentes()
+		tipos_acidentes_ano_list = tipos_acidentes_dao.tipos_acidentes_ano()
+		probabilidade_tipos_acidentes_list = tipos_acidentes_dao.probabilidade_tipos_acidentes()
+		media_desvio_tipos_acidentes_list = tipos_acidentes_dao.media_desvio_tipos_acidentes()
 	except (MySQLdb.Error, NoPandasComponentError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
 
-	return render_to_response("tipos.html",{
-		'ocorrencias_tipo_list' : ocorrencias_tipo_list, 
-		'ocorrencias_tipo_ano_list' : ocorrencias_tipo_ano_list,
-		'anos' : ocorrencias_tipo_ano_list[0].ano_list,
-		'probabilidade_ocorrencias_tipo_list' : probabilidade_ocorrencias_tipo_list,
-		'tipos' : [i.ttadescricao for i in probabilidade_ocorrencias_tipo_list], 
+	return render_to_response("tipos_acidentes.html",{
+		'tipos_acidentes_list' : tipos_acidentes_list, 
+		'tipos_acidentes_ano_list' : tipos_acidentes_ano_list,
+		'anos' : tipos_acidentes_ano_list[0].ano_list,
+		'probabilidade_tipos_acidentes_list' : probabilidade_tipos_acidentes_list,
+		'tipos' : [i.tipo for i in probabilidade_tipos_acidentes_list], 
+		'media_desvio_tipos_acidentes_list' : media_desvio_tipos_acidentes_list,
 		}, context_instance=RequestContext(request))	
 
-def causas_ocorrencia(request):
+def causas_acidentes(request):
+	try:
+		causas_acidentes_dao = CausasAcidentesDAO()
+		causas_acidentes_list = causas_acidentes_dao.causas_acidentes()
+		causas_acidentes_ano_list = causas_acidentes_dao.causas_acidentes_ano()
+		probabilidade_causas_acidentes_list = causas_acidentes_dao.probabilidade_causas_acidentes()
+		media_desvio_causas_acidentes_list = causas_acidentes_dao.media_desvio_causas_acidentes()
+	except (MySQLdb.Error, NoPandasComponentError), e:
+		logger.error(str(e))
+		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
+		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
+
+	return render_to_response("causas_acidentes.html",{
+		'causas_acidentes_list' : causas_acidentes_list, 
+		'causas_acidentes_ano_list' : causas_acidentes_ano_list,
+		'anos' : causas_acidentes_ano_list[0].ano_list,
+		'probabilidade_causas_acidentes_list' : probabilidade_causas_acidentes_list,
+		'causas' : [i.causa for i in probabilidade_causas_acidentes_list], 
+		'media_desvio_causas_acidentes_list' : media_desvio_causas_acidentes_list,
+		}, context_instance=RequestContext(request))	
 	return render_to_response("causas.html", context_instance=RequestContext(request))	
 
-def total_ocorrencias_envolvidos(request):
-	return render_to_response("total-ocorrencias-envolvidos.html", context_instance=RequestContext(request))	
+def ocorrencias_e_envolvidos(request):
+	return render_to_response("ocorrencias-e-envolvidos.html", context_instance=RequestContext(request))	
 
 def acidentes_sexo(request):
 	try:

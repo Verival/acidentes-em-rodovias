@@ -1,23 +1,22 @@
 
 {% include 'header.html' %}
-	<div class="row">
-		<div class="large-12 columns">
-			<h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
-			<hr />
-		</div>
-	</div>
   
-	<p><center><h4>Estatísticas - Acidentes/Sexo</h4></center></p>
-
-    <p><center><em><strong>* Seleciona a o tipo de estatística (aba) e selecione o tipo de gráfico (seção).</strong></em></center></p>
+	<div class="row">
+        <div class="large-12 columns">
+            <h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+            <hr />
+            <div class="row">
+                <h4><center>Estatísticas - Sexo dos envolvidos</center></h4>
+            </div>
+       </div>
+    </div>
     
     <div class="row">
             
-                
                 <div class="content" data-section-content>
                     <div class="section-container accordion" data-section="accordion">
                         <section>
-                            <p class="title" data-section-title><a href="#">Quantidade de acidentes por ano - Homens x Mulheres</a></p>
+                            <p class="title button" data-section-title><a href="#">Quantidade de acidentes por ano - Homens x Mulheres</a></p>
                             <div class="content" data-section-content>
                                 <div id="grafico_linha" align="center" style="min-width: 60%; margin: 0 auto"></div>
                                 <script type="text/javascript">

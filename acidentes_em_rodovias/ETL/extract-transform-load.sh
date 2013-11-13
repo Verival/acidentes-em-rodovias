@@ -119,6 +119,21 @@ function load_biannual_data {
 	done
 }
 
+function generate_estatisticas_data {
+	if [[ ! -f "$(dirname $0)/db-estatisticas.sql" ]]
+	then
+		echo "ERROR: File $(dirname $0)/db-estatisticas.sql dont exist"
+		exit -1
+	fi
+
+	echo -e "\nGenerating 'estatisticas' data..."
+	mysql -u $DB_USER --password=$DB_PASS acidentes_rodovias < $(dirname $0)/db-estatisticas.sql
+	if [[ "$?" -ne "0" ]]
+	then
+		exit -1
+	fi
+}
+
 function main {
 	if [[ ! "$DB_PASS" || ! "$DB_USER" ]]
 	then
@@ -134,6 +149,7 @@ function main {
 	load_domain_data
 	load_non_biannual_data
 	load_biannual_data
+	generate_estatisticas_data
 
 	echo -e "\nFinish!"
 }

@@ -1,4 +1,3 @@
-from scipy import stats
 import pandas
 import os
 
