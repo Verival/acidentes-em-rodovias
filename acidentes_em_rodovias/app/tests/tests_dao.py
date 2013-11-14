@@ -6,7 +6,7 @@ sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
-from models.dao import generico_dao,uf_dao,ocorrencia_basica_dao,municipio_dao
+from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, estatistica_pessoas_dao, causas_acidentes_dao, municipio_dao, generico_dao
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
 
@@ -58,11 +58,162 @@ class TestDAO(SimpleTestCase):
 		with self.assertRaises(ResultadoConsultaNuloError):
 			self.assertIsNone(self.dao.transforma_dicionario_em_objetos(None,'Uf','uf'))
 
+			
+class TestTiposAcidentes(SimpleTestCase):
+	"""docstring for TestUF"""
+	def setUp(self):    #configura ambiente para teste
+		self.dao = tipos_acidentes_dao.TiposAcidentesDAO()
+		#descobre qual metodo será chamado e formata a saída
+		func = str(self.id).split('=')[-1][:-2]
+		func = func.split('test_')[-1]
+		func = func.replace('_',' ')
+		out = '\rTeste de ' + func + ' '
+		print out.ljust(65,'-'),
+		self.shortDescription()
+
+	def tearDown(self):
+		# informa que o teste foi realizado
+		print 'Done'                       
+
+	def shortDescription(self):
+		return "Teste da classe TestTiposAcidentesDAO"
+
+	def test_tipos_acidentes(self):
+		tipos_acidentes_list = self.dao.tipos_acidentes()
+		
+		self.assertEquals(len(tipos_acidentes_list), 16)
+
+		descricao_tipos_acidentes = [i.tipo for i in tipos_acidentes_list]
+		self.assertIn("Tombamento", descricao_tipos_acidentes)
+
+	def test_tipos_acidentes_ano(self):
+		tipos_acidentes_ano_list = self.dao.tipos_acidentes_ano()
+		
+		anos = tipos_acidentes_ano_list[0].ano_list
+		self.assertEquals([2007, 2008, 2009, 2010, 2011, 2012, 2013], anos)
+
+		descricao_tipos_acidentes_ano = [i.tipo for i in tipos_acidentes_ano_list]
+		self.assertIn("Tombamento", descricao_tipos_acidentes_ano)
+
+	def test_probabilidade_tipos_acidentes(self):
+		probabilidade_tipos_acidentes_list = self.dao.probabilidade_tipos_acidentes()
+
+		for probabilidade_tipos_acidentes in probabilidade_tipos_acidentes_list:
+			for probabilidade in probabilidade_tipos_acidentes.probabilidade_por_limite_list:
+				self.assertTrue(probabilidade >= 0 and probabilidade <= 100)
+
+	def test_media_desvio_tipos_acidentes(self):
+		media_desvio_tipos_acidentes_list = self.dao.media_desvio_tipos_acidentes()		
+
+		for media_desvio_tipos_acidentes in media_desvio_tipos_acidentes_list:
+			self.assertTrue(tipo_mais_acidentes.media > 0)
+			self.assertTrue(tipo_mais_acidentes.desvio > 0)
+			
 #----------------------UF-----------------------------------
+class TestUF(SimpleTestCase):
+	"""docstring for TestUF"""
+	def setUp(self):    #configura ambiente para teste
+		self.uf = uf_dao.UfDAO()
+		#descobre qual metodo será chamado e formata a saída
+		func = str(self.id).split('=')[-1][:-2]
+		func = func.split('test_')[-1]
+		func = func.replace('_',' ')
+		out = '\rTeste de ' + func + ' '
+		print out.ljust(65,'-'),
+		self.shortDescription()
+
+	def tearDown(self):
+		# informa que o teste foi realizado
+		print 'Done'                       
+
+	def shortDescription(self):
+		return "Teste da classe GenericoDAO"
+
+	def test_existing_uf_dao_instance(self):
+		self.assertIsNotNone(self.uf)
+
+	def test_list_uf(self):
+		for i in self.uf.lista_ufs():
+			self.assertIsNotNone(i)
+		for i in self.uf.lista_ufs(limite=3):
+			self.assertIsNotNone(str(i))
+			self.assertIsNotNone(i)
 
 #----------------------Ocorrencia-----------------------------------
+class TestOcorrencia(SimpleTestCase):
+	"""docstring for TestOcorrencia"""
+	def setUp(self):    #configura ambiente para teste
+		self.ocorrencia = ocorrencia_basica_dao.OcorrenciaBasicaDAO()
+		#descobre qual metodo será chamado e formata a saída
+		func = str(self.id).split('=')[-1][:-2]
+		func = func.split('test_')[-1]
+		func = func.replace('_',' ')
+		out = '\rTeste de ' + func + ' '
+		print out.ljust(65,'-'),
+		self.shortDescription()
 
-#----------------------MUNICIPIO-----------------------------------			
+	def tearDown(self):
+		# informa que o teste foi realizado
+		print 'Done'                       
+
+	def shortDescription(self):
+		return "Teste da classe OcorrenciaBasica"
+
+	def test_existing_ocorrencia_dao_instance(self):
+		self.assertIsNotNone(self.ocorrencia)
+
+	def test_ocorrencia_por_regiao(self):
+		# 97012 = Brasilia
+		oco =  self.ocorrencia.lista_ocorrencias_por_regiao(97012)
+		self.assertIsNotNone(oco)   #verifica se não retorna nulo
+		oco =  self.ocorrencia.lista_ocorrencias_por_regiao(97012,limite=3)
+		self.assertIsNotNone(oco)   #verifica se não retorna nulo
+		self.assertLess(len(oco),4) #verifica se retorna no maximo 3 ocorrencias
+		for i in oco:               #verifica se todos os retornos estão no DF
+			self.assertIsNotNone(str(i))
+			self.assertEqual(i.tmuuf, 'DF')
+
+
+	def test_ocorrencia_por_periodo(self):
+		oco =  self.ocorrencia.lista_ocorrencias_por_periodo('06/01/06','06/12/06')
+		self.assertIsNotNone(oco)   #verifica se não retorna nulo
+		oco =  self.ocorrencia.lista_ocorrencias_por_periodo('06/01/06','06/12/06',limite=3)
+		self.assertIsNotNone(oco)   #verifica se não retorna nulo
+		self.assertLess(len(oco),4) #verifica se retorna no maximo 3 ocorrencias
+		for i in oco:               #verifica se as ocorrencias aconteceram em 2006
+			self.skipTest("Tabela ainda não alterada nas demais máquinas")
+			self.assertEqual(2006, i.ocodataocorrencia.year)
+			
+#----------------------MUNICIPIO-----------------------------------
+class TestMunicipio(SimpleTestCase):
+	"""docstring for TestMunicipio"""
+	def setUp(self):    #configura ambiente para teste
+		self.municipio = municipio_dao.MunicipioDAO()
+		#descobre qual metodo será chamado e formata a saída
+		func = str(self.id).split('=')[-1][:-2]
+		func = func.split('test_')[-1]
+		func = func.replace('_',' ')
+		out = '\rTeste de ' + func + ' '
+		print out.ljust(65,'-'),
+		self.shortDescription()
+
+	def tearDown(self):
+		# informa que o teste foi realizado
+		print 'Done'                       
+
+	def shortDescription(self):
+		return "Teste da classe MunicipioDAO"
+
+	def test_existing_municipio_dao_instance(self):
+		self.assertIsNotNone(self.municipio)
+
+	def test_list_municipio(self):
+		for i in self.municipio.lista_municipios("DF"):
+			self.assertIsNotNone(i)
+		for i in self.municipio.lista_municipios("DF", limite=3):
+			self.assertIsNotNone(str(i))
+			self.assertIsNotNone(i)
+			
 # #----------------------URLs-----------------------------------
 # from django.test import TestCase
 # class TestMyViews(TestCase):

@@ -31,10 +31,17 @@ class GenericoDAO:
 	
 
 	def executa_query(self, query, get_data_frame=False):
-		if (get_data_frame == False):
-			return psql.frame_query(query, con=self.conexao).to_dict()
+		dados = None
+		
+		if (get_data_frame is False):
+			dados = psql.frame_query(query, con=self.conexao).to_dict()
 		else:
-			return psql.frame_query(query, con=self.conexao)
+			dados = psql.frame_query(query, con=self.conexao)
+
+		if (dados is None):
+			raise ResultadoConsultaNuloError("A biblioteca pandas não está instalada, ou nenhum dado foi passado a esse método")
+		else:
+			return dados
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
 		modulo_classe = importlib.import_module("models." + nome_modulo)

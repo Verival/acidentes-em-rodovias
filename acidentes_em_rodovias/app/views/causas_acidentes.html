@@ -24,6 +24,9 @@
                                 }
                             });
                             $('#grafico_linha').highcharts({
+									exporting: {
+										enabled: false
+									},
                                 title: {
                                     text: 'Ocorrências por causa',
                                     x: -20 //center
@@ -80,6 +83,9 @@
                         $(function () {
                             $(document).ready(function () {
                                 $('#grafico_torta').highcharts({
+									exporting: {
+										enabled: false
+									},
                                     chart: {
                                         plotBackgroundColor: null,
                                         plotBorderWidth: null,
@@ -124,6 +130,9 @@
                     <script type="text/javascript">
                         $(function () {
                             $('#grafico_coluna').highcharts({
+									exporting: {
+										enabled: false
+									},
                                 chart: {
                                     type: 'column'
                                 },
@@ -191,6 +200,9 @@
                     <script type="text/javascript">
                         $(function () {
                             $('#grafico_barra').highcharts({
+									exporting: {
+										enabled: false
+									},
                                 chart: {
                                     type: 'bar'
                                 },
