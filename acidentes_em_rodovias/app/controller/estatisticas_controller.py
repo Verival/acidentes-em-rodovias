@@ -13,6 +13,7 @@ from exception.validation_exceptions import *
 from exception.internal_exceptions import *
 from models.dao.tipos_acidentes_dao import *
 from models.dao.causas_acidentes_dao import *
+from models.dao.envolvidos_acidentes_dao import *
 from models.dao.estatistica_pessoas_dao import *
 import logging
 
@@ -63,7 +64,10 @@ def causas_acidentes(request):
 	return render_to_response("causas.html", context_instance=RequestContext(request))	
 
 def ocorrencias_e_envolvidos(request):
-	return render_to_response("ocorrencias-e-envolvidos.html", context_instance=RequestContext(request))	
+	envolvidosDAO = EnvolvidosAcidentesDAO()
+	lista_envolvidos = envolvidosDAO.envolvidos_acidentes()
+
+	return render_to_response("ocorrencias-e-envolvidos.html",{'lista_envolvidos':lista_envolvidos}, context_instance=RequestContext(request))	
 
 def acidentes_sexo(request):
 	try:
