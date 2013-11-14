@@ -8,6 +8,7 @@ from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
 from models.dao import generico_dao,uf_dao,ocorrencia_basica_dao,municipio_dao
 from _mysql_exceptions import OperationalError, ProgrammingError
+from exception.internal_exceptions import *
 
 #----------------------DAO----------------------------------
 class TestDAO(SimpleTestCase):
@@ -54,7 +55,8 @@ class TestDAO(SimpleTestCase):
 		#Testa se a lista nao esta vazia.
 		self.assertIsNotNone(self.dao.transforma_dicionario_em_objetos(self.dao.executa_query(query),'Uf','uf'))
 		#Testa exception
-		self.assertIsNone(self.dao.transforma_dicionario_em_objetos(None,'Uf','uf'))
+		with self.assertRaises(ResultadoConsultaNuloError):
+			self.assertIsNone(self.dao.transforma_dicionario_em_objetos(None,'Uf','uf'))
 
 			
 			

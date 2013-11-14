@@ -26,7 +26,7 @@ def consulta_por_regiao(request):
 	try:
 		uf_dao = UfDAO()
 		uf_list = uf_dao.lista_ufs()
-	except (MySQLdb.Error, NoPandasComponentError), e:
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
@@ -43,7 +43,7 @@ def consulta_municipios_na_regiao(request):
 
 	try:
 		valida_caracteres(uf_id)
-	except InvalidParameterError, e:
+	except ParametroInseguroClienteError, e:
 		logger.error(str(e))
 		erro = "Preencha corretamente o formulário!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))				
@@ -51,7 +51,7 @@ def consulta_municipios_na_regiao(request):
 	try:
 		municipio_dao = MunicipioDAO()
 		municipio_list = municipio_dao.lista_municipios(uf_id)
-	except (MySQLdb.Error, NoPandasComponentError), e:
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
@@ -69,7 +69,7 @@ def consulta_ocorrencias_por_municipio(request):
 	try:
 		ocorrencia_dao = OcorrenciaBasicaDAO()
 		ocorrencia_list = ocorrencia_dao.lista_ocorrencias_por_regiao(municipio_id, 1000)
-	except (MySQLdb.Error, NoPandasComponentError), e:
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
@@ -98,7 +98,7 @@ def consulta_ocorrencias_por_periodo(request):
 	try:
 		valida_data(data_inicio) 
 		valida_data(data_fim)
-	except InvalidDateError, e:
+	except DataInvalidaError, e:
 		logger.error(str(e))
 		erro = "Preencha corretamente o formulário!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))				
@@ -106,7 +106,7 @@ def consulta_ocorrencias_por_periodo(request):
 	try:
 		ocorrencia_dao = OcorrenciaBasicaDAO()
 		ocorrencia_list = ocorrencia_dao.lista_ocorrencias_por_periodo(data_inicio, data_fim, 1000)
-	except (MySQLdb.Error, NoPandasComponentError), e:
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
@@ -117,9 +117,8 @@ def valida_data(data):
 	if (re.search('^[0-3]\d/[01]\d/\d{4}$', data) is None 
 		or int(data[0:2]) >= 32
 		or int(data[3:5]) >= 13):
-		raise InvalidDateError("Data invalida inserida: " + data)
+		raise DataInvalidaError("Data invalida inserida: " + data)
 
 def valida_caracteres(palavra):
 	if (re.search('^[\w\s]+$', palavra) is None):
-		raise InvalidParameterError("Parametro invalido inserido: " + palavra)
-		
+		raise ParametroInseguroClienteError("Parametro invalido inserido: " + palavra)

@@ -44,7 +44,7 @@ class GenericoDAO:
 		try:
 			chaves = dados.keys()
 		except AttributeError, e:	# foi enviado uma lista nula para ser transformada
-			raise NoPandasComponentError("A biblioteca pandas não está instalada ou está desatualizada")
+			raise ResultadoConsultaNuloError("A biblioteca pandas não está instalada, ou nenhum dado foi passado a esse método")
 		
 		for i in range(0, len(dados[chaves[0]])):
 			instancia = class_()

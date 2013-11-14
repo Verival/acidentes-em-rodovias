@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from exceptions import Exception
 
-class InvalidDateError(Exception):
+class DataInvalidaError(Exception):
 	"""docstring for InvalidDateError"""
 	def __init__(self, message):
 		Exception.__init__(self)
@@ -9,7 +9,7 @@ class InvalidDateError(Exception):
 	def __str__(self):
 		return self.message
 
-class InvalidParameterError(Exception):
+class ParametroInseguroClienteError(Exception):
 	"""docstring for InvalidParameterError"""
 	def __init__(self, message):
 		Exception.__init__(self)

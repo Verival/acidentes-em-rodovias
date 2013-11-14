@@ -26,7 +26,7 @@ def tipos_acidentes(request):
 		tipos_acidentes_ano_list = tipos_acidentes_dao.tipos_acidentes_ano()
 		probabilidade_tipos_acidentes_list = tipos_acidentes_dao.probabilidade_tipos_acidentes()
 		media_desvio_tipos_acidentes_list = tipos_acidentes_dao.media_desvio_tipos_acidentes()
-	except (MySQLdb.Error, NoPandasComponentError), e:
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
@@ -47,7 +47,7 @@ def causas_acidentes(request):
 		causas_acidentes_ano_list = causas_acidentes_dao.causas_acidentes_ano()
 		probabilidade_causas_acidentes_list = causas_acidentes_dao.probabilidade_causas_acidentes()
 		media_desvio_causas_acidentes_list = causas_acidentes_dao.media_desvio_causas_acidentes()
-	except (MySQLdb.Error, NoPandasComponentError), e:
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
@@ -70,7 +70,7 @@ def acidentes_sexo(request):
 		estatistica_dao = EstatisticaPessoasDAO()
 		homens = estatistica_dao.acidentes_por_sexo('M')
 		mulheres = estatistica_dao.acidentes_por_sexo('F')
-	except (MySQLdb.Error, NoPandasComponentError), e:
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
