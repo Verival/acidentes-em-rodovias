@@ -7,6 +7,7 @@ sys.path.append(parent_dir)
 from django.test import SimpleTestCase
 from django.template import RequestContext, TemplateDoesNotExist
 from controller import consultabasica_controller as ctrl
+from _mysql_exceptions import *
 
 #----------------------DAO----------------------------------
 class TestController_Consulta_Basica(SimpleTestCase):
@@ -40,5 +41,18 @@ class TestController_Consulta_Basica(SimpleTestCase):
 
 	def test_consulta_por_regiao(self):
 		self.assertIsNotNone(ctrl.consulta_por_regiao(None))
+		#Testa a exceção
+			
+	def test_consulta_municipios_na_regiao(self):
+		#Testa se recebe o atributo correto de uf.
+		with self.assertRaises(AttributeError):	
+			self.assertIsNotNone(ctrl.consulta_municipios_na_regiao(None))
+		#trata a exceção.
 		
+		#Validação de caracteres.
+		#self.assert
+		
+		
+		
+	#def test_valida_caracteres(self):
 		
