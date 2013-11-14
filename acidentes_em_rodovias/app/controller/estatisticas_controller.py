@@ -66,8 +66,9 @@ def causas_acidentes(request):
 def ocorrencias_e_envolvidos(request):
 	envolvidosDAO = EnvolvidosAcidentesDAO()
 	lista_envolvidos = envolvidosDAO.envolvidos_acidentes()
+	medias, desvio = envolvidosDAO.media_desvio_envolvidos()
 
-	return render_to_response("ocorrencias-e-envolvidos.html",{'lista_envolvidos':lista_envolvidos}, context_instance=RequestContext(request))	
+	return render_to_response("ocorrencias-e-envolvidos.html",{'lista_envolvidos':lista_envolvidos, 'medias':medias, 'desvio':desvio}, context_instance=RequestContext(request))	
 
 def acidentes_sexo(request):
 	try:

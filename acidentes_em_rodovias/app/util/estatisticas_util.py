@@ -19,3 +19,14 @@ def distribuicao_normal(x, media, desvio):
 		p = 0.5
 
 	return p
+
+def desvio_padrao(lista):
+	media_total = 0
+	for i in range(0,len(lista)):
+		media_total = media_total + lista[i]
+	media_total = media_total/len(lista)
+	
+	for i in range(0,len(lista)):
+		desvio = (i - media_total)**2
+
+	return (desvio/len(lista))**(0.5)

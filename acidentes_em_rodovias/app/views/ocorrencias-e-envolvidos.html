@@ -14,6 +14,71 @@
             <section >
                 <p class="title button" data-section-title><a href="#">Quantidade de acidentes e envolvidos ao longo dos anos</a></p>
                 <div class="content" data-section-content>
+                    <div id="grafico_coluna" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#grafico_coluna').highcharts({
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'Quantidade de Envolvidos x Quantidade de Acidentes'
+                                },
+                                xAxis: {
+                                    categories: [
+                                        {% for envolvido in lista_envolvidos %}
+                                            '{{envolvido.ano}}',
+                                        {% endfor %}
+                                    ]
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'No de Envolvidos/Ocorrências'
+                                    },
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+                                    footerFormat: '</table>',
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                
+                                plotOptions: {
+                                    column: {
+                                        pointPadding: 0.2,
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [
+                                    {
+                                        name: 'Quantidade de Envolvidos',
+                                        data: [
+                                        {% for envolvido in lista_envolvidos %}
+                                            {{envolvido.quantidade_envolvidos}},
+                                        {%endfor%}
+                                        ]
+                                    },
+                                    {
+                                        name: 'Quantidade de Acidentes',
+                                        data: [
+                                        {% for envolvido in lista_envolvidos %}
+                                            {{envolvido.quantidade_acidentes}},
+                                        {%endfor%}
+                                        ]
+                                    },
+                                ]
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+
+            <section>
+                <p class="title button" data-section-title><a href="#">Média de envolvidos por acidente e desvio padrão</a></p>
+                <div class="content" data-section-content>
                     <div id="grafico_linha" style="min-width: 60%; margin: 0 auto"></div>
                     <script type="text/javascript">
                         $(function () {
@@ -37,7 +102,7 @@
                                 },
                                 yAxis: {
                                     title: {
-                                        text: 'No de Ocorrências'
+                                        text: 'No de Envolvidos'
                                     },
                                     plotLines: [{
                                         value: 0,
@@ -47,7 +112,7 @@
                                     min: 0,
                                 },
                                 tooltip: {
-                                    valueSuffix: ' ocorrências'
+                                    valueSuffix: ' envolvidos'
                                 },
                                 legend: {
                                     layout: 'vertical',
@@ -55,27 +120,35 @@
                                     verticalAlign: 'middle',
                                     borderWidth: 0
                                 },
-                                series: [
-                                    {
-                                        name: 'Quantidade de Envolvidos',
-                                        data: [
-                                        {% for envolvido in lista_envolvidos %}
-                                            {{envolvido.quantidade_envolvidos}},
-                                        {%endfor%}
-                                        ]
-                                    },
-                                    {
-                                        name: 'Quantidade de Acidentes',
-                                        data: [
-                                        {% for envolvido in lista_envolvidos %}
-                                            {{envolvido.quantidade_acidentes}},
-                                        {%endfor%}
-                                        ]
-                                    },
+                                series: [{
+                                    name: 'Margem de erro inferior',
+                                    data: 
+                                        [
+                                        {% for media in medias %}
+                                            {{media|stringformat:"f"}} - {{desvio|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                }, {
+                                    name: 'Média de envolvidos por acidente',
+                                    data: 
+                                        [
+                                        {% for media in medias %}
+                                            {{media|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                }, {
+                                    name: 'Margem de erro superior',
+                                    data: 
+                                        [
+                                        {% for media in medias %}
+                                            {{desvio|stringformat:"f"}} + {{media|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                },
                                 ]
                             });
                         });
-                    </script>      
+                    </script>
                 </div>
             </section>
         </div>      
