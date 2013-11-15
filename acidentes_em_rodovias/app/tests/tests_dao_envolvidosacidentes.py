@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse, resolve
 from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, estatistica_pessoas_dao, causas_acidentes_dao, municipio_dao, generico_dao, envolvidos_acidentes_dao
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
+from datetime import datetime
 
 class TestEnvolvidosAcidentes(SimpleTestCase):
 	"""docstring for TestUF"""
@@ -34,4 +35,12 @@ class TestEnvolvidosAcidentes(SimpleTestCase):
 		
 		self.assertIsNotNone(envolvidos_acidentes_list)
 
-		self.assertEquals(len(envolvidos_acidentes_list), 7) 
+		diffyears = datetime.now().year - 2007
+
+		self.assertEquals(len(envolvidos_acidentes_list), diffyears + 1)
+
+	def test_media_desvio_envolvidos(self):
+		lista_medias, desvio = self.dao.media_desvio_envolvidos()
+
+		self.assertIsNotNone(lista_medias)
+		self.assertIsNotNone(desvio)
