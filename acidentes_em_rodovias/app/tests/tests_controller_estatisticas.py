@@ -26,5 +26,4 @@ class TestController_Estatisticas(SimpleTestCase):
 		print 'Done'                                
 	
 	def shortDescription(self):
-		return "Teste da classe consultabasica_controller"
-
+		return "Teste da classe consultabasica_estatisticas"
