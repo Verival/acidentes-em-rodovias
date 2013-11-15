@@ -23,11 +23,9 @@ class TestTipoCausa(SimpleTestCase):
 	def tearDown(self):
 		# informa que o teste foi realizado
 		print 'Done'
-		print 'oi'                                
 	
 	def shortDescription(self):
 		return "Teste da classe consultabasica_controller"
 	
 	def test_causas_acidentes(self):
-		
 		self.assertIsNotNone(ctrl.causas_acidentes(None))

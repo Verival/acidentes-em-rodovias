@@ -45,4 +45,5 @@ class Test_Valida(SimpleTestCase):
 	def test_valida_caracteres(self):
 		with self.assertRaises(TypeError):
 			self.assertIsNotNone(ctrl.valida_caracteres(None))
+		with self.assertRaises(ParametroInseguroClienteError):
 			self.assertFalse(ctrl.valida_caracteres("./$%^&"))
