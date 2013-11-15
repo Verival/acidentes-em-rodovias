@@ -27,4 +27,5 @@ class Test_TipoCausa(SimpleTestCase):
 	
 	def shortDescription(self):
 		return "Teste da classe consultabasica_controller"
+	
 

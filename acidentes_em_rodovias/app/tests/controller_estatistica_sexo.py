@@ -27,4 +27,7 @@ class Test_Sexo(SimpleTestCase):
 	
 	def shortDescription(self):
 		return "Teste da classe consultabasica_controller"
+	
+	def test_acidentes_sexo(self):
+		self.assertIsNotNone(ctrl.acidentes_sexo(None))
 
