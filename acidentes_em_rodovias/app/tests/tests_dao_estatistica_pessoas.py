@@ -28,7 +28,7 @@ class Test_Estatistica_Pessoa(SimpleTestCase):
 		print 'Done'                       
 
 	def shortDescription(self):
-		return "Teste da classe GenericoDAO"
+		return "Teste da classe EstatisticasPessoasDAO"
 
 	def test_acidentes_por_sexo(self):
-		pass
+		self.assertIsNotNone(self.estatistica)

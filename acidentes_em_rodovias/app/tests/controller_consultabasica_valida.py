@@ -43,7 +43,6 @@ class Test_Valida(SimpleTestCase):
 		self.assertFalse(ctrl.valida_data("10/10/2013"))
 			
 	def test_valida_caracteres(self):
-		with self.assertRaises(ParametroInseguroClienteError):
-			self.assertFalse(ctrl.valida_caracteres("./$%^&"))
 		with self.assertRaises(TypeError):
 			self.assertIsNotNone(ctrl.valida_caracteres(None))
+			self.assertFalse(ctrl.valida_caracteres("./$%^&"))

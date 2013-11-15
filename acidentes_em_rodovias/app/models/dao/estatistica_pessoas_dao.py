@@ -23,9 +23,9 @@ class EstatisticaPessoasDAO(GenericoDAO):
 
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), "EstatisticaPessoas", "estatistica_pessoas")
 
-if __name__ == '__main__':
-	dao = EstatisticaPessoasDAO()
-	teste = dao.acidentes_por_sexo('M')
-
-	for i in teste:
-		print i
+#if __name__ == '__main__':
+#	dao = EstatisticaPessoasDAO()
+#	teste = dao.acidentes_por_sexo('M')
+#
+#	for i in teste:
+#		print i
