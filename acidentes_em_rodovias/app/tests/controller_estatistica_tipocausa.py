@@ -9,10 +9,9 @@ from django.template import RequestContext, TemplateDoesNotExist
 from controller import estatisticas_controller as ctrl
 from _mysql_exceptions import *
 
-class Test_TipoCausa(SimpleTestCase):
+class TestTipoCausa(SimpleTestCase):
 	"""docstring for TestController_Estatisticas"""
 	def setUp(self):    #configura ambiente para teste
-
 		#descobre qual metodo será chamado e formata a saída
 		func = str(self.id).split('=')[-1][:-2]
 		func = func.split('test_')[-1]
@@ -23,9 +22,12 @@ class Test_TipoCausa(SimpleTestCase):
 
 	def tearDown(self):
 		# informa que o teste foi realizado
-		print 'Done'                                
+		print 'Done'
+		print 'oi'                                
 	
 	def shortDescription(self):
 		return "Teste da classe consultabasica_controller"
 	
-
+	def test_causas_acidentes(self):
+		
+		self.assertIsNotNone(ctrl.causas_acidentes(None))
