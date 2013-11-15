@@ -9,7 +9,7 @@ from django.template import RequestContext, TemplateDoesNotExist
 from controller import estatisticas_controller as ctrl
 from _mysql_exceptions import *
 
-class TestController_Estatisticas(SimpleTestCase):
+class Test_Envolvidos(SimpleTestCase):
 	"""docstring for TestController_Estatisticas"""
 	def setUp(self):    #configura ambiente para teste
 
