@@ -6,7 +6,7 @@ sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
 from django.template import RequestContext, TemplateDoesNotExist
-from exception.validation_exceptions import ParametroInseguroClienteError
+from exception.validation_exceptions import ParametroInseguroClienteError, DataInvalidaError
 from controller import consultabasica_controller as ctrl
 from _mysql_exceptions import *
 
@@ -41,6 +41,8 @@ class Test_Valida(SimpleTestCase):
 		
 	def test_valida_data(self):
 		self.assertFalse(ctrl.valida_data("10/10/2013"))
+		with self.assertRaises(DataInvalidaError):
+			self.assertFalse(ctrl.valida_data("20 de março de 2013"))
 			
 	def test_valida_caracteres(self):
 		with self.assertRaises(TypeError):
