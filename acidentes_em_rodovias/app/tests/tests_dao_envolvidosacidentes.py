@@ -21,3 +21,10 @@ class TestEnvolvidosAcidentes(SimpleTestCase):
 		out = '\rTeste de ' + func + ' '
 		print out.ljust(65,'-'),
 		self.shortDescription()
+
+	def tearDown(self):
+		#informa que o teste foi realizado
+		print 'Done'
+
+	def shortDescription(self):
+		return "Teste da classe TestEnvolvidosAcidentesDAO"
