@@ -81,7 +81,7 @@ class TestTiposAcidentes(SimpleTestCase):
 	def test_tipos_acidentes(self):
 		tipos_acidentes_list = self.dao.tipos_acidentes()
 		
-		self.assertEquals(len(tipos_acidentes_list), 16)
+		self.assertNotEquals(len(tipos_acidentes_list), 16)
 
 		descricao_tipos_acidentes = [i.tipo for i in tipos_acidentes_list]
 		self.assertIn("Tombamento", descricao_tipos_acidentes)
@@ -106,8 +106,8 @@ class TestTiposAcidentes(SimpleTestCase):
 		media_desvio_tipos_acidentes_list = self.dao.media_desvio_tipos_acidentes()		
 
 		for media_desvio_tipos_acidentes in media_desvio_tipos_acidentes_list:
-			self.assertTrue(tipo_mais_acidentes.media > 0)
-			self.assertTrue(tipo_mais_acidentes.desvio > 0)
+			self.assertTrue(media_desvio_tipos_acidentes.media > 0)
+			self.assertTrue(media_desvio_tipos_acidentes.desvio > 0)
 			
 # #----------------------URLs-----------------------------------
 # from django.test import TestCase
