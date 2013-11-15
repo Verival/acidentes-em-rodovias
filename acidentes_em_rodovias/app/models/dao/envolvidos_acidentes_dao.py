@@ -29,8 +29,4 @@ class EnvolvidosAcidentesDAO(GenericoDAO):
 		desvio = desvio_padrao(lista_medias)
 
 		return lista_medias, desvio
-		
 
-if __name__ == '__main__':
-	dao = EnvolvidosAcidentesDAO()
-	print dao.media_desvio_envolvidos()
