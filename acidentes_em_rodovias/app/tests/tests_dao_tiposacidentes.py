@@ -32,7 +32,7 @@ class TestTiposAcidentes(SimpleTestCase):
 	def test_tipos_acidentes(self):
 		tipos_acidentes_list = self.dao.tipos_acidentes()
 		
-		self.assertNotEquals(len(tipos_acidentes_list), 16)
+		self.assertEquals(len(tipos_acidentes_list), 16)
 
 		descricao_tipos_acidentes = [i.tipo for i in tipos_acidentes_list]
 		self.assertIn("Tombamento", descricao_tipos_acidentes)

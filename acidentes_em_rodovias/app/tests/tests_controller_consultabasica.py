@@ -61,10 +61,9 @@ class TestController_Consulta_Basica(SimpleTestCase):
 			self.assertIsNotNone(ctrl.consulta_ocorrencias_por_periodo(None))
 	
 	def test_valida_data(self):
-		with self.assertRaises(TypeError):
-			self.assertIsNotNone(ctrl.valida_data(None))
+		self.assertFalse(ctrl.valida_data("10/10/2013"))
 			
 	def test_valida_caracteres(self):
+		self.assertFalse(ctrl.valida_caracteres("./$%^&"))
 		with self.assertRaises(TypeError):
 			self.assertIsNotNone(ctrl.valida_caracteres(None))
-			self.assertIsNone(ctrl.valida_caracteres("./$%^&"))
