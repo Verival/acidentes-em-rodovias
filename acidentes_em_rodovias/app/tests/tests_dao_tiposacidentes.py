@@ -11,7 +11,7 @@ from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
 
 class TestTiposAcidentes(SimpleTestCase):
-	"""docstring for TestUF"""
+	"""docstring for TestTiposAcidentes"""
 	def setUp(self):    #configura ambiente para teste
 		self.dao = tipos_acidentes_dao.TiposAcidentesDAO()
 		#descobre qual metodo será chamado e formata a saída
@@ -57,5 +57,5 @@ class TestTiposAcidentes(SimpleTestCase):
 		media_desvio_tipos_acidentes_list = self.dao.media_desvio_tipos_acidentes()		
 
 		for media_desvio_tipos_acidentes in media_desvio_tipos_acidentes_list:
-			self.assertTrue(tipo_mais_acidentes.media > 0)
-			self.assertTrue(tipo_mais_acidentes.desvio > 0)
+			self.assertTrue(media_desvio_tipos_acidentes.media > 0)
+			self.assertTrue(media_desvio_tipos_acidentes.desvio > 0)

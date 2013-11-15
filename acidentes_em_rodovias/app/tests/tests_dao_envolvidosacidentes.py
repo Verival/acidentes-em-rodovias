@@ -16,7 +16,7 @@ class TestEnvolvidosAcidentes(SimpleTestCase):
 		self.dao = envolvidos_acidentes_dao.EnvolvidosAcidentesDAO()
 		#descobre qual método será chamado e formata a saída
 		func = str(self.id).split('=')[-1][:-2]
-		func = func.spliit('test_')[-1]
+		func = func.split('test_')[-1]
 		func = func.replace('_', ' ')
 		out = '\rTeste de ' + func + ' '
 		print out.ljust(65,'-'),
@@ -28,3 +28,10 @@ class TestEnvolvidosAcidentes(SimpleTestCase):
 
 	def shortDescription(self):
 		return "Teste da classe TestEnvolvidosAcidentesDAO"
+
+	def test_envolvidos_acidentes(self):
+		envolvidos_acidentes_list = self.dao.envolvidos_acidentes()
+		
+		self.assertIsNotNone(envolvidos_acidentes_list)
+
+		self.assertEquals(len(envolvidos_acidentes_list), 7) 
