@@ -27,3 +27,7 @@ class Test_Envolvidos(SimpleTestCase):
 	
 	def shortDescription(self):
 		return "Teste da classe consultabasica_estatisticas"
+	
+	def test_ocorrencias_e_envolvidos(self):
+		self.assertIsNotNone(ctrl.ocorrencias_e_envolvidos(None))
+		
