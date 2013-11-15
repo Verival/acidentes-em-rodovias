@@ -27,6 +27,7 @@ def consulta_por_regiao(request):
     return render_to_response("regiao.html", {'uf_list' : uf_list}, context_instance=RequestContext(request))
 
 def consulta_municipios_na_regiao(request):
+    print request
     try:
         uf_id = request.GET['uf_id']
     except MultiValueDictKeyError, e:

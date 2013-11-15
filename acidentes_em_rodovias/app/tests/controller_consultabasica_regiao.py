@@ -6,7 +6,7 @@ sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
 from django.template import RequestContext, TemplateDoesNotExist
-from controller import consultabasica_controller as ctrl
+from controller import consulta_regiao as ctrl
 from _mysql_exceptions import *
 
 class Test_Regiao(SimpleTestCase):
