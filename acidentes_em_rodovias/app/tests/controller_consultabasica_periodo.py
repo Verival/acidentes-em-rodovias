@@ -5,17 +5,14 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
-from django.core.urlresolvers import reverse, resolve
-from controller import consultabasica_controller
-from _mysql_exceptions import OperationalError, ProgrammingError
-from exception.internal_exceptions import *
+from django.template import RequestContext, TemplateDoesNotExist
+from controller import consultabasica_controller as ctrl
+from _mysql_exceptions import *
 
-
-#----------------------DAO----------------------------------
-class TestControllerRegiao(SimpleTestCase):
-	"""docstring for TestDAO"""
+class Test_Periodo(SimpleTestCase):
+	"""docstring for TestController_Consulta_Basica"""
 	def setUp(self):    #configura ambiente para teste
-		self.ctrl = consultabasica_controller()
+
 		#descobre qual metodo será chamado e formata a saída
 		func = str(self.id).split('=')[-1][:-2]
 		func = func.split('test_')[-1]
@@ -29,10 +26,11 @@ class TestControllerRegiao(SimpleTestCase):
 		print 'Done'                                
 	
 	def shortDescription(self):
-		return "Teste da classe GenericoDAO"
-
-	def test_instancia_controller_regiao(self):
-		self.assertIsNotNone(self.ctrl)
-
-	def test_consulta_regiao(self):
-		self.assertIsNotNone(self.ctrl.consulta_por_regiao(None))
+		return "Teste da classe consultabasica_controller"
+		
+	def test_consulta_por_periodo(self):
+		self.assertIsNotNone(ctrl.consulta_por_periodo(None))
+		
+	def test_consulta_ocorrencias_por_periodo(self):
+		with self.assertRaises(AttributeError):
+			self.assertIsNotNone(ctrl.consulta_ocorrencias_por_periodo(None))

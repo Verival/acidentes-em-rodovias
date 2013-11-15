@@ -9,8 +9,7 @@ from django.template import RequestContext, TemplateDoesNotExist
 from controller import consultabasica_controller as ctrl
 from _mysql_exceptions import *
 
-#----------------------DAO----------------------------------
-class TestController_Consulta_Basica(SimpleTestCase):
+class Test_Valida(SimpleTestCase):
 	"""docstring for TestController_Consulta_Basica"""
 	def setUp(self):    #configura ambiente para teste
 
@@ -28,38 +27,17 @@ class TestController_Consulta_Basica(SimpleTestCase):
 	
 	def shortDescription(self):
 		return "Teste da classe consultabasica_controller"
-
+		
 	def test_render_to_response(self):
 		self.assertIsNotNone( ctrl.render_to_response("index.html", context_instance=RequestContext(None)) )
 		with self.assertRaises(TemplateDoesNotExist):
 			ctrl.render_to_response("nao_existo", context_instance=RequestContext(None))
-
+	
 	def test_index(self):
 		#help(SimpleTestCase)
 		#help(ctrl.render_to_response)
 		self.assertIsNotNone( ctrl.index(None))
-
-	def test_consulta_por_regiao(self):
-		self.assertIsNotNone(ctrl.consulta_por_regiao(None))
-		#Testa a exceção
 		
-	def test_consulta_municipios_na_regiao(self):
-		#Testa se recebe o atributo correto de uf.
-		with self.assertRaises(AttributeError):	
-			self.assertIsNotNone(ctrl.consulta_municipios_na_regiao(None))
-		#trata a exceção.
-		
-	def test_consulta_ocorrencias_por_municipio(self):
-		with self.assertRaises(AttributeError):
-			self.assertIsNotNone(ctrl.consulta_ocorrencias_por_municipio(None))
-		
-	def test_consulta_por_periodo(self):
-		self.assertIsNotNone(ctrl.consulta_por_periodo(None))
-		
-	def test_consulta_ocorrencias_por_periodo(self):
-		with self.assertRaises(AttributeError):
-			self.assertIsNotNone(ctrl.consulta_ocorrencias_por_periodo(None))
-	
 	def test_valida_data(self):
 		self.assertFalse(ctrl.valida_data("10/10/2013"))
 			
