@@ -33,11 +33,12 @@ INNER JOIN causaacidente AS ca ON oa.oactcacodigo = ca.tcacodigo
 GROUP BY ca.tcadescricao, o.ano;
 
 -- Cria e popula a tabela de estatísticas para quantidade de envolvidos
+DROP TABLE IF EXISTS `estatisticas_envolvido`;
 CREATE TABLE `estatisticas_envolvido` (
   `idEstatisticaEnvolvido` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `quantidade_envolvidos` int(11),
   `quantidade_acidentes` int(11),
-  `ano` int(11),
+  `ano` int(11) UNIQUE,
   PRIMARY KEY (`idEstatisticaEnvolvido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -46,10 +47,8 @@ SELECT COUNT(*) AS 'quantidade_envolvidos', o.ano AS ano
 FROM ocorrencia AS o
 INNER JOIN ocorrenciaPessoa AS op ON op.opeocoid = o.ocoid
 GROUP BY o.ano;
-UPDATE `acidentes_rodovias`.`estatisticas_envolvido` SET `quantidade_acidentes`='128256' WHERE `idEstatisticaEnvolvido`='1';
-UPDATE `acidentes_rodovias`.`estatisticas_envolvido` SET `quantidade_acidentes`='141023' WHERE `idEstatisticaEnvolvido`='2';
-UPDATE `acidentes_rodovias`.`estatisticas_envolvido` SET `quantidade_acidentes`='158105' WHERE `idEstatisticaEnvolvido`='3';
-UPDATE `acidentes_rodovias`.`estatisticas_envolvido` SET `quantidade_acidentes`='183937' WHERE `idEstatisticaEnvolvido`='4';
-UPDATE `acidentes_rodovias`.`estatisticas_envolvido` SET `quantidade_acidentes`='192467' WHERE `idEstatisticaEnvolvido`='5';
-UPDATE `acidentes_rodovias`.`estatisticas_envolvido` SET `quantidade_acidentes`='91741' WHERE `idEstatisticaEnvolvido`='6';
-UPDATE `acidentes_rodovias`.`estatisticas_envolvido` SET `quantidade_acidentes`='91692' WHERE `idEstatisticaEnvolvido`='7';
+INSERT INTO  `estatisticas_envolvido` (  `quantidade_acidentes` ,  `ano` )
+SELECT COUNT(*) as 'quantidade_acidentes', o.ano
+FROM ocorrencia AS o
+GROUP BY o.ano
+ON DUPLICATE KEY UPDATE `quantidade_acidentes` = VALUES(  `quantidade_acidentes`  );

@@ -53,6 +53,5 @@ class TestOcorrencia(SimpleTestCase):
 		self.assertIsNotNone(oco)   #verifica se não retorna nulo
 		self.assertLess(len(oco),4) #verifica se retorna no maximo 3 ocorrencias
 		for i in oco:               #verifica se as ocorrencias aconteceram em 2006
-			self.skipTest("Tabela ainda não alterada nas demais máquinas")
 			self.assertEqual(2006, i.ocodataocorrencia.year)
 			
