@@ -62,6 +62,8 @@ class TestDAO(SimpleTestCase):
 	def test_instancia_objetos(self):
 		self.assertIsNotNone(tipos_acidentes.TiposAcidentes())
 		self.assertIsNotNone(str(tipos_acidentes.TiposAcidentes()))
+		self.assertIsNotNone(tipos_acidentes.TiposAcidentesAno())
+		self.assertIsNotNone(str(tipos_acidentes.TiposAcidentesAno()))
 		pass
 			
 # #----------------------URLs-----------------------------------
