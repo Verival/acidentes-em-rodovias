@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="nosetests" tests="60" errors="0" failures="0" skip="0"><testcase classname="app.tests.TestCausasAcidentes" name="test_causas_acidentes" time="0.008"><system-out><![CDATA[Teste de causas acidentes -------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestCausasAcidentes" name="test_causas_acidentes_ano" time="0.004"><system-out><![CDATA[Teste de causas acidentes ano ---------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestCausasAcidentes" name="test_media_desvio_causas_acidentes" time="0.006"><system-out><![CDATA[Teste de media desvio causas acidentes ------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestCausasAcidentes" name="test_probabilidade_causas_acidentes" time="0.006"><system-out><![CDATA[Teste de probabilidade causas acidentes ------------------------ Done
+]]></system-out></testcase><testcase classname="app.tests.TestDAO" name="test_existing_dao_instance" time="0.001"><system-out><![CDATA[Teste de existing dao instance --------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestDAO" name="test_get_conexao" time="0.018"><system-out><![CDATA[Teste de get conexao ------------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestDAO" name="test_instancia_objetos" time="0.001"><system-out><![CDATA[Teste de instancia objetos ------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestDAO" name="test_transforma_objeto" time="0.006"><system-out><![CDATA[Teste de transforma objeto ------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestDAO" name="test_try_query" time="0.001"><system-out><![CDATA[Teste de try query --------------------------------------------- Error on sql showjik;
+Done
+]]></system-out></testcase><testcase classname="app.tests.TestEnvolvidosAcidentes" name="test_envolvidos_acidentes" time="0.003"><system-out><![CDATA[Teste de envolvidos acidentes ---------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestEnvolvidosAcidentes" name="test_media_desvio_envolvidos" time="0.003"><system-out><![CDATA[Teste de media desvio envolvidos ------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestMunicipio" name="test_existing_municipio_dao_instance" time="0.001"><system-out><![CDATA[Teste de existing municipio dao instance ----------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestMunicipio" name="test_list_municipio" time="2.174"><system-out><![CDATA[Teste de list municipio ---------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestOcorrencia" name="test_existing_ocorrencia_dao_instance" time="0.001"><system-out><![CDATA[Teste de existing ocorrencia dao instance ---------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestOcorrencia" name="test_ocorrencia_por_periodo" time="4.097"><system-out><![CDATA[Teste de ocorrencia por periodo -------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestOcorrencia" name="test_ocorrencia_por_regiao" time="4.556"><system-out><![CDATA[Teste de ocorrencia por regiao --------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestTipoCausa" name="test_causas_acidentes" time="0.066"><system-out><![CDATA[Teste de causas acidentes -------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestTiposAcidentes" name="test_media_desvio_tipos_acidentes" time="0.006"><system-out><![CDATA[Teste de media desvio tipos acidentes -------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestTiposAcidentes" name="test_probabilidade_tipos_acidentes" time="0.015"><system-out><![CDATA[Teste de probabilidade tipos acidentes ------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestTiposAcidentes" name="test_tipos_acidentes" time="0.004"><system-out><![CDATA[Teste de tipos acidentes --------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestTiposAcidentes" name="test_tipos_acidentes_ano" time="0.004"><system-out><![CDATA[Teste de tipos acidentes ano ----------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.TestUF" name="test_existing_uf_dao_instance" time="0.001"><system-out><![CDATA[Teste de existing uf dao instance ------------------------------ Done
+]]></system-out></testcase><testcase classname="app.tests.TestUF" name="test_list_uf" time="0.003"><system-out><![CDATA[Teste de list uf ----------------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Envolvidos" name="test_ocorrencias_e_envolvidos" time="0.010"><system-out><![CDATA[Teste de ocorrencias e envolvidos ------------------------------ Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Estatistica_Pessoa" name="test_acidentes_por_sexo" time="0.001"><system-out><![CDATA[Teste de acidentes por sexo ------------------------------------ Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Estatistica_Pessoa" name="test_instancia_estatistica_pessoa" time="0.000"><system-out><![CDATA[Teste de instancia estatistica pessoa -------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Periodo" name="test_consulta_ocorrencias_por_periodo" time="0.000"><system-out><![CDATA[Teste de consulta ocorrencias por periodo ---------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Periodo" name="test_consulta_por_periodo" time="0.004"><system-out><![CDATA[Teste de consulta por periodo ---------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Regiao" name="test_consulta_municipios_na_regiao" time="0.000"><system-out><![CDATA[Teste de consulta municipios na regiao ------------------------- None
+Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Regiao" name="test_consulta_ocorrencias_por_municipio" time="0.000"><system-out><![CDATA[Teste de consulta ocorrencias por municipio -------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Regiao" name="test_consulta_por_regiao" time="0.008"><system-out><![CDATA[Teste de consulta por regiao ----------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Sexo" name="test_acidentes_sexo" time="0.004"><system-out><![CDATA[Teste de acidentes sexo ---------------------------------------- Error on sql SELECT a.ano, a.sexo, a.quantidade 
+				FROM acidentes_por_sexo AS a
+				WHERE a.sexo = 'M'
+				ORDER BY a.ano;
+Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Valida" name="test_index" time="0.003"><system-out><![CDATA[Teste de index ------------------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Valida" name="test_render_to_response" time="0.004"><system-out><![CDATA[Teste de render to response ------------------------------------ Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Valida" name="test_valida_caracteres" time="0.000"><system-out><![CDATA[Teste de valida caracteres ------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.Test_Valida" name="test_valida_data" time="0.001"><system-out><![CDATA[Teste de valida data ------------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao.TestDAO" name="test_existing_dao_instance" time="0.001"><system-out><![CDATA[Teste de existing dao instance --------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao.TestDAO" name="test_get_conexao" time="0.025"><system-out><![CDATA[Teste de get conexao ------------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao.TestDAO" name="test_instancia_objetos" time="0.001"><system-out><![CDATA[Teste de instancia objetos ------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao.TestDAO" name="test_transforma_objeto" time="0.005"><system-out><![CDATA[Teste de transforma objeto ------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao.TestDAO" name="test_try_query" time="0.002"><system-out><![CDATA[Teste de try query --------------------------------------------- Error on sql showjik;
+Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_UF.TestUF" name="test_existing_uf_dao_instance" time="0.001"><system-out><![CDATA[Teste de existing uf dao instance ------------------------------ Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_UF.TestUF" name="test_list_uf" time="0.005"><system-out><![CDATA[Teste de list uf ----------------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_causas_acidentes.TestCausasAcidentes" name="test_causas_acidentes" time="0.004"><system-out><![CDATA[Teste de causas acidentes -------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_causas_acidentes.TestCausasAcidentes" name="test_causas_acidentes_ano" time="0.005"><system-out><![CDATA[Teste de causas acidentes ano ---------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_causas_acidentes.TestCausasAcidentes" name="test_media_desvio_causas_acidentes" time="0.006"><system-out><![CDATA[Teste de media desvio causas acidentes ------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_causas_acidentes.TestCausasAcidentes" name="test_probabilidade_causas_acidentes" time="0.015"><system-out><![CDATA[Teste de probabilidade causas acidentes ------------------------ Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_envolvidosacidentes.TestEnvolvidosAcidentes" name="test_envolvidos_acidentes" time="0.003"><system-out><![CDATA[Teste de envolvidos acidentes ---------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_envolvidosacidentes.TestEnvolvidosAcidentes" name="test_media_desvio_envolvidos" time="0.004"><system-out><![CDATA[Teste de media desvio envolvidos ------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_estatistica_pessoas.Test_Estatistica_Pessoa" name="test_acidentes_por_sexo" time="0.001"><system-out><![CDATA[Teste de acidentes por sexo ------------------------------------ Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_estatistica_pessoas.Test_Estatistica_Pessoa" name="test_instancia_estatistica_pessoa" time="0.001"><system-out><![CDATA[Teste de instancia estatistica pessoa -------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_municipio.TestMunicipio" name="test_existing_municipio_dao_instance" time="0.001"><system-out><![CDATA[Teste de existing municipio dao instance ----------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_municipio.TestMunicipio" name="test_list_municipio" time="2.206"><system-out><![CDATA[Teste de list municipio ---------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_ocorrencia.TestOcorrencia" name="test_existing_ocorrencia_dao_instance" time="0.001"><system-out><![CDATA[Teste de existing ocorrencia dao instance ---------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_ocorrencia.TestOcorrencia" name="test_ocorrencia_por_periodo" time="4.070"><system-out><![CDATA[Teste de ocorrencia por periodo -------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_ocorrencia.TestOcorrencia" name="test_ocorrencia_por_regiao" time="4.517"><system-out><![CDATA[Teste de ocorrencia por regiao --------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_tiposacidentes.TestTiposAcidentes" name="test_media_desvio_tipos_acidentes" time="0.004"><system-out><![CDATA[Teste de media desvio tipos acidentes -------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_tiposacidentes.TestTiposAcidentes" name="test_probabilidade_tipos_acidentes" time="0.013"><system-out><![CDATA[Teste de probabilidade tipos acidentes ------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_tiposacidentes.TestTiposAcidentes" name="test_tipos_acidentes" time="0.002"><system-out><![CDATA[Teste de tipos acidentes --------------------------------------- Done
+]]></system-out></testcase><testcase classname="app.tests.tests_dao_tiposacidentes.TestTiposAcidentes" name="test_tipos_acidentes_ano" time="0.002"><system-out><![CDATA[Teste de tipos acidentes ano ----------------------------------- Done
+]]></system-out></testcase></testsuite>
