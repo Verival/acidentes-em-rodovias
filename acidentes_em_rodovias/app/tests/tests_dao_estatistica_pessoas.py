@@ -7,6 +7,7 @@ sys.path.append(parent_dir)
 from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
 from models.dao import estatistica_pessoas_dao as dao
+from models import estatistica_pessoas
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
 
@@ -32,3 +33,7 @@ class Test_Estatistica_Pessoa(SimpleTestCase):
 
 	def test_acidentes_por_sexo(self):
 		self.assertIsNotNone(self.estatistica)
+
+	def test_instancia_estatistica_pessoa(self):
+		self.assertIsNotNone(estatistica_pessoas.EstatisticaPessoas())
+		self.assertIsNotNone(str(estatistica_pessoas.EstatisticaPessoas()))
