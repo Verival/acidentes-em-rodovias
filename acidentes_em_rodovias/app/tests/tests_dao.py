@@ -64,6 +64,8 @@ class TestDAO(SimpleTestCase):
 		self.assertIsNotNone(str(tipos_acidentes.TiposAcidentes()))
 		self.assertIsNotNone(tipos_acidentes.TiposAcidentesAno())
 		self.assertIsNotNone(str(tipos_acidentes.TiposAcidentesAno()))
+		self.assertIsNotNone(str(tipos_acidentes.ProbabilidadeTiposAcidentes()))
+		self.assertIsNotNone(str(tipos_acidentes.MediaDesvioTiposAcidentes()))
 		pass
 			
 # #----------------------URLs-----------------------------------
