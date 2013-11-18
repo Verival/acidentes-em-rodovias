@@ -78,10 +78,13 @@ def acidentes_sexo(request):
 		pessoas_dao = PessoasAcidentesDAO()
 		homens_ano = pessoas_dao.acidentes_por_sexo_e_ano('M')
 		mulheres_ano = pessoas_dao.acidentes_por_sexo_e_ano('F')
+		homens_geral = pessoas_dao.acidentes_por_sexo_geral('M')
+		mulheres_geral = pessoas_dao.acidentes_por_sexo_geral('F')
+		homens_geral, mulheres_geral = media_sexo(homens_geral, mulheres_geral)
 
 	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
 
-	return render_to_response("acidentes_sexo.html",{'homens_ano':homens_ano, 'mulheres_ano':mulheres_ano}, context_instance=RequestContext(request))
+	return render_to_response("acidentes_sexo.html",{'homens_geral':homens_geral, 'mulheres_geral':mulheres_geral, 'homens_ano':homens_ano, 'mulheres_ano':mulheres_ano}, context_instance=RequestContext(request))

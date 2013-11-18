@@ -14,7 +14,7 @@
 <div class="row">
         <div class="section-container accordion" data-section="accordion">
             <section >
-                <p class="title button" data-section-title><a href="#">Quantidade de Homens/Mulheres envolvidos em acidentes</a></p>
+                <p class="title button" data-section-title><a href="#">Quantidade de Homens/Mulheres envolvidos em acidentes por ano</a></p>
                 <div class="content" data-section-content>
                     <div id="grafico_linha" style="min-width: 60%; margin: 0 auto"></div>
                     <script type="text/javascript">
@@ -76,7 +76,7 @@
             </section>
 
             <section>
-                <p class="title button" data-section-title><a href="#">Média de envolvidos por acidente e desvio padrão</a></p>
+                <p class="title button" data-section-title><a href="#">Porcentagem de Homens/Mulheres envolvidos em acidentes já registrados</a></p>
                 <div class="content" data-section-content>
                     <div id="grafico_pizza" style="min-width: 60%; margin: 0 auto"></div>
                     <script type="text/javascript">
@@ -92,7 +92,7 @@
                                         plotShadow: false
                                     },
                                     title: {
-                                        text: 'Porcentagem de tipos de acidentes'
+                                        text: 'Porcentagem de Homens/Mulheres'
                                     },
                                     tooltip: {
                                         pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
@@ -110,10 +110,9 @@
                                     series: [{
                                         type: 'pie',
                                         name: 'Porcentagem',
-                                        data: [
-                                        {% for tipos_acidentes in tipos_acidentes_list %}
-                                            ['{{tipos_acidentes.tipo}}', {{tipos_acidentes.quantidade_ocorrencias}}],
-                                        {% endfor %}
+                                        data: [                                            
+                                            ['Mulheres', {{mulheres_geral.quantidade}}],
+                                            ['Homens', {{homens_geral.quantidade}}]
                                         ]
                                     }]
                                 });

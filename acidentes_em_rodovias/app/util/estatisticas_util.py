@@ -30,3 +30,12 @@ def desvio_padrao(lista):
 		desvio = (i - media_total)**2
 
 	return (desvio/len(lista))**(0.5)
+
+def media_sexo(homens, mulheres):
+	total  = int(homens[0].quantidade) + int(mulheres[0].quantidade)
+	for homem in homens:
+		homem.quantidade = float(homem.quantidade)/float(total) * 100
+	for mulher in mulheres:
+		mulher.quantidade = float(mulher.quantidade)/float(total) * 100
+
+	return homens[0], mulheres[0]
