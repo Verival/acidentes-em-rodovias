@@ -17,9 +17,18 @@
                     <div id="grafico_coluna" style="min-width: 60%; margin: 0 auto"></div>
                     <script type="text/javascript">
                         $(function () {
+                            Highcharts.setOptions({
+                                lang: {
+                                    decimalPoint: ',' ,
+                                    thousandsSep: '.'
+                                }
+                            });
                             $('#grafico_coluna').highcharts({
+                                exporting: {
+                                        enabled: false
+                                    },
                                 chart: {
-                                    type: 'column'
+                                    type: 'line'
                                 },
                                 title: {
                                     text: 'Quantidade de Envolvidos x Quantidade de Acidentes'
@@ -32,25 +41,21 @@
                                     ]
                                 },
                                 yAxis: {
-                                    min: 0,
                                     title: {
                                         text: 'No de Envolvidos/Ocorrências'
                                     },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }],
+                                    min: 0,
                                 },
-                                tooltip: {
-                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                        '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
-                                    footerFormat: '</table>',
-                                    shared: true,
-                                    useHTML: true
-                                },
-                                
-                                plotOptions: {
-                                    column: {
-                                        pointPadding: 0.2,
-                                        borderWidth: 0
-                                    }
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
                                 },
                                 series: [
                                     {
@@ -79,73 +84,73 @@
             <section>
                 <p class="title button" data-section-title><a href="#">Média de envolvidos por acidente e desvio padrão</a></p>
                 <div class="content" data-section-content>
-                    <div id="grafico_linha" style="min-width: 60%; margin: 0 auto"></div>
+                    <div id="grafico_linha_area" style="min-width: 60%; margin: 0 auto"></div>
                     <script type="text/javascript">
                         $(function () {
-                            Highcharts.setOptions({
-                                lang: {
-                                    decimalPoint: ',' ,
-                                    thousandsSep: '.'
-                                }
-                            });
-                            $('#grafico_linha').highcharts({
+                            
+                            var ranges = [
+                                    {% for ano, media in ano_media_list %}
+                                        [{{ano}}, {{media|stringformat:"f"}} - {{desvio|stringformat:"f"}}, {{media|stringformat:"f"}} + {{desvio|stringformat:"f"}}],
+                                    {% endfor %}
+                                ],
+                                averages = [
+                                    {% for ano, media in ano_media_list %}
+                                        [{{ano}}, {{media|stringformat:"f"}}],
+                                    {% endfor %}
+                                ];
+
+                            $('#grafico_linha_area').highcharts({
+                                exporting: {
+                                        enabled: false
+                                    },
                                 title: {
-                                    text: 'Quantidade de acidentes e envolvidos',
-                                    x: -20 //center
+                                    text: 'Média de envolvidos por acidente'
                                 },
                                 xAxis: {
                                     categories: [
-                                        {% for ano in lista_envolvidos %}
-                                            {{ano.ano}},
-                                        {% endfor %}
+                                            {% for ano, media in ano_media_list %}
+                                                {{ano}},
+                                            {% endfor %}                  
                                     ]
                                 },
+                                
                                 yAxis: {
                                     title: {
-                                        text: 'No de Envolvidos'
+                                        text: 'Média'
                                     },
-                                    plotLines: [{
-                                        value: 0,
-                                        width: 1,
-                                        color: '#808080'
-                                    }],
-                                    min: 0,
                                 },
+                            
+                                
                                 tooltip: {
-                                    valueSuffix: ' envolvidos'
+                                    headerFormat: '<span style="font-size:11px">{point.key}</span><table>',
+                                    pointFormat: '<br/><tr><td style="font-size:12px;color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="font-size:12px;padding:0"><b>{point.y:.2f}</b></td></tr>',
+                                    footerFormat: '</table>',
+                                    crosshairs: true,
+                                    shared: true,
+                                    useHTML: true
                                 },
-                                legend: {
-                                    layout: 'vertical',
-                                    align: 'right',
-                                    verticalAlign: 'middle',
-                                    borderWidth: 0
-                                },
+                                
                                 series: [{
-                                    name: 'Margem de erro inferior',
-                                    data: 
-                                        [
-                                        {% for media in medias %}
-                                            {{media|stringformat:"f"}} - {{desvio|stringformat:"f"}},
-                                        {% endfor %}
-                                        ] 
+                                    name: 'Média',
+                                    data: averages,
+                                    zIndex: 1,
+                                    marker: {
+                                        fillColor: 'white',
+                                        lineWidth: 2,
+                                        lineColor: Highcharts.getOptions().colors[0]
+                                    }
                                 }, {
-                                    name: 'Média de envolvidos por acidente',
-                                    data: 
-                                        [
-                                        {% for media in medias %}
-                                            {{media|stringformat:"f"}},
-                                        {% endfor %}
-                                        ] 
-                                }, {
-                                    name: 'Margem de erro superior',
-                                    data: 
-                                        [
-                                        {% for media in medias %}
-                                            {{desvio|stringformat:"f"}} + {{media|stringformat:"f"}},
-                                        {% endfor %}
-                                        ] 
-                                },
-                                ]
+                                    name: 'Desvio padrão',
+                                    data: ranges,
+                                    type: 'arearange',
+                                    lineWidth: 0,
+                                    linkedTo: ':previous',
+                                    color: Highcharts.getOptions().colors[0],
+                                    fillOpacity: 0.3,
+                                    zIndex: 0
+                                }]
+                            
                             });
                         });
                     </script>

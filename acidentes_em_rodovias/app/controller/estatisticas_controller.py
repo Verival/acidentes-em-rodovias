@@ -67,8 +67,11 @@ def ocorrencias_e_envolvidos(request):
 	envolvidosDAO = EnvolvidosAcidentesDAO()
 	lista_envolvidos = envolvidosDAO.envolvidos_acidentes()
 	medias, desvio = envolvidosDAO.media_desvio_envolvidos()
+	anos = [i.ano for i in lista_envolvidos]
 
-	return render_to_response("ocorrencias-e-envolvidos.html",{'lista_envolvidos':lista_envolvidos, 'medias':medias, 'desvio':desvio}, context_instance=RequestContext(request))	
+	ano_media_list = zip(anos, medias)
+
+	return render_to_response("ocorrencias-e-envolvidos.html",{'lista_envolvidos':lista_envolvidos, 'ano_media_list':ano_media_list, 'desvio':desvio}, context_instance=RequestContext(request))	
 
 def acidentes_sexo(request):
 	try:
