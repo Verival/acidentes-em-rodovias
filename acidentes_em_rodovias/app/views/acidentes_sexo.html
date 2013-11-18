@@ -10,77 +10,122 @@
             </div>
        </div>
     </div>
-    
-    <div class="row">
-            
+
+<div class="row">
+        <div class="section-container accordion" data-section="accordion">
+            <section >
+                <p class="title button" data-section-title><a href="#">Quantidade de Homens/Mulheres envolvidos em acidentes</a></p>
                 <div class="content" data-section-content>
-                    <div class="section-container accordion" data-section="accordion">
-                        <section>
-                            <p class="title button" data-section-title><a href="#">Quantidade de acidentes por ano - Homens x Mulheres</a></p>
-                            <div class="content" data-section-content>
-                                <div id="grafico_linha" align="center" style="min-width: 60%; margin: 0 auto"></div>
-                                <script type="text/javascript">
-                                    $(function () {
-                                        Highcharts.setOptions({
-                                            lang: {
-                                                decimalPoint: ',' ,
-                                                thousandsSep: '.'
-                                            }
-                                        });
-                                        $('#grafico_linha').highcharts({
-									exporting: {
-										enabled: false
-									},
-                                            title: {
-                                                text: 'Quantidade de ocorrências por ano - Homens x Mulheres',
-                                                x: -20 //center
-                                            },
-                                            xAxis: {
-                                            	title: {
-                                            		text: 'Ano'
-                                            	},
-                                                categories: [2007, 2008, 2009, 2010, 2011, 2012, 2013]
-                                            },
-                                            yAxis: {
-                                                title: {
-                                                    text: 'Quantidade total'
-                                                },
-                                                plotLines: [{
-                                                    value: 0,
-                                                    width: 1,
-                                                    color: '#808080'
-                                                }],
-                                                min: 0,
-                                            },
-                                            tooltip: {
-                                                //valueSuffix: ''
-                                                pointFormat: "{point.y:f} ocorrências",
-                                            },
-                                            legend: {
-                                                layout: 'vertical',
-                                                align: 'right',
-                                                verticalAlign: 'middle',
-                                                borderWidth: 0
-                                            },
-                                            series: [{
-                                                name: 'Homens',
-                                                data: [{% for homem in homens %} {{homem.quantidade}}, {% endfor %}]
-                                            },
-                                            {
-                                                name: 'Mulheres',
-                                                data: [{% for mulher in mulheres %} {{mulher.quantidade}}, {% endfor %}]
-                                            },
-                                            ]
-                                        });
-                                    });
-                                </script>      
-                            </div>
-                        </section>
-                       
-                    </div>      
+                    <div id="grafico_linha" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                            $(function () {
+                                Highcharts.setOptions({
+                                    lang: {
+                                        decimalPoint: ',' ,
+                                        thousandsSep: '.'
+                                    }
+                                });
+                                $('#grafico_linha').highcharts({
+                            exporting: {
+                                enabled: false
+                            },
+                                    title: {
+                                        text: 'Quantidade de ocorrências por ano - Homens x Mulheres',
+                                        x: -20 //center
+                                    },
+                                    xAxis: {
+                                        title: {
+                                            text: 'Ano'
+                                        },
+                                        categories: [2007, 2008, 2009, 2010, 2011, 2012, 2013]
+                                    },
+                                    yAxis: {
+                                        title: {
+                                            text: 'Quantidade total'
+                                        },
+                                        plotLines: [{
+                                            value: 0,
+                                            width: 1,
+                                            color: '#808080'
+                                        }],
+                                        min: 0,
+                                    },
+                                    tooltip: {
+                                        //valueSuffix: ''
+                                        pointFormat: "{point.y:f} ocorrências",
+                                    },
+                                    legend: {
+                                        layout: 'vertical',
+                                        align: 'right',
+                                        verticalAlign: 'middle',
+                                        borderWidth: 0
+                                    },
+                                    series: [{
+                                        name: 'Homens',
+                                        data: [{% for homem in homens_ano %} {{homem.quantidade}}, {% endfor %}]
+                                    },
+                                    {
+                                        name: 'Mulheres',
+                                        data: [{% for mulher in mulheres_ano %} {{mulher.quantidade}}, {% endfor %}]
+                                    },
+                                    ]
+                                });
+                            });
+                    </script>    
                 </div>
-            
+            </section>
+
+            <section>
+                <p class="title button" data-section-title><a href="#">Média de envolvidos por acidente e desvio padrão</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_pizza" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $(document).ready(function () {
+                                $('#grafico_pizza').highcharts({
+                                    exporting: {
+                                        enabled: false
+                                    },
+                                    chart: {
+                                        plotBackgroundColor: null,
+                                        plotBorderWidth: null,
+                                        plotShadow: false
+                                    },
+                                    title: {
+                                        text: 'Porcentagem de tipos de acidentes'
+                                    },
+                                    tooltip: {
+                                        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+                                    },
+                                    plotOptions: {
+                                        pie: {
+                                            allowPointSelect: true,
+                                            cursor: 'pointer',
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            showInLegend: true
+                                        }
+                                    },
+                                    series: [{
+                                        type: 'pie',
+                                        name: 'Porcentagem',
+                                        data: [
+                                        {% for tipos_acidentes in tipos_acidentes_list %}
+                                            ['{{tipos_acidentes.tipo}}', {{tipos_acidentes.quantidade_ocorrencias}}],
+                                        {% endfor %}
+                                        ]
+                                    }]
+                                });
+                            });
+                            
+                        });
+                    </script>
+                </div>
+            </section>
+        </div>      
     </div>
+
     <script src="{{ STATIC_URL }}js/highcharts.js"></script>
     <script src="{{ STATIC_URL }}js/highcharts-more.js"></script>
     <script src="{{ STATIC_URL }}js/modules/exporting.js"></script>

@@ -14,7 +14,7 @@ from exception.internal_exceptions import *
 from models.dao.tipos_acidentes_dao import *
 from models.dao.causas_acidentes_dao import *
 from models.dao.envolvidos_acidentes_dao import *
-from models.dao.estatistica_pessoas_dao import *
+from models.dao.pessoas_acidentes_dao import *
 import logging
 
 logging.basicConfig()
@@ -75,12 +75,13 @@ def ocorrencias_e_envolvidos(request):
 
 def acidentes_sexo(request):
 	try:
-		estatistica_dao = EstatisticaPessoasDAO()
-		homens = estatistica_dao.acidentes_por_sexo('M')
-		mulheres = estatistica_dao.acidentes_por_sexo('F')
+		pessoas_dao = PessoasAcidentesDAO()
+		homens_ano = pessoas_dao.acidentes_por_sexo_e_ano('M')
+		mulheres_ano = pessoas_dao.acidentes_por_sexo_e_ano('F')
+
 	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
 
-	return render_to_response("acidentes_sexo.html",{'homens':homens, 'mulheres':mulheres}, context_instance=RequestContext(request))
+	return render_to_response("acidentes_sexo.html",{'homens_ano':homens_ano, 'mulheres_ano':mulheres_ano}, context_instance=RequestContext(request))
