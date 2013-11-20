@@ -24,9 +24,24 @@
                                 }
                             });
                             $('#grafico_linha').highcharts({
-									exporting: {
-										enabled: false
-									},
+								exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
                                 title: {
                                     text: 'Acidentes por tipo',
                                     x: -20 //center
@@ -84,8 +99,23 @@
                             $(document).ready(function () {
                                 $('#grafico_torta').highcharts({
 									exporting: {
-										enabled: false
-									},
+                                        buttons: {
+                                            contextButton: {
+                                                menuItems: [{
+                                                    text: 'Imprimir',
+                                                    onclick: function() {
+                                                        this.print();
+                                                    }
+                                                }, {
+                                                    text: 'Salvar como PNG',
+                                                    onclick: function() {
+                                                        this.createCanvas();
+                                                    },
+                                                    separator: false
+                                                }]
+                                            }
+                                        }
+                                    },
                                     chart: {
                                         plotBackgroundColor: null,
                                         plotBorderWidth: null,
@@ -130,9 +160,24 @@
                     <script type="text/javascript">
                         $(function () {
                             $('#grafico_coluna').highcharts({
-									exporting: {
-										enabled: false
-									},
+								exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
                                 chart: {
                                     type: 'column'
                                 },
@@ -200,9 +245,24 @@
                     <script type="text/javascript">
                         $(function () {
                             $('#grafico_barra').highcharts({
-									exporting: {
-										enabled: false
-									},
+								exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
                                 chart: {
                                     type: 'bar'
                                 },
@@ -287,8 +347,5 @@
         </div>
 
     </div>
-    <script src="{{ STATIC_URL }}js/highcharts.js"></script>
-    <script src="{{ STATIC_URL }}js/highcharts-more.js"></script>
-    <script src="{{ STATIC_URL }}js/modules/exporting.js"></script>
-
+    
 {% include 'footer.html' %}

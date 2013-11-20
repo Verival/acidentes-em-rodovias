@@ -26,9 +26,24 @@
                                     }
                                 });
                                 $('#grafico_linha').highcharts({
-                            exporting: {
-                                enabled: false
-                            },
+                                    exporting: {
+                                        buttons: {
+                                            contextButton: {
+                                                menuItems: [{
+                                                    text: 'Imprimir',
+                                                    onclick: function() {
+                                                        this.print();
+                                                    }
+                                                }, {
+                                                    text: 'Salvar como PNG',
+                                                    onclick: function() {
+                                                        this.createCanvas();
+                                                    },
+                                                    separator: false
+                                                }]
+                                            }
+                                        }
+                                    },
                                     title: {
                                         text: 'Quantidade de ocorrências por ano - Homens x Mulheres',
                                         x: -20 //center
@@ -84,7 +99,22 @@
                             $(document).ready(function () {
                                 $('#grafico_pizza').highcharts({
                                     exporting: {
-                                        enabled: false
+                                        buttons: {
+                                            contextButton: {
+                                                menuItems: [{
+                                                    text: 'Imprimir',
+                                                    onclick: function() {
+                                                        this.print();
+                                                    }
+                                                }, {
+                                                    text: 'Salvar como PNG',
+                                                    onclick: function() {
+                                                        this.createCanvas();
+                                                    },
+                                                    separator: false
+                                                }]
+                                            }
+                                        }
                                     },
                                     chart: {
                                         plotBackgroundColor: null,
@@ -124,9 +154,5 @@
             </section>
         </div>      
     </div>
-
-    <script src="{{ STATIC_URL }}js/highcharts.js"></script>
-    <script src="{{ STATIC_URL }}js/highcharts-more.js"></script>
-    <script src="{{ STATIC_URL }}js/modules/exporting.js"></script>
 
 {% include 'footer.html' %}

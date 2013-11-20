@@ -25,8 +25,23 @@
                             });
                             $('#grafico_coluna').highcharts({
                                 exporting: {
-                                        enabled: false
-                                    },
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
                                 chart: {
                                     type: 'line'
                                 },
@@ -101,8 +116,23 @@
 
                             $('#grafico_linha_area').highcharts({
                                 exporting: {
-                                        enabled: false
-                                    },
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
                                 title: {
                                     text: 'Média de envolvidos por acidente'
                                 },
@@ -159,9 +189,5 @@
         </div>      
     </div>
     
-    <script src="{{ STATIC_URL }}js/highcharts.js"></script>
-    <script src="{{ STATIC_URL }}js/highcharts-more.js"></script>
-    <script src="{{ STATIC_URL }}js/modules/exporting.js"></script>
-
 {% include 'footer.html' %}
             
