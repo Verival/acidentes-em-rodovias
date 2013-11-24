@@ -97,3 +97,26 @@ INNER JOIN localbr lbr
 WHERE lbr.lbrbr IS NOT NULL
 GROUP BY lbr.lbrbr, oco.ano
 ORDER BY lbr.lbrbr, oco.ano;
+
+-- Cria e popula a tabela de estatisticas de sexo por ocorrencia
+DROP TABLE IF EXISTS `acidentes_por_sexo`;
+CREATE TABLE `acidentes_por_sexo` (
+  `idacidentes_por_sexo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ano` int(11) NOT NULL,
+  `sexo` VARCHAR(1) COLLATE latin1_general_ci NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  PRIMARY KEY (`idacidentes_por_sexo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+INSERT INTO `acidentes_por_sexo`
+    (`ano`, `sexo`,`quantidade`)
+SELECT
+  oco.ano,
+  pes.pessexo AS sexo,
+  COUNT(*) AS quantidade
+FROM ocorrencia oco
+INNER JOIN ocorrenciaPessoa opes
+  ON opes.opeocoid = oco.ocoid
+INNER JOIN pessoa pes
+  ON opes.opepesid = pes.pesid
+WHERE pes.pessexo = 'M' OR pes.pessexo = 'F'
+GROUP BY ano, sexo;
