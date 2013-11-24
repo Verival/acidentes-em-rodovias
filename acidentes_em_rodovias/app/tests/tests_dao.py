@@ -6,16 +6,21 @@ sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
-from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, estatistica_pessoas_dao, causas_acidentes_dao, municipio_dao, generico_dao
+from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, estatistica_pessoas_dao, causas_acidentes_dao, municipio_dao
 from models import tipos_acidentes, envolvidos_acidentes
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
+
+
 
 #----------------------DAO----------------------------------
 class TestDAO(SimpleTestCase):
 	"""docstring for TestDAO"""
 	def setUp(self):    #configura ambiente para teste
-		self.dao = generico_dao.GenericoDAO()
+		x = __import__('models.dao.generico_dao')
+		self.dao = x.dao.generico_dao.GenericoDAO()
+		#help(x.dao.generico_dao)
+		#sys.stderr.write('\n' + str(x) + '\n' )
 		#descobre qual metodo será chamado e formata a saída
 		func = str(self.id).split('=')[-1][:-2]
 		func = func.split('test_')[-1]
@@ -46,7 +51,13 @@ class TestDAO(SimpleTestCase):
 
 	def test_try_query(self):
 		with self.assertRaises(ProgrammingError):
-			self.assertIsNone(self.dao.executa_query("showjik;"))
+			self.assertIsNone(self.dao.executa_query("show * from jik;"))
+			self.assertIsNotNone(self.dao.executa_query("show tables;"))
+
+#		del x
+#		self.assertIsNone(self.dao.dados)
+#		import pandas.io.sql as psql
+		
 
 	def test_transforma_objeto(self):
 		#Quando tudo funciona bem
