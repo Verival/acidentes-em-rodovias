@@ -21,12 +21,13 @@ class TestDAO(SimpleTestCase):
 		func = func.split('test_')[-1]
 		func = func.replace('_',' ')
 		out = '\rTeste de ' + func + ' '
-		print out.ljust(65,'-'),
+		out = out.ljust(65,'-')
+		sys.stderr.write(out)
 		self.shortDescription()
 
 	def tearDown(self):
 		# informa que o teste foi realizado
-		print 'Done'                                
+		sys.stderr.write('Done\n')
 	
 	def shortDescription(self):
 		return "Teste da classe GenericoDAO"

@@ -8,6 +8,8 @@ from django.test import SimpleTestCase
 from django.template import RequestContext, TemplateDoesNotExist
 from controller import consultabasica_controller as ctrl
 from _mysql_exceptions import *
+from nose import with_setup
+
 
 class Test_Periodo(SimpleTestCase):
 	"""docstring for TestController_Consulta_Basica"""
@@ -18,12 +20,14 @@ class Test_Periodo(SimpleTestCase):
 		func = func.split('test_')[-1]
 		func = func.replace('_',' ')
 		out = '\rTeste de ' + func + ' '
-		print out.ljust(65,'-'),
+		out = out.ljust(65,'-')
+		sys.stderr.write(out)
 		self.shortDescription()
 
 	def tearDown(self):
 		# informa que o teste foi realizado
-		print 'Done'                                
+		#print 'Done'                                
+		sys.stderr.write('Done\n')
 	
 	def shortDescription(self):
 		return "Teste da classe consultabasica_controller"
