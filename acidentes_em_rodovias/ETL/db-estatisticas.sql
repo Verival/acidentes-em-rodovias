@@ -74,28 +74,7 @@ INNER JOIN localbr lbr
 INNER JOIN uf
     ON uf.tufuf = lbr.lbruf
 GROUP BY uf.tufuf, oco.ano
-ORDER BY uf.tufuf, oco.ano
-
--- Cria e popula a tabela de estatísticas para br por ocorrência
-DROP TABLE IF EXISTS `estatisticas_br`;
-CREATE TABLE `estatisticas_br` (
-  `idEstatisticaBr` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `br` CHAR(2) COLLATE latin1_general_ci NOT NULL,
-  `quantidade_ocorrencias` int(11) NOT NULL,
-  `ano` int(11) NOT NULL,
-  PRIMARY KEY (`idEstatisticaUf`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-INSERT INTO estatisticas_uf
-    (`quantidade_ocorrencias`, `uf`,`ano`)
-SELECT
-    COUNT(*) AS quantidade_ocorrencias,
-    lbr.lbrbr,
-    oco.ano
-FROM ocorrencia oco
-INNER JOIN localbr lbr
-    ON lbr.lbrid = oco.ocoid
-GROUP BY lbr.lbrbr, oco.ano
-ORDER BY lbr.lbrbr, oco.ano
+ORDER BY uf.tufuf, oco.ano;
 
 -- Cria e popula a tabela de estatísticas para br por ocorrência
 DROP TABLE IF EXISTS `estatisticas_br`;
@@ -117,4 +96,4 @@ INNER JOIN localbr lbr
     ON lbr.lbrid = oco.ocoid
 WHERE lbr.lbrbr IS NOT NULL
 GROUP BY lbr.lbrbr, oco.ano
-ORDER BY lbr.lbrbr, oco.ano
+ORDER BY lbr.lbrbr, oco.ano;
