@@ -15,6 +15,7 @@ from models.dao.tipos_acidentes_dao import *
 from models.dao.causas_acidentes_dao import *
 from models.dao.envolvidos_acidentes_dao import *
 from models.dao.pessoas_acidentes_dao import *
+from models.dao.br_acidentes_dao import *
 import logging
 
 logging.basicConfig()
@@ -88,3 +89,14 @@ def acidentes_sexo(request):
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
 
 	return render_to_response("acidentes_sexo.html",{'homens_geral':homens_geral, 'mulheres_geral':mulheres_geral, 'homens_ano':homens_ano, 'mulheres_ano':mulheres_ano}, context_instance=RequestContext(request))
+
+def acidentes_br(request):
+	try:
+		br_dao = BRAcidentesDAO()
+		br_acidentes_geral = br_dao.acidentes_br_geral()
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
+		logger.error(str(e))
+		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
+		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
+
+	return  render_to_response("br_acidentes.html",{'br_acidentes_geral':br_acidentes_geral}, context_instance=RequestContext(request))
