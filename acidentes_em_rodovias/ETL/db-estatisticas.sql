@@ -63,15 +63,15 @@ CREATE TABLE `estatisticas_uf` (
   PRIMARY KEY (`idEstatisticaUf`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
+DELIMITER $$
 
-delimiter $$
 DROP PROCEDURE IF EXISTS `popularEstado`;
 CREATE PROCEDURE popularEstado()
 	BEGIN
 		DECLARE i INT; 
 		SET i = 2007;   
 		WHILE(i<=YEAR(CURDATE())) DO       
-			INSERT INTO `estatisticas_uf`(`ano`, `uf`, `quantidade_ocorrencias`)          
+			INSERT INTO `estatisticas_uf` (`ano`, `uf`, `quantidade_ocorrencias`)          
 			SELECT o.ano, br.lbruf, COUNT(*) FROM ocorrencia AS o           
 			INNER JOIN localbr AS br           
 			ON br.lbrid = o.ocolocal           
@@ -81,7 +81,9 @@ CREATE PROCEDURE popularEstado()
 			LIMIT 10;           
 			SET i = i + 1;    
 		END WHILE; 
-END$$
+	END$$
+
+DELIMITER ;
 
 CALL popularEstado();
 
@@ -94,18 +96,30 @@ CREATE TABLE `estatisticas_br` (
   `ano` int(11) NOT NULL,
   PRIMARY KEY (`idEstatisticaBr`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-INSERT INTO estatisticas_br
-    (`quantidade_ocorrencias`, `br`,`ano`)
-SELECT
-    COUNT(*) AS quantidade_ocorrencias,
-    LPAD(lbr.lbrbr, 3, '0') AS br,
-    oco.ano
-FROM ocorrencia oco
-INNER JOIN localbr lbr
-    ON lbr.lbrid = oco.ocoid
-WHERE lbr.lbrbr IS NOT NULL
-GROUP BY lbr.lbrbr, oco.ano
-ORDER BY lbr.lbrbr, oco.ano;
+ 
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `popularBR`;
+CREATE PROCEDURE popularBR()
+	BEGIN
+		DECLARE i INT;
+		SET i = 2007;
+		WHILE(i<=YEAR(CURDATE())) DO
+			INSERT INTO `estatisticas_br` (`ano`, `br`, `quantidade_ocorrencias`)
+			SELECT o.ano, br.lbrbr, COUNT(*) FROM ocorrencia AS o
+			INNER JOIN localbr AS br
+			ON br.lbrid = o.ocolocal
+			WHERE o.ano = i
+			GROUP BY o.ano, br.lbrbr
+			ORDER BY COUNT(*) DESC
+			LIMIT 10;
+			SET i = i + 1;
+		END WHILE;
+	END$$
+
+DELIMITER ;
+
+CALL popularBR();
 
 -- Cria e popula a tabela de estatisticas de sexo por ocorrencia
 DROP TABLE IF EXISTS `acidentes_por_sexo`;
