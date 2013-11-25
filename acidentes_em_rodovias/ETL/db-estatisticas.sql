@@ -62,19 +62,28 @@ CREATE TABLE `estatisticas_uf` (
   `ano` int(11) NOT NULL,
   PRIMARY KEY (`idEstatisticaUf`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-INSERT INTO estatisticas_uf
-    (`quantidade_ocorrencias`, `uf`,`ano`)
-SELECT
-    COUNT(*) AS quantidade_ocorrencias,
-    uf.tufuf,
-    oco.ano
-FROM ocorrencia oco
-INNER JOIN localbr lbr
-    ON lbr.lbrid = oco.ocoid
-INNER JOIN uf
-    ON uf.tufuf = lbr.lbruf
-GROUP BY uf.tufuf, oco.ano
-ORDER BY uf.tufuf, oco.ano;
+
+
+delimiter $$
+DROP PROCEDURE IF EXISTS `popularEstado`;
+CREATE PROCEDURE popularEstado()
+	BEGIN
+		DECLARE i INT; 
+		SET i = 2007;   
+		WHILE(i<=YEAR(CURDATE())) DO       
+			INSERT INTO `estatisticas_uf`(`ano`, `uf`, `quantidade_ocorrencias`)          
+			SELECT o.ano, br.lbruf, COUNT(*) FROM ocorrencia AS o           
+			INNER JOIN localbr AS br           
+			ON br.lbrid = o.ocolocal           
+			WHERE o.ano = i           
+			GROUP BY o.ano, br.lbruf           
+			ORDER BY COUNT(*) DESC           
+			LIMIT 10;           
+			SET i = i + 1;    
+		END WHILE; 
+END$$
+
+CALL popularEstado();
 
 -- Cria e popula a tabela de estatísticas para br por ocorrência
 DROP TABLE IF EXISTS `estatisticas_br`;
