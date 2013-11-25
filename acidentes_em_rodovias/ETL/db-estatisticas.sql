@@ -130,6 +130,33 @@ CREATE TABLE `acidentes_por_sexo` (
   `quantidade` int(11) NOT NULL,
   PRIMARY KEY (`idacidentes_por_sexo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `popularPorSexo`;
+CREATE PROCEDURE popularPorSexo()
+	BEGIN
+		DECLARE i INT;
+		SET i = 2007;
+		WHILE(i<=YEAR(CURDATE())) DO
+			INSERT INTO `acidentes_por_sexo` (`ano`, `sexo`, `quantidade`)
+			SELECT o.ano, p.pessexo, COUNT(*) FROM ocorrencia AS o
+			INNER JOIN ocorrenciaPessoa AS op
+			ON op.opeocoid = o.ocoid
+			INNER JOIN pessoa AS p
+			ON op.opepesid = p.pesid
+			WHERE o.ano = i
+			GROUP BY o.ano, p.pessexo
+			ORDER BY COUNT(*) DESC
+			LIMIT 10;
+			SET i = i + 1;
+		END WHILE;
+	END$$
+
+DELIMITER ;
+
+CALL popularPorSexo();
+
 INSERT INTO `acidentes_por_sexo`
     (`ano`, `sexo`,`quantidade`)
 SELECT
