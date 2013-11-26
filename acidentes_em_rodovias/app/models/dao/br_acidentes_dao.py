@@ -10,6 +10,7 @@ class BRAcidentesDAO(GenericoDAO):
 	def acidentes_br_geral(self):
 		query = """SELECT bre.br, bre.quantidade_ocorrencias
 				FROM estatisticas_br bre
+				GROUP BY bre.br
 				ORDER BY bre.quantidade_ocorrencias DESC
 				LIMIT 10;"""
 
