@@ -105,3 +105,16 @@ def acidentes_br(request):
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
 
 	return  render_to_response("br_acidentes.html",{'ano':range(2007, data.year+1), 'br_acidentes_geral':br_acidentes_geral, 'acidentes_ano':acidentes_ano}, context_instance=RequestContext(request))
+
+def acidentes_uf(request):
+	try:
+		data = datetime.now()
+		uf_dao = UFAcidentesDAO()
+		uf_acidentes_geral = uf_dao.acidentes_uf_geral()
+
+	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
+		logger.error(str(e))
+		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
+		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
+
+	return  render_to_response("br_acidentes.html",{'ano':range(2007, data.year+1), 'uf_acidentes_geral':uf_acidentes_geral}, context_instance=RequestContext(request))
