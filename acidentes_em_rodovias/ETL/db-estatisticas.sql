@@ -54,6 +54,7 @@ GROUP BY o.ano
 ON DUPLICATE KEY UPDATE `quantidade_acidentes` = VALUES(  `quantidade_acidentes`  );
 
 -- Cria e popula a tabela de estatísticas para uf por ocorrência
+DROP PROCEDURE IF EXISTS `popularEstado`;
 DROP TABLE IF EXISTS `estatisticas_uf`;
 CREATE TABLE `estatisticas_uf` (
   `idEstatisticaUf` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -65,7 +66,7 @@ CREATE TABLE `estatisticas_uf` (
 
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `popularEstado`;
+
 CREATE PROCEDURE popularEstado()
 	BEGIN
 		DECLARE i INT; 
@@ -88,6 +89,7 @@ DELIMITER ;
 CALL popularEstado();
 
 -- Cria e popula a tabela de estatísticas para br por ocorrência
+DROP PROCEDURE IF EXISTS `popularBR`;
 DROP TABLE IF EXISTS `estatisticas_br`;
 CREATE TABLE `estatisticas_br` (
   `idEstatisticaBr` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -99,7 +101,6 @@ CREATE TABLE `estatisticas_br` (
  
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `popularBR`;
 CREATE PROCEDURE popularBR()
 	BEGIN
 		DECLARE i INT;
@@ -122,6 +123,7 @@ DELIMITER ;
 CALL popularBR();
 
 -- Cria e popula a tabela de estatisticas de sexo por ocorrencia
+DROP PROCEDURE IF EXISTS `popularPorSexo`;
 DROP TABLE IF EXISTS `acidentes_por_sexo`;
 CREATE TABLE `acidentes_por_sexo` (
   `idacidentes_por_sexo` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -133,7 +135,6 @@ CREATE TABLE `acidentes_por_sexo` (
 
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `popularPorSexo`;
 CREATE PROCEDURE popularPorSexo()
 	BEGIN
 		DECLARE i INT;
