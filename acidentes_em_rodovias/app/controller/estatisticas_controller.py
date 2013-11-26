@@ -16,6 +16,7 @@ from models.dao.causas_acidentes_dao import *
 from models.dao.envolvidos_acidentes_dao import *
 from models.dao.pessoas_acidentes_dao import *
 from models.dao.br_acidentes_dao import *
+from models.dao.uf_acidentes_dao import *
 from datetime import datetime
 import logging
 
@@ -117,4 +118,4 @@ def acidentes_uf(request):
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
 
-	return  render_to_response("br_acidentes.html",{'ano':range(2007, data.year+1), 'uf_acidentes_geral':uf_acidentes_geral}, context_instance=RequestContext(request))
+	return  render_to_response("uf_acidentes.html",{'ano':range(2007, data.year+1), 'uf_acidentes_geral':uf_acidentes_geral}, context_instance=RequestContext(request))
