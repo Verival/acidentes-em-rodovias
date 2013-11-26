@@ -15,7 +15,7 @@ from tests_dao_municipio import *
 from tests_dao_UF import *
 from tests_dao_ocorrencia import *
 from tests_dao_causas_acidentes import *
-from tests_dao_estatistica_pessoas import *
+#from tests_dao_estatistica_pessoas import *  # Depreciado no commit 1150e7965f [ft_estatisticas]
 from tests_dao_tiposacidentes import *
 from tests_dao_envolvidosacidentes import *
 
