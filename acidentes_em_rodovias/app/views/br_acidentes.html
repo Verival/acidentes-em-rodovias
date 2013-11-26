@@ -85,6 +85,85 @@
                     </script>
                 </div>
             </section>
+            <section >
+                <p class="title button" data-section-title><a href="#">Causas de acidentes ao longo dos anos</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_linha" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            Highcharts.setOptions({
+                                lang: {
+                                    decimalPoint: ',' ,
+                                    thousandsSep: '.'
+                                }
+                            });
+                            $('#grafico_linha').highcharts({
+                                exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
+                                title: {
+                                    text: 'Ocorrências por causa',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    categories: [
+                                        {% for i in ano %}
+                                            {{i}},
+                                        {%endfor%}
+                                    ]
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'No de Ocorrências'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }],
+                                    min: 0,
+                                },
+                                tooltip: {
+                                    valueSuffix: ' ocorrências'
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [
+                                {% for acidente in acidentes_ano %}
+                                        {
+                                            name: 'BR {{acidente.br}}',
+                                            data: [
+                                            {% for quantidade in acidente.quantidade_ocorrencias_list %}
+                                                {{quantidade}},
+                                            {% endfor %}
+                                            ]
+                                        },
+                                {% endfor %}
+                                ]
+                            });
+                        });
+                    </script>      
+                </div>
+            </section>
         </div>
 
     </div>

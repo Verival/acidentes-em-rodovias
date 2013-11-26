@@ -137,37 +137,22 @@ DELIMITER $$
 
 CREATE PROCEDURE popularPorSexo()
 	BEGIN
-		DECLARE i INT;
-		SET i = 2007;
-		WHILE(i<=YEAR(CURDATE())) DO
-			INSERT INTO `acidentes_por_sexo` (`ano`, `sexo`, `quantidade`)
-			SELECT o.ano, p.pessexo, COUNT(*) FROM ocorrencia AS o
-			INNER JOIN ocorrenciaPessoa AS op
-			ON op.opeocoid = o.ocoid
-			INNER JOIN pessoa AS p
-			ON op.opepesid = p.pesid
-			WHERE o.ano = i
-			GROUP BY o.ano, p.pessexo
-			ORDER BY COUNT(*) DESC
-			LIMIT 10;
-			SET i = i + 1;
-		END WHILE;
+		INSERT INTO `acidentes_por_sexo`
+			(`ano`, `sexo`,`quantidade`)
+		SELECT
+		  oco.ano,
+		  pes.pessexo AS sexo,
+		  COUNT(*) AS quantidade
+		FROM ocorrencia oco
+		INNER JOIN ocorrenciaPessoa opes
+		  ON opes.opeocoid = oco.ocoid
+		INNER JOIN pessoa pes
+		  ON opes.opepesid = pes.pesid
+		WHERE pes.pessexo = 'M' OR pes.pessexo = 'F'
+		GROUP BY ano, sexo;
 	END$$
 
 DELIMITER ;
 
 CALL popularPorSexo();
 
-INSERT INTO `acidentes_por_sexo`
-    (`ano`, `sexo`,`quantidade`)
-SELECT
-  oco.ano,
-  pes.pessexo AS sexo,
-  COUNT(*) AS quantidade
-FROM ocorrencia oco
-INNER JOIN ocorrenciaPessoa opes
-  ON opes.opeocoid = oco.ocoid
-INNER JOIN pessoa pes
-  ON opes.opepesid = pes.pesid
-WHERE pes.pessexo = 'M' OR pes.pessexo = 'F'
-GROUP BY ano, sexo;

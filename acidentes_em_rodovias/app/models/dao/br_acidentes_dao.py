@@ -6,7 +6,7 @@ sys.path.append(current_path)
 current_path = os.path.dirname(os.path.abspath('.'))
 sys.path.append(current_path)
 
-from datetime import datetime
+from models.br_acidentes import *
 
 class BRAcidentesDAO(GenericoDAO):
 	def acidentes_br_geral(self):
@@ -18,14 +18,26 @@ class BRAcidentesDAO(GenericoDAO):
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), 'BRAcidentes', 'br_acidentes')
 
 	def acidentes_br_ano(self):
-		data = datetime.now()
-		acidentes_br = []
-		for ano in range(2007, data.year+1):
-			query = """SELECT bre.br, bre.quantidade_ocorrencias, bre.ano
-					FROM estatisticas_br bre
-					WHERE bre.ano = '%s'
-					GROUP BY bre.ano, bre.br
-					ORDER BY bre.quantidade_ocorrencias DESC;""" % ano
-			acidentes_ano = self.transforma_dicionario_em_objetos(self.executa_query(query), 'BRAcidentesAno', 'br_acidentes')
-			acidentes_br.append(acidentes_ano)
-		return acidentes_br
+		query = """SELECT bre.br, bre.quantidade_ocorrencias, bre.ano
+				FROM estatisticas_br bre
+				GROUP BY bre.ano, bre.br
+				ORDER BY bre.br;"""
+		
+		resultado_query = self.executa_query(query)
+
+		br_acidentes_ano_list = []
+		ultima_br = ''
+		for (br, quantidade_ocorrencias, ano) in zip(resultado_query['br'].values(), resultado_query['quantidade_ocorrencias'].values(), resultado_query['ano'].values()):
+			br = br.decode('iso-8859-1').encode('utf8')
+			if (br == '230' or br == '470'):
+				pass
+			else:
+				if (ultima_br != br):
+					brs_acidentes_ano =  BRAcidentesAno()
+					br_acidentes_ano_list.append(brs_acidentes_ano)
+					brs_acidentes_ano.br = br
+					ultima_br = br
+				brs_acidentes_ano.ano_list.append(ano)
+				brs_acidentes_ano.quantidade_ocorrencias_list.append(quantidade_ocorrencias)
+
+		return br_acidentes_ano_list
