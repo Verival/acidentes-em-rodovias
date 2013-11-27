@@ -21,7 +21,7 @@ class BRAcidentesDAO(GenericoDAO):
 		query = """SELECT bre.br, bre.quantidade_ocorrencias, bre.ano
 				FROM estatisticas_br bre
 				GROUP BY bre.ano, bre.br
-				ORDER BY bre.br;"""
+				ORDER BY bre.br, bre.ano;"""
 		
 		resultado_query = self.executa_query(query)
 
