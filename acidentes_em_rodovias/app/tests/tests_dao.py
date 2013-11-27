@@ -6,7 +6,7 @@ sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
-from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, estatistica_pessoas_dao, causas_acidentes_dao, municipio_dao
+from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, pessoas_acidentes_dao, causas_acidentes_dao, municipio_dao
 from models import tipos_acidentes, envolvidos_acidentes
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *

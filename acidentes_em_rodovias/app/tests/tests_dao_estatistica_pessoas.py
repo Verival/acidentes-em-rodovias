@@ -6,7 +6,7 @@ sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
-from models.dao import estatistica_pessoas_dao as dao
+from models.dao import pessoas_acidentes_dao as dao
 from models import pessoas_acidentes
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
@@ -15,7 +15,7 @@ class Test_Estatistica_Pessoa(SimpleTestCase):
 	"""docstring for Test_Estatistica_Pessoa
 	"""
 	def setUp(self):    #configura ambiente para teste
-		self.estatistica = dao.EstatisticaPessoasDAO()
+		self.estatistica = dao.PessoasAcidentesDAO()
 		#descobre qual metodo será chamado e formata a saída
 		func = str(self.id).split('=')[-1][:-2]
 		func = func.split('test_')[-1]

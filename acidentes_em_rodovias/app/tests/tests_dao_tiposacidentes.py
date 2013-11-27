@@ -6,7 +6,7 @@ sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
-from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, estatistica_pessoas_dao, causas_acidentes_dao, municipio_dao, generico_dao
+from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, pessoas_acidentes_dao, causas_acidentes_dao, municipio_dao, generico_dao
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
 
@@ -33,7 +33,7 @@ class TestTiposAcidentes(SimpleTestCase):
 	def test_tipos_acidentes(self):
 		tipos_acidentes_list = self.dao.tipos_acidentes()
 		
-		self.assertEquals(len(tipos_acidentes_list), 16)
+		self.assertEquals(len(tipos_acidentes_list), 10)
 
 		descricao_tipos_acidentes = [i.tipo for i in tipos_acidentes_list]
 		self.assertIn("Tombamento", descricao_tipos_acidentes)
