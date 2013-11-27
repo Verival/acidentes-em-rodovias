@@ -18,8 +18,10 @@ class UFAcidentesDAO(GenericoDAO):
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), "UFAcidentes", "uf_acidentes")
 
 	def acidentes_uf_ano(self):
-		query = """SELECT ufe.uf, ufe.quantidade_ocorrencias, ufe.ano
+		query = """SELECT u.tufdenominacao AS uf, ufe.quantidade_ocorrencias, ufe.ano
 				FROM estatisticas_uf ufe
+				INNER JOIN uf u
+					ON u.tufuf = ufe.uf
 				GROUP BY ufe.uf, ufe.ano
 				ORDER BY ufe.uf;"""
 
@@ -41,9 +43,3 @@ class UFAcidentesDAO(GenericoDAO):
 				ufs_acidentes_ano.quantidade_ocorrencias_list.append(quantidade_ocorrencias)
 
 		return uf_acidentes_ano_list
-
-if __name__ == '__main__':
-	dao = UFAcidentesDAO()
-	teste = dao.acidentes_uf_ano()
-	for i in teste:
-		print i

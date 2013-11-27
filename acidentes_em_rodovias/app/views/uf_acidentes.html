@@ -148,9 +148,9 @@
                                     borderWidth: 0
                                 },
                                 series: [
-                                {% for acidente in acidentes_ano %}
+                                {% for acidente in uf_acidentes_ano %}
                                         {
-                                            name: 'BR {{acidente.br}}',
+                                            name: '{{acidente.uf}}',
                                             data: [
                                             {% for quantidade in acidente.quantidade_ocorrencias_list %}
                                                 {{quantidade}},

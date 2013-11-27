@@ -112,10 +112,11 @@ def acidentes_uf(request):
 		data = datetime.now()
 		uf_dao = UFAcidentesDAO()
 		uf_acidentes_geral = uf_dao.acidentes_uf_geral()
+		uf_acidentes_ano = uf_dao.acidentes_uf_ano()
 
 	except (MySQLdb.Error, ResultadoConsultaNuloError), e:
 		logger.error(str(e))
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
 
-	return  render_to_response("uf_acidentes.html",{'ano':range(2007, data.year+1), 'uf_acidentes_geral':uf_acidentes_geral}, context_instance=RequestContext(request))
+	return  render_to_response("uf_acidentes.html",{'ano':range(2007, data.year+1),'uf_acidentes_ano':uf_acidentes_ano, 'uf_acidentes_geral':uf_acidentes_geral}, context_instance=RequestContext(request))
