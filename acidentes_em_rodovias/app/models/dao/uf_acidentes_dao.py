@@ -31,15 +31,12 @@ class UFAcidentesDAO(GenericoDAO):
 		ultima_uf = ''
 		for (uf, quantidade_ocorrencias, ano) in zip(resultado_query['uf'].values(), resultado_query['quantidade_ocorrencias'].values(), resultado_query['ano'].values()):
 			uf = uf.decode('iso-8859-1').encode('utf8')
-			if (uf == '230' or uf == '470'):
-				pass
-			else:
-				if (ultima_uf != uf):
-					ufs_acidentes_ano =  UFAcidentesAno()
-					uf_acidentes_ano_list.append(ufs_acidentes_ano)
-					ufs_acidentes_ano.uf = uf
-					ultima_uf = uf
-				ufs_acidentes_ano.ano_list.append(ano)
-				ufs_acidentes_ano.quantidade_ocorrencias_list.append(quantidade_ocorrencias)
+			if (ultima_uf != uf):
+				ufs_acidentes_ano =  UFAcidentesAno()
+				uf_acidentes_ano_list.append(ufs_acidentes_ano)
+				ufs_acidentes_ano.uf = uf
+				ultima_uf = uf
+			ufs_acidentes_ano.ano_list.append(ano)
+			ufs_acidentes_ano.quantidade_ocorrencias_list.append(quantidade_ocorrencias)
 
 		return uf_acidentes_ano_list

@@ -29,15 +29,12 @@ class BRAcidentesDAO(GenericoDAO):
 		ultima_br = ''
 		for (br, quantidade_ocorrencias, ano) in zip(resultado_query['br'].values(), resultado_query['quantidade_ocorrencias'].values(), resultado_query['ano'].values()):
 			br = br.decode('iso-8859-1').encode('utf8')
-			if (br == '230' or br == '470'):
-				pass
-			else:
-				if (ultima_br != br):
-					brs_acidentes_ano =  BRAcidentesAno()
-					br_acidentes_ano_list.append(brs_acidentes_ano)
-					brs_acidentes_ano.br = br
-					ultima_br = br
-				brs_acidentes_ano.ano_list.append(ano)
-				brs_acidentes_ano.quantidade_ocorrencias_list.append(quantidade_ocorrencias)
+			if (ultima_br != br):
+				brs_acidentes_ano =  BRAcidentesAno()
+				br_acidentes_ano_list.append(brs_acidentes_ano)
+				brs_acidentes_ano.br = br
+				ultima_br = br
+			brs_acidentes_ano.ano_list.append(ano)
+			brs_acidentes_ano.quantidade_ocorrencias_list.append(quantidade_ocorrencias)
 
 		return br_acidentes_ano_list
