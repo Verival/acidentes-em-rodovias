@@ -19,4 +19,4 @@ from tests_dao_estatistica_pessoas import *
 from tests_dao_tiposacidentes import *
 from tests_dao_envolvidosacidentes import *
 from tests_dao_br_acidentes import *
-
+from tests_dao_uf_acidentes import *
