@@ -17,15 +17,17 @@
           <b style="color:red">{{erro}}</b>
         {% endfor %}
         {% for ocorrencia in ocorrencia_list %}
-          <h4 class="subheader">Ocorrência #{{ocorrencia.ocoid}}</h4>
-          <p><b>Rodovia (BR):</b> {{ocorrencia.lbrbr}}</p>
-          <p><b>Data da ocorrência:</b> {{ ocorrencia.ocodataocorrencia }}</p>
-          <p><b>Data de registro:</b> {{ocorrencia.ocodataregistro}}</p>
-          <p><b>Região:</b> {{ocorrencia.tmudenominacao}} - {{ocorrencia.tmuuf}}</p>
-          <p><b>Tipo de ocorrência:</b> {{ocorrencia.tcodescricao}} ({{ocorrencia.ttadescricao}})</p>
-          <p><b>Causa do acidente:</b> {{ocorrencia.tcadescricao}}</p>
-          <p><b>Veículo envolvido:</b> {{ocorrencia.tmvdescricao}} ({{ocorrencia.tvvdescricao}})</p>
+        <div class="resultados">
+          <h4 class="subheader">Ocorrência #<span class="id_ocorrencia">{{ocorrencia.ocoid}}</span></h4>
+          <p><b>Rodovia (BR):</b> <span class="br">{{ocorrencia.lbrbr}}</span></p>
+          <p><b>Data da ocorrência:</b> <span class="data_ocorrencia">{{ ocorrencia.ocodataocorrencia }}</span></p>
+          <p><b>Data de registro:</b> <span class="data_registro">{{ocorrencia.ocodataregistro}}</span></p>
+          <p><b>Região:</b> <span class="municipio">{{ocorrencia.tmudenominacao}}</span> - <span class="uf">{{ocorrencia.tmuuf}}</span></p>
+          <p><b>Tipo de ocorrência:</b> {{ocorrencia.tcodescricao}} (<span class="tipo_acidente">{{ocorrencia.ttadescricao}}</span>)</p>
+          <p><b>Causa do acidente:</b> <span class="causa_acidente">{{ocorrencia.tcadescricao}}</span></p>
+          <p><b>Veículo envolvido:</b> <span class="marca_veiculo">{{ocorrencia.tmvdescricao}}</span> (<span class="modelo_veiculo">{{ocorrencia.tvvdescricao}}</span>)</p>
           <hr>  
+        </div>
         {% endfor %}
       </div>
     </div>
