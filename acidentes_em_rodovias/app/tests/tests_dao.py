@@ -10,6 +10,7 @@ from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, pesso
 from models import tipos_acidentes, envolvidos_acidentes
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
+from exception.validation_exceptions import *
 
 
 
@@ -79,6 +80,9 @@ class TestDAO(SimpleTestCase):
 		self.assertIsNotNone(str(tipos_acidentes.ProbabilidadeTiposAcidentes()))
 		self.assertIsNotNone(str(tipos_acidentes.MediaDesvioTiposAcidentes()))
 		self.assertIsNotNone(str(envolvidos_acidentes.EnvolvidosAcidente()))
+		self.assertIsNotNone(str(ResultadoConsultaNuloError("Test")))
+		self.assertIsNotNone(str(DataInvalidaError("Test")))
+		self.assertIsNotNone(str(ParametroInseguroClienteError("Test")))
 		pass
 			
 # #----------------------URLs-----------------------------------

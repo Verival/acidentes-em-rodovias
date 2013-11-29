@@ -9,12 +9,14 @@ from django.template import RequestContext, TemplateDoesNotExist
 from controller import consultabasica_controller as ctrl
 from _mysql_exceptions import *
 from nose import with_setup
-
+from mock import MagicMock,patch,Mock
+from django.utils.datastructures import MultiValueDictKeyError
 
 class Test_Periodo(SimpleTestCase):
 	"""docstring for TestController_Consulta_Basica"""
 	def setUp(self):    #configura ambiente para teste
-
+		self.request     = Mock()
+		self.request.GET = MagicMock(side_effect=KeyError(MultiValueDictKeyError),return_value='DF')
 		#descobre qual metodo será chamado e formata a saída
 		func = str(self.id).split('=')[-1][:-2]
 		func = func.split('test_')[-1]
@@ -31,7 +33,14 @@ class Test_Periodo(SimpleTestCase):
 	
 	def shortDescription(self):
 		return "Teste da classe consultabasica_controller"
-		
+
+	def test_consulta_por_regiao(self):
+		ctrl.consulta_por_regiao(None)
+
+	def test_consulta_municipios_na_regiao(self):
+		with self.assertRaises(TypeError):
+			ctrl.consulta_municipios_na_regiao(self.request)
+
 	def test_consulta_por_periodo(self):
 		self.assertIsNotNone(ctrl.consulta_por_periodo(None))
 		

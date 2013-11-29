@@ -40,3 +40,6 @@ class Test_Estatistica_Pessoa(SimpleTestCase):
 			self.assertIsNotNone(estatistica_pessoas.EstatisticaPessoas())
 		with self.assertRaises(NameError):
 			self.assertIsNotNone(str(estatistica_pessoas.EstatisticaPessoas()))
+		with self.assertRaises(NameError):
+			self.assertIsNotNone(str(estatistica_pessoas.PessoasAcidentesGeral()))
+
