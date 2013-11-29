@@ -78,8 +78,7 @@ CREATE PROCEDURE popularEstado()
 			ON br.lbrid = o.ocolocal           
 			WHERE o.ano = i           
 			GROUP BY o.ano, br.lbruf           
-			ORDER BY COUNT(*) DESC           
-			LIMIT 10;           
+			ORDER BY COUNT(*) DESC;
 			SET i = i + 1;    
 		END WHILE; 
 	END$$

@@ -2,7 +2,6 @@
 #------------Controller---------
 # Consulta basica
 from controller_consultabasica_periodo import *
-from controller_consultabasica_regiao import *
 from controller_consultabasica_valida import *
 # Estatisticas
 #from tests_controller_estatisticas import * 

@@ -119,4 +119,7 @@ def acidentes_uf(request):
 		erro = "Ocorreu um erro no sistema, tente novamente mais tarde!"
 		return render_to_response("index.html", {'erro' : erro}, context_instance=RequestContext(request))
 
-	return  render_to_response("uf_acidentes.html",{'ano':range(2007, data.year+1),'uf_acidentes_ano':uf_acidentes_ano, 'uf_acidentes_geral':uf_acidentes_geral}, context_instance=RequestContext(request))
+	return  render_to_response("uf_acidentes.html",{'ano':range(2007, data.year+1),'uf_acidentes_ano':uf_acidentes_ano, 
+		'uf_acidentes_geral':uf_acidentes_geral[:10],
+		'uf_acidentes_geral_mapa':uf_acidentes_geral
+		}, context_instance=RequestContext(request))
