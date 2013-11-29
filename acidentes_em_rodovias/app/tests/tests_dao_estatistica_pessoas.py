@@ -38,4 +38,5 @@ class Test_Estatistica_Pessoa(SimpleTestCase):
 	def test_instancia_estatistica_pessoa(self):
 		with self.assertRaises(NameError):
 			self.assertIsNotNone(estatistica_pessoas.EstatisticaPessoas())
+		with self.assertRaises(NameError):
 			self.assertIsNotNone(str(estatistica_pessoas.EstatisticaPessoas()))

@@ -52,7 +52,7 @@ class TestDAO(SimpleTestCase):
 	def test_try_query(self):
 		with self.assertRaises(ProgrammingError):
 			self.assertIsNone(self.dao.executa_query("show * from jik;"))
-			self.assertIsNotNone(self.dao.executa_query("show tables;"))
+		self.assertIsNotNone(self.dao.executa_query("show tables;"))
 
 #		del x
 #		self.assertIsNone(self.dao.dados)
