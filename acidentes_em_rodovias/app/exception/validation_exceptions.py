@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+"""@package validation exceptions
+Exceções de validação.
+
+Este modulo contem classes de controle de exceção
+"""
 from exceptions import Exception
 
 class DataInvalidaError(Exception):
