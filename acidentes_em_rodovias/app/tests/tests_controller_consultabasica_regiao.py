@@ -18,6 +18,7 @@ class Test_Regiao(SimpleTestCase):
 		self.request     = Context()
 		self.request.GET = dict()
 		self.request.GET['uf_id'] = 'DF'
+		self.request.GET['municipio_id'] = 'Brasilia'
 		#descobre qual metodo será chamado e formata a saída
 		func = str(self.id).split('=')[-1][:-2]
 		func = func.split('test_')[-1]
@@ -40,3 +41,6 @@ class Test_Regiao(SimpleTestCase):
 
 	def test_consulta_municipios_na_regiao(self):
 		ctrl.consulta_municipios_na_regiao(self.request)
+	
+	def test_consulta_ocorrencias_por_municipio(self):
+		ctrl.consulta_ocorrencias_por_municipio(self.request)

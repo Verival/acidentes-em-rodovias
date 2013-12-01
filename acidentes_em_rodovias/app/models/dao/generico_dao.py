@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""@package Envolvidos Acidentes DAO
+Data Access Object (DAO) para causa de acidentes nas BRs.
+
+Este modulo contem declação da classe que acessa os
+dados no banco e os exporta para a controller
+"""
+
 import sys, os, inspect
 current_path = os.path.dirname(os.path.abspath('..'))
 sys.path.append(current_path)

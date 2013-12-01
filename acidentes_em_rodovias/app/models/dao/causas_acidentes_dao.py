@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""@package Causas Acidentes DAO
+Data Access Object (DAO) para causa de acidentes nas BRs.
+
+Este modulo contem declação da classe que acessa os
+dados no banco e  os exporta para a controller
+"""
+
 from generico_dao import GenericoDAO
 import sys, os, inspect
 current_path = os.path.dirname(os.path.abspath('..'))
@@ -11,6 +18,11 @@ from util.estatisticas_util import *
 
 class CausasAcidentesDAO(GenericoDAO):
 	def causas_acidentes(self):
+		""" Causa de Acidentes 
+
+			Efetua uma query buscando por causa de acidentes em geral
+			@return lista de objetos para as respostas da query
+		"""
 		query = """SELECT causa, SUM(quantidade_ocorrencias) AS quantidade_ocorrencias
 				 FROM estatisticas_causa
 				 GROUP BY  causa
@@ -19,6 +31,12 @@ class CausasAcidentesDAO(GenericoDAO):
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), "CausasAcidentes", "causas_acidentes")
 
 	def causas_acidentes_ano(self):
+		""" Causa de Acidentes por Ano
+
+			Efetua uma query buscando por causa de acidentes em geral
+			organizadas por ano
+			@return lista de objetos para as respostas da query
+		"""
 		query = """SELECT causa, quantidade_ocorrencias, ano
 				 FROM estatisticas_causa 
 				 ORDER BY causa, ano ; """
@@ -40,6 +58,13 @@ class CausasAcidentesDAO(GenericoDAO):
 		return causas_acidentes_ano_list
 
 	def probabilidade_causas_acidentes(self):
+		""" Probabilidade Causa de Acidentes 
+
+			Efetua uma query buscando por causa de acidentes em geral.
+			Trabalha com o retorno em Data Frame para levantar as
+			estatisticas de causas de acidentes.
+			@return lista de objetos para as respostas da query
+		"""
 		query = """SELECT causa, quantidade_ocorrencias, ano
 				 FROM estatisticas_causa 
 				 ORDER BY causa, ano ; """
@@ -67,6 +92,13 @@ class CausasAcidentesDAO(GenericoDAO):
 		return probabilidade_causas_acidentes_list
 	
 	def media_desvio_causas_acidentes(self):
+		""" Média e Desvio Padrão de Causa de Acidentes 
+
+			Efetua uma query buscando por causa de acidentes em geral.
+			Trabalha com o retorno em Data Frame para levantar as
+			estatisticas de causas de acidentes.
+			@return lista de objetos para as respostas da query
+		"""
 		query = """SELECT causa, quantidade_ocorrencias, ano
 				 FROM estatisticas_causa 
 				 ORDER BY causa, ano ; """		

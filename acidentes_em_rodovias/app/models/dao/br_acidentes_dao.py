@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""@package BR Acidentes DAO
+Data Access Object (DAO) para acidentes nas BRs.
+
+Este modulo contem declação da classe que acessa os
+dados no banco e  os exporta para a controller
+"""
+
 from generico_dao import GenericoDAO
 import sys, os, inspect
 current_path = os.path.dirname(os.path.abspath('..'))
@@ -9,7 +16,13 @@ sys.path.append(current_path)
 from models.br_acidentes import *
 
 class BRAcidentesDAO(GenericoDAO):
+	""" BR Acidentes DAO """
 	def acidentes_br_geral(self):
+		""" Acidentes em geral
+
+			Efetua uma query buscando por acidentes em geral
+			@return lista de objetos para as respostas da query
+		"""
 		query = """SELECT bre.br, SUM(bre.quantidade_ocorrencias) AS quantidade_ocorrencias
 				FROM estatisticas_br bre
 				GROUP BY bre.br
@@ -18,6 +31,11 @@ class BRAcidentesDAO(GenericoDAO):
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), 'BRAcidentes', 'br_acidentes')
 
 	def acidentes_br_ano(self):
+		""" Acidentes por ano
+
+			Efetua uma query buscando por acidentes oorganizadas por ano
+			@return lista de objetos para as respostas da query
+		"""
 		query = """SELECT bre.br, bre.quantidade_ocorrencias, bre.ano
 				FROM estatisticas_br bre
 				GROUP BY bre.ano, bre.br
