@@ -31,12 +31,11 @@ class BRAcidentesDAO(GenericoDAO):
 		return self.transforma_dicionario_em_objetos(self.executa_query(query), 'BRAcidentes', 'br_acidentes')
 
 	def acidentes_br_ano(self):
-	""" Acidentes por ano
+		""" Acidentes por ano
 
-		Efetua uma query buscando por acidentes oorganizadas por ano
-		@return lista de objetos para as respostas da query
-	"""
-		
+			Efetua uma query buscando por acidentes oorganizadas por ano
+			@return lista de objetos para as respostas da query
+		"""
 		query = """SELECT bre.br, bre.quantidade_ocorrencias, bre.ano
 				FROM estatisticas_br bre
 				GROUP BY bre.ano, bre.br
