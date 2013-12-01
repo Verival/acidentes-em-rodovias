@@ -121,5 +121,7 @@ def valida_data(data):
 		raise DataInvalidaError("Data invalida inserida: " + data)
 
 def valida_caracteres(palavra):
-	if (re.search('^[\w\s]+$', palavra) is None):
+	if (re.search('^[\w\s]+$', str(palavra)) is None):
 		raise ParametroInseguroClienteError("Parametro invalido inserido: " + palavra)
+	if(palavra == None):
+		raise ParametroInseguroClienteError("Parametro invalido inserido: enviado NONE" )
