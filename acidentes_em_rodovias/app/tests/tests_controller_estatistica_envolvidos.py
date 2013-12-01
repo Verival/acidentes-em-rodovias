@@ -6,11 +6,11 @@ sys.path.append(parent_dir)
 
 from django.test import SimpleTestCase
 from django.template import RequestContext, TemplateDoesNotExist
-from controller import estatisticas_controller as ctrl
+from controller import estatisticas_envolvidos_controller as ctrl
 from _mysql_exceptions import *
 
-class Test_Sexo(SimpleTestCase):
-	"""docstring for TestController_Estatisticas"""
+class Test_Envolvidos(SimpleTestCase):
+	"""docstring for Test_Envolvidos"""
 	def setUp(self):    #configura ambiente para teste
 
 		#descobre qual metodo será chamado e formata a saída
@@ -27,8 +27,8 @@ class Test_Sexo(SimpleTestCase):
 		sys.stderr.write('Done\n')
 	
 	def shortDescription(self):
-		return "Teste da classe consultabasica_controller"
+		return "Teste da classe Test_Envolvidos"
 	
-	def test_acidentes_sexo(self):
-		self.assertIsNotNone(ctrl.acidentes_sexo(None))
-
+	def test_ocorrencias_e_envolvidos(self):
+		self.assertIsNotNone(ctrl.ocorrencias_e_envolvidos(None))
+		

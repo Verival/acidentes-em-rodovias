@@ -7,11 +7,11 @@ sys.path.append(parent_dir)
 from django.test import SimpleTestCase
 from django.template import RequestContext, TemplateDoesNotExist
 from exception.validation_exceptions import ParametroInseguroClienteError, DataInvalidaError
-from controller import consultabasica_controller as ctrl
+from util import validacao_util
 from _mysql_exceptions import *
 
 class Test_Valida(SimpleTestCase):
-	"""docstring for TestController_Consulta_Basica"""
+	"""docstring for Test_Valida"""
 	def setUp(self):    #configura ambiente para teste
 
 		#descobre qual metodo será chamado e formata a saída
@@ -28,25 +28,15 @@ class Test_Valida(SimpleTestCase):
 		sys.stderr.write('Done\n')
 	
 	def shortDescription(self):
-		return "Teste da classe consultabasica_controller"
-		
-	def test_render_to_response(self):
-		self.assertIsNotNone( ctrl.render_to_response("index.html", context_instance=RequestContext(None)) )
-		with self.assertRaises(TemplateDoesNotExist):
-			ctrl.render_to_response("nao_existo", context_instance=RequestContext(None))
-	
-	def test_index(self):
-		#help(SimpleTestCase)
-		#help(ctrl.render_to_response)
-		self.assertIsNotNone( ctrl.index(None))
+		return "Teste da classe Test_Valida"
 	
 	def test_valida_data(self):
-		self.assertFalse(ctrl.valida_data("10/10/2013"))
+		self.assertFalse(validacao_util.valida_data("10/10/2013"))
 		with self.assertRaises(DataInvalidaError):
-			self.assertFalse(ctrl.valida_data("20 de março de 2013"))
+			self.assertFalse(validacao_util.valida_data("20 de março de 2013"))
 			
 	def test_valida_caracteres(self):
 		with self.assertRaises(ParametroInseguroClienteError):
-			self.assertIsNone(ctrl.valida_caracteres(None))
+			self.assertIsNone(validacao_util.valida_caracteres(None))
 		with self.assertRaises(ParametroInseguroClienteError):
-			self.assertFalse(ctrl.valida_caracteres("./$%^&"))
+			self.assertFalse(validacao_util.valida_caracteres("./$%^&"))
