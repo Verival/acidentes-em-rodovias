@@ -13,7 +13,7 @@ class AcidentesRodoviasRegiaoTestCase(unittest.TestCase):
         self.addCleanup(self.browser.quit)
         self.browser.get('http://127.0.0.1:'+self.porta+'/acidentes_rodovias/regiao')
         if (self.browser.title == u'Falha no carregamento da p\xe1gina'):
-            print "\nInicie a aplicação na porta 8000 ou altere o atributo 'porta' no TestCase"
+            sys.stderr.write("\nInicie a aplicação na porta 8000 ou altere o atributo 'porta' no TestCase")
             exit(0)
 
 
