@@ -1,0 +1,193 @@
+{% include 'header.html' %}
+   <div class="row">
+        <div class="large-12 columns">
+            <h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+            <hr />
+            <div class="row">
+                <h4><center>Estatísticas - Ocorrências e envolvidos</center></h4>
+            </div>
+       </div>
+    </div>
+    
+    <div class="row">
+        <div class="section-container accordion" data-section="accordion">
+            <section >
+                <p class="title button" data-section-title><a href="#">Quantidade de acidentes e envolvidos ao longo dos anos</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_coluna" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            Highcharts.setOptions({
+                                lang: {
+                                    decimalPoint: ',' ,
+                                    thousandsSep: '.'
+                                }
+                            });
+                            $('#grafico_coluna').highcharts({
+                                exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
+                                chart: {
+                                    type: 'line'
+                                },
+                                title: {
+                                    text: 'Quantidade de Envolvidos x Quantidade de Acidentes'
+                                },
+                                xAxis: {
+                                    categories: [
+                                        {% for envolvido in lista_envolvidos %}
+                                            '{{envolvido.ano}}',
+                                        {% endfor %}
+                                    ]
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'No de Envolvidos/Ocorrências'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }],
+                                    min: 0,
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [
+                                    {
+                                        name: 'Quantidade de Envolvidos',
+                                        data: [
+                                        {% for envolvido in lista_envolvidos %}
+                                            {{envolvido.quantidade_envolvidos}},
+                                        {%endfor%}
+                                        ]
+                                    },
+                                    {
+                                        name: 'Quantidade de Acidentes',
+                                        data: [
+                                        {% for envolvido in lista_envolvidos %}
+                                            {{envolvido.quantidade_acidentes}},
+                                        {%endfor%}
+                                        ]
+                                    },
+                                ]
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+
+            <section>
+                <p class="title button" data-section-title><a href="#">Média de envolvidos por acidente e desvio padrão</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_linha_area" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            
+                            var ranges = [
+                                    {% for ano, media in ano_media_list %}
+                                        [{{ano}}, {{media|stringformat:"f"}} - {{desvio|stringformat:"f"}}, {{media|stringformat:"f"}} + {{desvio|stringformat:"f"}}],
+                                    {% endfor %}
+                                ],
+                                averages = [
+                                    {% for ano, media in ano_media_list %}
+                                        [{{ano}}, {{media|stringformat:"f"}}],
+                                    {% endfor %}
+                                ];
+
+                            $('#grafico_linha_area').highcharts({
+                                exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
+                                title: {
+                                    text: 'Média de envolvidos por acidente'
+                                },
+                                xAxis: {
+                                    categories: [
+                                            {% for ano, media in ano_media_list %}
+                                                {{ano}},
+                                            {% endfor %}                  
+                                    ]
+                                },
+                                
+                                yAxis: {
+                                    title: {
+                                        text: 'Média'
+                                    },
+                                },
+                            
+                                
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:11px">{point.key}</span><table>',
+                                    pointFormat: '<br/><tr><td style="font-size:12px;color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="font-size:12px;padding:0"><b>{point.y:.2f}</b></td></tr>',
+                                    footerFormat: '</table>',
+                                    crosshairs: true,
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                
+                                series: [{
+                                    name: 'Média',
+                                    data: averages,
+                                    zIndex: 1,
+                                    marker: {
+                                        fillColor: 'white',
+                                        lineWidth: 2,
+                                        lineColor: Highcharts.getOptions().colors[0]
+                                    }
+                                }, {
+                                    name: 'Desvio padrão',
+                                    data: ranges,
+                                    type: 'arearange',
+                                    lineWidth: 0,
+                                    linkedTo: ':previous',
+                                    color: Highcharts.getOptions().colors[0],
+                                    fillOpacity: 0.3,
+                                    zIndex: 0
+                                }]
+                            
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+        </div>      
+    </div>
+    
+{% include 'footer.html' %}
+            

@@ -1,0 +1,249 @@
+{% include 'header.html' %}
+    <div class="row">
+        <div class="large-12 columns">
+            <h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+            <hr />
+            <div class="row">
+                <h4><center>Estatísticas - UF</center></h4>
+            </div>
+       </div>
+    </div>
+
+    <div class="row">
+        <div class="section-container accordion" data-section="accordion">
+            <section id="secao_mapa">
+                <p class="title button" data-section-title><a href="#">10 Estados com mais acidentes - Geral</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_coluna" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#grafico_coluna').highcharts({
+                                exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: '10 Estados com mais acidentes - Geral'
+                                },
+                                xAxis: {
+                                    categories: [
+                                        {% for uf in uf_acidentes_geral %}
+                                            '{{uf.uf}}', ' ',
+                                        {% endfor %}                                        
+                                    ]
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'No de Ocorrências'
+                                    },
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="padding:0"><b>{point.y:.f}</b></td></tr>',
+                                    footerFormat: '</table>',
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                
+                                plotOptions: {
+                                    column: {
+                                        pointPadding: 0.2,
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [{
+                                    name: 'Quantidade de Ocorrências',
+                                    data: 
+                                        [
+                                        {% for quantidade in uf_acidentes_geral %}
+                                            {{quantidade.quantidade_ocorrencias}},
+                                        {% endfor %}
+                                        ] 
+                                }, 
+                                ]
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+            <section >
+                <p class="title button" data-section-title><a href="#">10 Estados com mais acidentes - Por ano</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_linha" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            Highcharts.setOptions({
+                                lang: {
+                                    decimalPoint: ',' ,
+                                    thousandsSep: '.'
+                                }
+                            });
+                            $('#grafico_linha').highcharts({
+                                exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
+                                title: {
+                                    text: '10 Estados com mais acidentes - Por an',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    categories: [
+                                        {% for i in ano %}
+                                            {{i}},
+                                        {%endfor%}
+                                    ]
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'No de Ocorrências'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }],
+                                    min: 0,
+                                },
+                                tooltip: {
+                                    valueSuffix: ' ocorrências'
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [
+                                {% for acidente in uf_acidentes_ano %}
+                                        {
+                                            name: '{{acidente.uf}}',
+                                            data: [
+                                            {% for quantidade in acidente.quantidade_ocorrencias_list %}
+                                                {{quantidade}},
+                                            {% endfor %}
+                                            ]
+                                        },
+                                {% endfor %}
+                                ]
+                            });
+                        });
+                    </script>      
+                </div>
+            </section>
+            <p>
+                <h5 style="text-align: center">Mapa (todos os Estados):</h5>
+                <div id="map" style="width: 60%; height: 400px; margin:1em auto; border: 2px solid black"></div>
+                <script type="text/javascript">
+                    var locations = [
+                        {% for uf in uf_acidentes_geral_mapa %}
+                            ['{{uf.uf}}', {{uf.latitude|stringformat:"f"}}, {{uf.longitude|stringformat:"f"}}, {{uf.quantidade_ocorrencias}}],
+                        {% endfor %}
+                        ];
+
+                    function initialize() {
+                        var myOptions = {
+                            zoom: 3,
+                            scrollwheel: false,
+                            zoomControl: false,
+                            scaleControl: false,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+                        var kmlEstados = new google.maps.KmlLayer(
+                            'https://dl.dropboxusercontent.com/u/70228871/Estados.kml',
+                            {
+                                map: map,
+                                preserveViewport: true
+                            }
+                        );
+
+                        setMarkers(map,locations);
+                    }
+
+                    function setMarkers(map,locations){
+                        var marker, i;
+                        for (i = 0; i < locations.length; i++)
+                        {  
+
+                            var estado = locations[i][0];
+                            var lat = locations[i][1];
+                            var longi = locations[i][2];
+                            var numOcorrencias =  locations[i][3];
+
+                            latlngset = new google.maps.LatLng(lat, longi);
+                            
+                            var pinIcon = new google.maps.MarkerImage(
+                                "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FFFF00",
+                                null, /* size is determined at runtime */
+                                null, /* origin is 0,0 */
+                                null, /* anchor is bottom center of the scaled image */
+                                new google.maps.Size(15, 23)
+                            );  
+                            var marker = new google.maps.Marker({  
+                                map: map, title: estado , position: latlngset, icon: pinIcon,
+                            });
+
+                            map.setCenter(marker.getPosition())
+
+                            var content = "<div style=\"width: 210px; height: 45px\">" +
+                                    "<font size=\"3\"><b>Estado:</b> <font color=\"red\">" + estado +  "</font></font><br/>" +
+                                    "<b>Número de ocorrências:</b> " + numOcorrencias +  "<br/>" +
+                                    "</div>";
+
+                            var infowindow = new google.maps.InfoWindow()
+
+                            google.maps.event.addListener(marker,'mouseover', (function(marker,content,infowindow){ 
+                                return function() {
+                                    infowindow.setContent(content);
+                                    infowindow.open(map,marker);
+                                };
+                            })(marker,content,infowindow)); 
+
+                            google.maps.event.addListener(marker,'mouseout', (function(marker,content,infowindow){ 
+                                return function() {
+                                    infowindow.close(map,marker);
+                                };
+                            })(marker,content,infowindow)); 
+                        }
+                    }
+
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+            </p>
+        </div>
+    </div>
+{% include 'footer.html' %}

@@ -23,27 +23,25 @@ if [[ ! "$DB_PASS" || ! "$DB_USER" ]]
 	if [ ! -d "$DIRECTORY" ]; then
 	  wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.3/sonar-runner-dist-2.3.zip
 	  unzip sonar-runner-dist-2.3.zip -d /opt/
-	  rm sonar-runner-dist-2.3.zip
   fi
   #sonar
   DIRECTORY=/opt/sonar
   if [ ! -d "$DIRECTORY" ]; then
     wget http://dist.sonar.codehaus.org/sonar-3.7.3.zip
     unzip sonar-3.7.3.zip -d /opt
-    rm sonar-3.7.2.zip
 	fi
 	
 	#sonar database
   QUERY="CREATE DATABASE sonar CHARACTER SET utf8 COLLATE utf8_general_ci;CREATE USER 'sonar' IDENTIFIED BY 'sonar';GRANT ALL ON sonar.* TO 'sonar'@'%' IDENTIFIED BY 'sonar';GRANT ALL ON sonar.* TO 'sonar'@'localhost' IDENTIFIED BY 'sonar';FLUSH PRIVILEGES;"
   mysql -u $DB_USER --password=$DB_PASS mysql -e "$QUERY"
   
-  sed -i "48s/.*/#/" /opt/sonar/conf/sonar.properties
-  sed -i "58s/.*/sonar.jdbc.url:                            jdbc:mysql:\/\/localhost:3306\/sonar?useUnicode=true\&characterEncoding=utf8\&rewriteBatchedStatements=true/" /opt/sonar/conf/sonar.properties
+  sed -i "48s/.*/#/" /opt/sonar-3.7.3/conf/sonar.properties
+  sed -i "58s/.*/sonar.jdbc.url:                            jdbc:mysql:\/\/localhost:3306\/sonar?useUnicode=true\&characterEncoding=utf8\&rewriteBatchedStatements=true/" /opt/sonar-3.7.3/conf/sonar.properties
 
   sed -i "5s/.*/sonar.host.url=http:\/\/localhost:9000/" /opt/sonar-runner-2.3/conf/sonar-runner.properties
   sed -i "11s/.*/sonar.jdbc.url=jdbc:mysql:\/\/localhost:3306\/sonar?useUnicode=true\&amp;characterEncoding=utf8/" /opt/sonar-runner-2.3/conf/sonar-runner.properties
 
-  /opt/sonar/bin/linux-x86-64/sonar.sh start&
+  /opt/sonar-3.7.3/bin/linux-x86-64/sonar.sh start&
   
   
   pylint --generate-rcfile > ~/.pylintrc

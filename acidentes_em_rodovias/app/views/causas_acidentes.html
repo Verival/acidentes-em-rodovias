@@ -1,0 +1,353 @@
+{% include 'header.html' %}
+	<div class="row">
+        <div class="large-12 columns">
+            <h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+            <hr />
+            <div class="row">
+                <h4><center>Estatísticas - Causas de acidente</center></h4>
+            </div>
+       </div>
+    </div>
+    
+    <div class="row">
+        <div class="section-container accordion" data-section="accordion">
+            <section >
+                <p class="title button" data-section-title><a href="#">Causas de acidentes ao longo dos anos</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_linha" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            Highcharts.setOptions({
+                                lang: {
+                                    decimalPoint: ',' ,
+                                    thousandsSep: '.'
+                                }
+                            });
+                            $('#grafico_linha').highcharts({
+								exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
+                                title: {
+                                    text: 'Ocorrências por causa',
+                                    x: -20 //center
+                                },
+                                xAxis: {
+                                    categories: [
+                                        {% for ano in anos %}
+                                            {{ano}},
+                                        {% endfor %}
+                                    ]
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: 'No de Ocorrências'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }],
+                                    min: 0,
+                                },
+                                tooltip: {
+                                    valueSuffix: ' ocorrências'
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [
+                                {% for causas_acidentes_ano in causas_acidentes_ano_list %}
+                                    {
+                                        name: '{{causas_acidentes_ano.causa}}',
+                                        data: [
+                                            {% for quantidade in causas_acidentes_ano.quantidade_ocorrencias_list %}       
+                                                {{quantidade}},
+                                            {% endfor %}
+                                        ]
+                                    },
+                                {% endfor %}
+                                ]
+                            });
+                        });
+                    </script>      
+                </div>
+            </section>
+            <section>
+                <p class="title button" data-section-title><a href="#">Porcentagem de acidentes já registrados de acordo com a causa</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_torta" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $(document).ready(function () {
+                                $('#grafico_torta').highcharts({
+									exporting: {
+                                        buttons: {
+                                            contextButton: {
+                                                menuItems: [{
+                                                    text: 'Imprimir',
+                                                    onclick: function() {
+                                                        this.print();
+                                                    }
+                                                }, {
+                                                    text: 'Salvar como PNG',
+                                                    onclick: function() {
+                                                        this.createCanvas();
+                                                    },
+                                                    separator: false
+                                                }]
+                                            }
+                                        }
+                                    },
+                                    chart: {
+                                        plotBackgroundColor: null,
+                                        plotBorderWidth: null,
+                                        plotShadow: false
+                                    },
+                                    title: {
+                                        text: 'Porcentagem de causas de acidentes'
+                                    },
+                                    tooltip: {
+                                        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+                                    },
+                                    plotOptions: {
+                                        pie: {
+                                            allowPointSelect: true,
+                                            cursor: 'pointer',
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            showInLegend: true
+                                        }
+                                    },
+                                    series: [{
+                                        type: 'pie',
+                                        name: 'Porcentagem',
+                                        data: [
+                                        {% for causas_acidentes in causas_acidentes_list %}
+                                            ['{{causas_acidentes.causa}}', {{causas_acidentes.quantidade_ocorrencias}}],
+                                        {% endfor %}
+                                        ]
+                                    }]
+                                });
+                            });
+                            
+                        });
+                    </script>
+                </div>
+            </section>
+            <section>
+                <p class="title button" data-section-title><a href="#">Média e desvio padrão de cada causa de acidente</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_coluna" style="min-width: 60%; margin: 0 auto"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#grafico_coluna').highcharts({
+								exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'Média de desvio padrão'
+                                },
+                                xAxis: {
+                                    categories: [
+                                        {% for causa in causas %}
+                                            '{{causa}}',
+                                        {% endfor %}
+                                    ]
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'No de Ocorrências'
+                                    },
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+                                    footerFormat: '</table>',
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                
+                                plotOptions: {
+                                    column: {
+                                        pointPadding: 0.2,
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [{
+                                    name: 'Média',
+                                    data: 
+                                        [
+                                        {% for media_desvio_causas_acidentes in media_desvio_causas_acidentes_list %}
+                                            {{media_desvio_causas_acidentes.media|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                }, {
+                                    name: 'Desvio padrão',
+                                    data: 
+                                        [
+                                        {% for media_desvio_causas_acidentes in media_desvio_causas_acidentes_list %}
+                                            {{media_desvio_causas_acidentes.desvio|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                }, 
+                                ]
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+            <section>
+                <p class="title button" data-section-title><a href="#">Probabilidade para cada causa de acidente no próximo ano</a></p>
+                <div class="content" data-section-content>
+                    <div id="grafico_barra" style="min-width: 60%; min-height: 100%; margin: 0 auto"></div>
+                    <blockquote>
+                        <p><Strong>OBS</strong>: Para cálculo da probabilidade foi utilizado a distribuição na <a href="http://www.datalyzer.com.br/site/suporte/administrador/info/arquivos/info73/73.html">curva normal reduzida</a></p>
+                    </blockquote>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#grafico_barra').highcharts({
+								exporting: {
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: [{
+                                                text: 'Imprimir',
+                                                onclick: function() {
+                                                    this.print();
+                                                }
+                                            }, {
+                                                text: 'Salvar como PNG',
+                                                onclick: function() {
+                                                    this.createCanvas();
+                                                },
+                                                separator: false
+                                            }]
+                                        }
+                                    }
+                                },
+                                chart: {
+                                    type: 'bar'
+                                },
+                                title: {
+                                    text: 'Probabilidade de causas acidentes para o próximo ano'
+                                },
+                                subtitle: {
+                                    text: 'Distribuição normal: http://pt.wikipedia.org/wiki/Distribuição_normal'
+                                },
+                                xAxis: {
+                                    categories: [
+                                        {% for causa in causas %}
+                                            '{{causa}}',
+                                        {% endfor %}
+                                    ]
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'Probabilidade (%)'
+                                    },
+                                    max: 100,
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                        '<td style="padding:0"><b>{point.y:.2f} %</b></td></tr>',
+                                    footerFormat: '</table>',
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                
+                                plotOptions: {
+                                    column: {
+                                        pointPadding: 0.2,
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [{
+                                    name: '0 < X < 5.000',
+                                    data: 
+                                        [
+                                        {% for probabilidade_causas_acidentes in probabilidade_causas_acidentes_list %}
+                                            {{probabilidade_causas_acidentes.probabilidade_por_limite_list.0|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                }, {
+                                    name: '5.001 < X < 10.000',
+                                    data: 
+                                        [
+                                        {% for probabilidade_causas_acidentes in probabilidade_causas_acidentes_list %}
+                                            {{probabilidade_causas_acidentes.probabilidade_por_limite_list.1|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                }, {
+                                    name: '10.001 < X < 30.000',
+                                    data:
+                                        [
+                                        {% for probabilidade_causas_acidentes in probabilidade_causas_acidentes_list %}
+                                            {{probabilidade_causas_acidentes.probabilidade_por_limite_list.2|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                }, {
+                                    name: '30.001 < X < 50.000',
+                                    data:
+                                        [
+                                        {% for probabilidade_causas_acidentes in probabilidade_causas_acidentes_list %}
+                                            {{probabilidade_causas_acidentes.probabilidade_por_limite_list.3|stringformat:"f"}},
+                                        {% endfor %}
+                                        ] 
+                                }, {
+                                    name: '50.001 < X',
+                                    data:[
+                                        {% for probabilidade_causas_acidentes in probabilidade_causas_acidentes_list %}
+                                            {{probabilidade_causas_acidentes.probabilidade_por_limite_list.4|stringformat:"f"}},
+                                        {% endfor %}
+                                        ]
+                                },
+                                ]
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+        </div>      
+    </div>
+
+{% include 'footer.html' %}

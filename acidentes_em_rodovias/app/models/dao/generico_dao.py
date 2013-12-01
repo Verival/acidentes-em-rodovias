@@ -9,7 +9,7 @@ sys.path.append(current_path)
 import myconfiguration
 import MySQLdb
 import pandas.io.sql as psql
-from pandas import Series,DataFrame
+from exception.internal_exceptions import *
 #from uf_dao import *
 import importlib
 import logging
@@ -30,9 +30,18 @@ class GenericoDAO:
 		return conexao
 	
 
-	def executa_query(self, query):
-		return psql.frame_query(query, con=self.conexao).to_dict()
+	def executa_query(self, query, get_data_frame=False):
+		dados = None
 		
+		if (get_data_frame is False):
+			dados = psql.frame_query(query, con=self.conexao).to_dict()
+		else:
+			dados = psql.frame_query(query, con=self.conexao)
+
+		if (dados is None):
+			raise ResultadoConsultaNuloError("A biblioteca pandas não está instalada, ou nenhum dado foi passado a esse método")
+		else:
+			return dados
 
 	def transforma_dicionario_em_objetos(self, dados, nome_classe, nome_modulo):
 		modulo_classe = importlib.import_module("models." + nome_modulo)
@@ -41,8 +50,8 @@ class GenericoDAO:
 
 		try:
 			chaves = dados.keys()
-		except:	#foi enviado uma lista vazia para ser transformada
-			return None
+		except AttributeError, e:	# foi enviado uma lista nula para ser transformada
+			raise ResultadoConsultaNuloError("A biblioteca pandas não está instalada, ou nenhum dado foi passado a esse método")
 		
 		for i in range(0, len(dados[chaves[0]])):
 			instancia = class_()

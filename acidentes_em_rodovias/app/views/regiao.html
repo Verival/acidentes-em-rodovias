@@ -1,13 +1,15 @@
 {% include 'header.html' %}
     
-	<div class="row">
-		<div class="large-12 columns">
-			<h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
-			<hr />
-			<h4><center>Consulta por Região - UF</center></h4>
-      <br />
-		</div>
-	</div>
+  <div class="row">
+    <div class="large-12 columns">
+      <h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+      <hr />
+            <div class="row">
+                <h4><center>Consulta por Região - Estado</center></h4>
+            </div>
+     </div>
+  </div>
+
     <form class="custom" action="{% url 'app.controller.consultabasica_controller.consulta_municipios_na_regiao' %}">
         <div class="row">
           <div class="large-4 columns">
@@ -18,9 +20,8 @@
                 {%endfor%}
             </select>
           </div>
-
           <div class="large-4 columns">
-            <button class="button postfix">Buscar Municipios</button>
+            <button id="btn_submit" type="submit" class="button postfix">Buscar Municipios</button>
           </div>
       </div>
     </form>
