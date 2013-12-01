@@ -6,7 +6,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from datetime import date
 
-class AcidentesRodoviasRegiaoTestCase(unittest.TestCase):
+class AcidentesRodoviasPeriodoTestCase(unittest.TestCase):
     porta = '8080'
     mes = {'Janeiro' : 1, 'Fevereiro' : 2, 'Março' : 3, 'Abril' : 4, 'Maio' : 5, 'Junho' : 6, 'Julho' : 7, 
 		    'Agosto' : 8, 'Setembro' : 9, 'Outubro' : 10, 'Novembro' : 11, 'Dezembro' : 12}
@@ -16,7 +16,7 @@ class AcidentesRodoviasRegiaoTestCase(unittest.TestCase):
         self.addCleanup(self.browser.quit)
         self.browser.get('http://127.0.0.1:'+self.porta+'/acidentes_rodovias/periodo')
         if (self.browser.title == u'Falha no carregamento da p\xe1gina'):
-            print "\nInicie a aplicação na porta 8000 ou altere o atributo 'porta' no TestCase"
+            print "\nInicie a aplicação na porta"+self.porta+"ou altere o atributo 'porta' no TestCase"
             exit(0)
 
 

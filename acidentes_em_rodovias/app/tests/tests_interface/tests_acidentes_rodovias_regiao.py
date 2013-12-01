@@ -6,14 +6,14 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 class AcidentesRodoviasRegiaoTestCase(unittest.TestCase):
-    porta = '8000'
+    porta = '8080'
 
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.addCleanup(self.browser.quit)
         self.browser.get('http://127.0.0.1:'+self.porta+'/acidentes_rodovias/regiao')
         if (self.browser.title == u'Falha no carregamento da p\xe1gina'):
-            sys.stderr.write("\nInicie a aplicação na porta 8000 ou altere o atributo 'porta' no TestCase")
+            sys.stderr.write("\nInicie a aplicação na porta "+self.porta+" ou altere o atributo 'porta' no TestCase")
             exit(0)
 
 
