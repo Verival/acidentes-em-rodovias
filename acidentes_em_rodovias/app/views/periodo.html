@@ -11,7 +11,7 @@
   </div>
   
   <div class="row">
-      <form class="custom" action="{% url 'app.controller.consultabasica_controller.consulta_ocorrencias_por_periodo' %}">
+      <form class="custom" action="{% url 'app.controller.consultabasica_periodo_controller.consulta_ocorrencias_por_periodo' %}">
   	<div class="large-4 columns">
 	      <input type="text" id="de" name="data_inicio" placeholder="De (dd/mm/aaaa)" />
 	    </div>
@@ -20,7 +20,7 @@
 	    </div>
 
 	    <div class="large-4 columns">
-		<button class="button postfix">Buscar</button>
+		<button id="btn_submit" class="button postfix">Buscar</button>
 	    </div>
 	</form>
   </div>

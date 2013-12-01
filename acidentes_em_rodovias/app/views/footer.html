@@ -1,10 +1,10 @@
-<div id="modalErro" class="reveal-modal">
-  <h2 style="color: red">Erro!</h2>
-  <p class="lead" >{{erro}}</p>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
 
 {% if erro != None %}
+   <div id="modalErro" class="reveal-modal">
+    <h2 style="color: red">Erro!</h2>
+    <p class="lead" >{{erro}}</p>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
   <script type="text/javascript">
     $('#modalErro').foundation('reveal', 'open');
   </script>
