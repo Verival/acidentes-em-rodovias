@@ -20,8 +20,8 @@ logger = logging.getLogger(__name__)
 class GenericoDAO:
 	def __init__(self):
 		self.usuario = myconfiguration.DB_USER
-		self.senha = myconfiguration.DB_PASS
 		self.database = myconfiguration.DB
+		self.senha = myconfiguration.DB_PASS
 		self.host = myconfiguration.HOST		
 		self.conexao = self.get_conexao()
 
@@ -64,46 +64,3 @@ class GenericoDAO:
 
 		return lista_objetos
 		
-
-
-if __name__ == '__main__':
-	import numpy as np
-	dao=GenericoDAO()
-	#for i in range(15):
-	#	print str(2000+i)
-	outras=[]
-	dados={'ano':[],'Total':[]}
-	for i in range(7):
-		query="""SELECT ca.tcadescricao, COUNT( * ) AS  'quantidade_ocorrencias'
-				FROM ocorrencia AS o
-				INNER JOIN ocorrenciaacidente AS oa ON o.ocoid = oa.oacocoid
-				INNER JOIN causaacidente AS ca ON oa.oactcacodigo = ca.tcacodigo
-				WHERE o.ano =%s
-				GROUP BY ca.tcadescricao
-				ORDER BY COUNT( * ) DESC 
-				LIMIT 0 , 30"""%(i+2007)
-		q_ret=psql.frame_query(query, con=dao.conexao)
-		print '-----------------ANO--%s------------------'%(2007+i)
-		dados['ano'].append(2007+i)
-		for (k,n) in zip(q_ret[q_ret.keys()[0]],range(11)):
-		 	if k in dados :
-		 		dados[k].append(q_ret.as_matrix()[n][1])
-		 	else:
-		 		dados[k]=[]
-		 		dados[k].append(q_ret.as_matrix()[n][1])
-		dados['Total'].append(q_ret.sum()['quantidade_ocorrencias'])
-	
-	print dados
-	for i in dados:
-		print "Média de %s: %f" %(i,np.mean(dados[i]))
-		print "Total de %s: %f" %(i,np.sum(dados[i]))
-	for (ano,total) in zip(dados['ano'],dados['Total']):
-		print "Total no ano de %i: %i"%(ano,total)
-'''
-	print '------------------------------------------'
-	print q_ret.describe().as_matrix()[1]
-	print '------------------------------------------'
-	print q_ret.as_matrix()
-	print '------------------------------------------'
-	#print q_ret.apply(Series.interpolate,axies=1)
-'''
