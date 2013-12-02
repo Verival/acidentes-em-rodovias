@@ -7,7 +7,7 @@ sys.path.append(parent_dir)
 from django.test import SimpleTestCase
 from django.core.urlresolvers import reverse, resolve
 from models.dao import uf_dao, tipos_acidentes_dao, ocorrencia_basica_dao, pessoas_acidentes_dao, causas_acidentes_dao, municipio_dao
-from models import tipos_acidentes, envolvidos_acidentes
+from models import envolvidos_acidentes, causas_acidentes
 from _mysql_exceptions import OperationalError, ProgrammingError
 from exception.internal_exceptions import *
 from exception.validation_exceptions import *
@@ -73,17 +73,16 @@ class TestDAO(SimpleTestCase):
 			self.assertIsNone(self.dao.transforma_dicionario_em_objetos(None,'Uf','uf'))
 
 	def test_instancia_objetos(self):
-		self.assertIsNotNone(tipos_acidentes.TiposAcidentes())
-		self.assertIsNotNone(str(tipos_acidentes.TiposAcidentes()))
-		self.assertIsNotNone(tipos_acidentes.TiposAcidentesAno())
-		self.assertIsNotNone(str(tipos_acidentes.TiposAcidentesAno()))
-		self.assertIsNotNone(str(tipos_acidentes.ProbabilidadeTiposAcidentes()))
-		self.assertIsNotNone(str(tipos_acidentes.MediaDesvioTiposAcidentes()))
+		self.assertIsNotNone(causas_acidentes.Acidentes())
+		self.assertIsNotNone(str(causas_acidentes.Acidentes()))
+		self.assertIsNotNone(causas_acidentes.AcidentesAno())
+		self.assertIsNotNone(str(causas_acidentes.AcidentesAno()))
+		self.assertIsNotNone(str(causas_acidentes.ProbabilidadeAcidentes()))
+		self.assertIsNotNone(str(causas_acidentes.MediaDesvioAcidentes()))
 		self.assertIsNotNone(str(envolvidos_acidentes.EnvolvidosAcidente()))
 		self.assertIsNotNone(str(ResultadoConsultaNuloError("Test")))
 		self.assertIsNotNone(str(DataInvalidaError("Test")))
 		self.assertIsNotNone(str(ParametroInseguroClienteError("Test")))
-		pass
 			
 # #----------------------URLs-----------------------------------
 # from django.test import TestCase

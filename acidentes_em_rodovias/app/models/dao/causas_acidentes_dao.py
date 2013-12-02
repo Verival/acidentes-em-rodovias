@@ -28,7 +28,7 @@ class CausasAcidentesDAO(GenericoDAO):
 				 GROUP BY  causa
 				 ORDER BY quantidade_ocorrencias DESC; """
 
-		return self.transforma_dicionario_em_objetos(self.executa_query(query), "CausasAcidentes", "causas_acidentes")
+		return self.transforma_dicionario_em_objetos(self.executa_query(query), "Acidentes", "causas_acidentes")
 
 	def causas_acidentes_ano(self):
 		""" Causa de Acidentes por Ano
@@ -48,7 +48,7 @@ class CausasAcidentesDAO(GenericoDAO):
 		for (causa, quantidade_ocorrencias, ano) in zip(resultado_query['causa'].values(), resultado_query['quantidade_ocorrencias'].values(), resultado_query['ano'].values()):
 			causa = causa.decode('iso-8859-1').encode('utf8')
 			if (ultimo_causa != causa):
-				causas_acidentes_ano =  CausasAcidentesAno()
+				causas_acidentes_ano =  AcidentesAno()
 				causas_acidentes_ano_list.append(causas_acidentes_ano)
 				causas_acidentes_ano.causa = causa
 				ultimo_causa = causa
@@ -75,7 +75,7 @@ class CausasAcidentesDAO(GenericoDAO):
 		probabilidade_causas_acidentes_list = []
 		
 		for i in range(0, len(medias_list)):
-			probabilidade_causas_acidentes = ProbabilidadeCausasAcidentes()
+			probabilidade_causas_acidentes = ProbabilidadeAcidentes()
 			probabilidade_causas_acidentes.causa = medias_list.keys()[i].decode('iso-8859-1').encode('utf8')
 			
 			limites = [(0,5000), (5001,10000), (10001,30000), (30001,50000), (50001, sys.maxint)]
@@ -108,7 +108,7 @@ class CausasAcidentesDAO(GenericoDAO):
 		desvios_padroes_list = data_frame.groupby('causa')['quantidade_ocorrencias'].std()
 		media_desvio_causas_acidentes_list = []
 		for i in range(0, len(medias_list)):
-			media_desvio_causas_acidentes = MediaDesvioCausasAcidentes()
+			media_desvio_causas_acidentes = MediaDesvioAcidentes()
 			media_desvio_causas_acidentes.media = medias_list[i]
 			media_desvio_causas_acidentes.desvio = desvios_padroes_list[i]
 
