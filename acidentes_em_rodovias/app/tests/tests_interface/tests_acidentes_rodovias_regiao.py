@@ -4,17 +4,29 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+import sys
 
 class AcidentesRodoviasRegiaoTestCase(unittest.TestCase):
-    porta = '8080'
+    porta = '8000'
 
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.addCleanup(self.browser.quit)
         self.browser.get('http://127.0.0.1:'+self.porta+'/acidentes_rodovias/regiao')
-        if (self.browser.title == u'Falha no carregamento da p\xe1gina'):
+        if (self.browser.title == u'Falha no carregamento da página'):
             sys.stderr.write("\nInicie a aplicação na porta "+self.porta+" ou altere o atributo 'porta' no TestCase")
             exit(0)
+        else:
+            func = str(self.id).split('=')[-1][:-2]
+            func = func.split('test_')[-1]
+            func = func.replace('_',' ')
+            out = '\rTeste de Interface [região]: ' + func + ' '
+            out = out.ljust(66,'-')
+            sys.stderr.write(out)
+
+    def tearDown(self):
+        # informa que o teste foi realizado
+        sys.stderr.write('Done\n')
 
 
     def test_pagetitle(self):
