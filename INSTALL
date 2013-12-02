@@ -1,0 +1,20 @@
+(Testado em ambientes Linux baseados em Debian)
+
+Execute os seguintes passos em um terminal para instalação e uso da aplicação:
+	1) Instale as dependências:
+		$ sudo apt-get install python2.7 python-pip git
+		$ sudo pip install Django django-nose python-mysql pylint coverage mock pandas selenium
+	   Ignore se alguns dos pacotes já se encontravam instalados.
+
+	2) Clone o projeto e entre em seu diretório: 
+		$ git clone https://github.com/matheus-fonseca/acidentes-em-rodovias.git
+		$ cd acidentes-em-rodovias/
+		
+	3) Caso queria a versão mais atual de desenvolvimento fique na branch 'devel', caso queria a última versão estável vá para a branch 'master'. Exemplo:
+		$ git checkout master
+
+	4) Execute o servidor de desenvolvimento:
+		$ cd acidentes_em_rodovias/
+		$ python manage.py runserver 8080
+
+	5) Pronto! Acesse a sua aplicação em um browser no endereço 'http://localhost:8080/acidentes_rodovias/'
