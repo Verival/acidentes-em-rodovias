@@ -9,8 +9,6 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from models.dao.uf_dao import *
-from models.dao.municipio_dao import *
 from models.dao.ocorrencia_basica_dao import *
 from exception.validation_exceptions import *
 from exception.internal_exceptions import *

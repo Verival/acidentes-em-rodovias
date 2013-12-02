@@ -11,12 +11,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from exception.validation_exceptions import *
 from exception.internal_exceptions import *
-from models.dao.tipos_acidentes_dao import *
 from models.dao.causas_acidentes_dao import *
-from models.dao.envolvidos_acidentes_dao import *
-from models.dao.pessoas_acidentes_dao import *
-from models.dao.br_acidentes_dao import *
-from models.dao.uf_acidentes_dao import *
 from datetime import datetime
 import logging
 
