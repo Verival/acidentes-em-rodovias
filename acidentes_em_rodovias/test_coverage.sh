@@ -3,7 +3,7 @@ echo -n "Removing *.pyc ------------------------------------------ "
 find . -type f -name "*.pyc" -exec rm -rf "{}" \;
 echo "Done"
 echo -n "Initing server ------------------------------------------ "
-python manage.py runserver > /dev/null 2>&1 &
+python manage.py runserver 8080 &> /dev/null  &
 echo "Done"
 coverage erase
 coverage run --source='app' manage.py test app
