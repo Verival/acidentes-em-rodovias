@@ -1,157 +1,72 @@
-<!DOCTYPE html>
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+{% include 'header.html' %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Acidentes em Rodovias</title>
-
-
-  <link rel="stylesheet" href="css/foundation.css">
-
-  <script src="js/vendor/custom.modernizr.js"></script>
-
-</head>
-<body>
-
-	<div class="row">
-		<div class="large-12 columns">
-			<h2><center>Acidentes em Rodovias</center></h2>
-			<hr />
-			<h4><center>Resultado da busca</center></h4>
+        <div class="row">
+                <div class="large-12 columns">
+                        <h2><center><img src="{{ STATIC_URL }}img/Ar-name.jpg"/> Acidentes em Rodovias <img src="{{ STATIC_URL }}img/Ar-name.jpg"/></center></h2> 
+                        <hr />
+                        <h4><center>Resultado da consulta</center></h4>
       <br />
-		</div>
-	</div>
+                </div>
+        </div>
   
   <div class="row">
-  	<div class="large-8 columns">
-      <form class="custom">
-        <input type="text" placeholder="Nome da pessoa envolvida">
-      </form>
-    </div>
-
-    <div class="large-4 columns">
-      <div class="custom columns">
-        <a href="resultado.html" class="button postfix">Buscar</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="large-9 push-3 columns">
-
-    
+    <div class="large-9 push-3 columns">    
     <div class="row">
       <div class="large-12 columns">
-        <h2>Item da busca</h2>
-        <h4 class="subheader">Et elit. Dictumst montes! Turpis? Mus elit cum. Non, purus ac porttitor turpis elit. Natoque! Ac cursus lacus integer a hac magnis lectus hac est urna! Enim a velit purus! Amet mus! Sociis. Scelerisque massa ut.</h4>
-        <hr>
-
-        <h2>Item da busca</h2>
-        <h4 class="subheader">Et elit. Dictumst montes! Turpis? Mus elit cum. Non, purus ac porttitor turpis elit. Natoque! Ac cursus lacus integer a hac magnis lectus hac est urna! Enim a velit purus! Amet mus! Sociis. Scelerisque massa ut.</h4>
-        <hr>
-
-        <h2>Item da busca</h2>
-        <h4 class="subheader">Et elit. Dictumst montes! Turpis? Mus elit cum. Non, purus ac porttitor turpis elit. Natoque! Ac cursus lacus integer a hac magnis lectus hac est urna! Enim a velit purus! Amet mus! Sociis. Scelerisque massa ut.</h4>
-        <hr>
-
+        {% for erro in erros %}
+          <b style="color:red">{{erro}}</b>
+        {% endfor %}
+        {% for ocorrencia in ocorrencia_list %}
+        <div class="resultados">
+          <h4 class="subheader">Ocorrência #<span class="id_ocorrencia">{{ocorrencia.ocoid}}</span></h4>
+          <p><b>Rodovia (BR):</b> <span class="br">{{ocorrencia.lbrbr}}</span></p>
+          <p><b>Data da ocorrência:</b> <span class="data_ocorrencia">{{ ocorrencia.ocodataocorrencia }}</span></p>
+          <p><b>Data de registro:</b> <span class="data_registro">{{ocorrencia.ocodataregistro}}</span></p>
+          <p><b>Região:</b> <span class="municipio">{{ocorrencia.tmudenominacao}}</span> - <span class="uf">{{ocorrencia.tmuuf}}</span></p>
+          <p><b>Tipo de ocorrência:</b> {{ocorrencia.tcodescricao}} (<span class="tipo_acidente">{{ocorrencia.ttadescricao}}</span>)</p>
+          <p><b>Causa do acidente:</b> <span class="causa_acidente">{{ocorrencia.tcadescricao}}</span></p>
+          <p><b>Veículo envolvido:</b> <span class="marca_veiculo">{{ocorrencia.tmvdescricao}}</span> (<span class="modelo_veiculo">{{ocorrencia.tvvdescricao}}</span>)</p>
+          <hr>  
+        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
 
   <div class="large-3 pull-9 columns">
     <div class="docs section-container accordion" data-section="accordion" data-section-small-style="true">
-      <section class="section ">
+      {% if tipo_consulta == 'regiao' %}
+      <section class="section active">
+      {% else %}
+      <section class="section">
+      {% endif %}
         <p class="title"><a href="#">Região</a></p>
         <div class="content">
           <ul class="side-nav">
-            <li>Cidade:<a href="#">Brasília</a></li>
-            <li>UF:<a href="#">DF</a></li>
+            <li>Cidade:<a href="#">{{municipio}}</a></li>
+            <li>UF:<a href="#">{{uf}}</a></li>
           </ul>
         </div>
       </section>
 
-      <section class="section ">
+      {% if tipo_consulta == 'periodo' %}
+      <section class="section active">
+      {% else %}
+      <section class="section">
+      {% endif %}
       <p class="title"><a href="#">Periodo</a></p>
       <div class="content">
         <ul class="side-nav">
-          <li>Cidade:<a href="#">Brasília</a></li>
-          <li>UF:<a href="#">DF</a></li>
+          <li>De:<a href="#">{{data_inicio}}</a></li>
+          <li>Até:<a href="#">{{data_fim}}</a></li>
         </ul>
       </div>
       </section>
 
-      <section class="section ">
-      <p class="title"><a href="#">Pessoa envolvida</a></p>
-      <div class="content">
-        <ul class="side-nav">
-          <li>Cidade:<a href="#">Brasília</a></li>
-          <li>UF:<a href="#">DF</a></li>
-        </ul>
-      </div>
-      </section>
-
-      <section class="section ">
-      <p class="title"><a href="#">Rodovia</a></p>
-      <div class="content">
-        <ul class="side-nav">
-          <li>Cidade:<a href="#">Brasília</a></li>
-          <li>UF:<a href="#">DF</a></li>
-        </ul>
-      </div>
-      </section>
+      
     </div>
   </div>
 
   </div>
 
-<script>
-  document.write('<script src=' +
-  ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
-  '.js><\/script>')
-  </script>
-  
-  <script src="js/foundation.min.js"></script>
-  <!--
-  
-  <script src="js/foundation/foundation.js"></script>
-  
-  <script src="js/foundation/foundation.alerts.js"></script>
-  
-  <script src="js/foundation/foundation.clearing.js"></script>
-  
-  <script src="js/foundation/foundation.cookie.js"></script>
-  
-  <script src="js/foundation/foundation.dropdown.js"></script>
-  
-  <script src="js/foundation/foundation.forms.js"></script>
-  
-  <script src="js/foundation/foundation.joyride.js"></script>
-  
-  <script src="js/foundation/foundation.magellan.js"></script>
-  
-  <script src="js/foundation/foundation.orbit.js"></script>
-  
-  <script src="js/foundation/foundation.reveal.js"></script>
-  
-  <script src="js/foundation/foundation.section.js"></script>
-  
-  <script src="js/foundation/foundation.tooltips.js"></script>
-  
-  <script src="js/foundation/foundation.topbar.js"></script>
-  
-  <script src="js/foundation/foundation.interchange.js"></script>
-  
-  <script src="js/foundation/foundation.placeholder.js"></script>
-  
-  <script src="js/foundation/foundation.abide.js"></script>
-  
-  -->
-  
-  <script>
-    $(document).foundation();
-  </script>
-
-</body>
-</html>
+{% include 'footer.html' %}

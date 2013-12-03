@@ -1,15 +1,18 @@
 # Files
+myconfiguration.py
 *~
 *.pyc
 *.pot
 *.pyo
 *.log
 local_settings.py
-
+myconfiguration.py
+.coverage
 # Paths
 dist/*
 build/*
 bin/*
-.project/
-.pydevproject/
-
+.project
+.pydevproject
+.settings
+acidentes_em_rodovias/.sonar
