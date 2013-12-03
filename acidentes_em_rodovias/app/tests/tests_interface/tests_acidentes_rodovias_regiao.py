@@ -7,7 +7,7 @@ import time
 import sys
 
 class AcidentesRodoviasRegiaoTestCase(unittest.TestCase):
-    porta = '8080'
+    porta = '8000'
 
     def setUp(self):
         self.browser = webdriver.Firefox()
